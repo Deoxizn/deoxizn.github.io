@@ -16,11 +16,6 @@ My journey began with a degree in Multimedia, which led me into the world of gra
 
 Now, I'm at 42 Porto, where I completed the piscine and am deep into the Common Core. Here, I've dived into C/C++, classic algorithms, file system access, UNIX process management, basic network architecture, and client-server projects, expanding my expertise. Alias to that, I developed a big interest in cybersecurity and game engines like Godot.
 
-- [42 Piscine Projects](https://github.com/jotavare/42-piscine/) `GitHub`
-- [42 Common Core Projects](https://github.com/jotavare/42-common-core/) `GitHub`
-- [42 Resources](https://github.com/jotavare/42-resources/) `GitHub`
-- [One Year of 42](https://www.linkedin.com/pulse/one-year-42-jo%C3%A3o-oliveira/) `LinkedIn`
-
 As a professional, I'm recognized for my strong organizational skills, meticulous documentation practices, efficient time management, and collaborative approach to teamwork. I'm action-oriented and always eager to expand my horizons through continuous learning.
 
 Outside of work and study, I enjoy gaming, watching anime and snowboarding. I'm also passionate about 3D printing and gardening, particularly nurturing trees — an activity that brings me closer to nature and provides a peaceful escape from the digital world.
