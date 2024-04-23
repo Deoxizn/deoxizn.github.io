@@ -14,7 +14,7 @@ My name's João Oliveira, a Software Engineer and Graphic Designer with a keen i
 
 My journey began with a degree in Multimedia, which led me into the world of graphic design. For over six years, I worked with prestigious hotel groups like Intercontinental, Ibis, Six Senses, IHG, and more. During this time, I became proficient in Adobe programs and navigated both digital and offset printing processes. However, the design field didn't fully utilize my potential, so I decided to pivot towards programming.
 
-Now, I'm at 42 Porto, where I completed the piscine and am deep into the Common Core curriculum. Here, I've dived into C/C++, classic algorithms, file system access, UNIX process management, basic network architecture, and client-server projects, expanding my expertise.
+Now, I'm at 42 Porto, where I completed the piscine and am deep into the Common Core. Here, I've dived into C/C++, classic algorithms, file system access, UNIX process management, basic network architecture, and client-server projects, expanding my expertise. Alias to that, i developed a big interest in cybersecurity and game engines like Godot.
 
 As a professional, I'm recognized for my strong organizational skills, meticulous documentation practices, efficient time management, and collaborative approach to teamwork. I'm action-oriented and always eager to expand my horizons through continuous learning.
 
