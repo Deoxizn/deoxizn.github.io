@@ -10,12 +10,16 @@ permalink: /
 
 <br>Hi,
 
-My name is João Oliveira, I'm a Software Engineer and Graphic Designer, with an interest in cybersecurity. I'm currently based in Porto, Portugal.
+My name's João Oliveira, and I'm a Software Engineer and Graphic Designer with a keen interest in cybersecurity. Currently, I'm based in Porto, Portugal.
 
-I studied Multimedia in college, and immediately after finishing I worked for 6 years in graphic design, mainly for hotel groups like Intercontinental, Ibis, Six Senses, Sofitel, IHG,... quickly mastered Photoshop/Illustrator and Digital/Offset machines. Decided that this area didn't value my skills and started studying programming.
+My journey began with a degree in Multimedia, which led me into the world of graphic design. Over six years, I honed my craft, working with prestigious hotel groups like Intercontinental, Ibis, Six Senses, IHG, and more. During this time, I became proficient in Photoshop, Illustrator, and navigated both digital and offset printing processes. However, the design field didn't fully utilize my potential, so I decided to pivot towards programming.
 
-I completed the piscine and I'm currently studying the Common Core at 42 Porto, where I have a solid foundation in human and technical skills, C/C++ programming, classic algorithms, file system access, UNIX process management, basic network architecture, system administration, exploring object-oriented programming and tackling a client-server project.
+My transition led me to 42 Porto, where I completed the piscine and am now immersed in the Common Core curriculum. Here, I've gained a solid foundation in both technical and interpersonal skills. From mastering C/C++ programming to delving into classic algorithms, file system access, UNIX process management, and basic network architecture. Additionally, I've explored object-oriented programming and tackled challenging client-server projects, expanding my knowledge and expertise.
 
-I'm a dedicated professional, I'm known for my strong organization, documentation skills, effective time management, and collaborative teamwork. I'm action-oriented and always eager to learn.
+As a professional, I'm recognized for my strong organizational skills, meticulous documentation practices, efficient time management, and collaborative approach to teamwork. I'm action-oriented and always eager to expand my horizons through continuous learning.
 
-In my spare time, I like to play games, watch anime, snowboarding, 3d printing and also gardening (especially trees).
+Outside of work and study, I enjoy indulging in my hobbies. From gaming and watching anime to snowboarding adventures. I'm also passionate about 3D printing and gardening, particularly nurturing trees—an activity that brings me closer to nature and provides a peaceful escape from the digital world.
+
+You can check all my information and CV down below.
+
+©João Oliveira -- Plain HTML with no themes. 
