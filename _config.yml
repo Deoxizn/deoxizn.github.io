@@ -8,6 +8,8 @@ header_pages:
 
 style: dark
 
+footer: '<a target="_blank" rel="noopener noreferrer" href="mailto:jpoliveira.mm@gmail.com">contact</a> / <a href="https://github.com/jotavare">github</a> / <a href="https://www.linkedin.com/in/jotavare/">linkedin</a>'
+
 # Build settings
 markdown: kramdown
 # theme: jekyll-theme-console
