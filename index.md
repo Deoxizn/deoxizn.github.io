@@ -4,6 +4,6 @@ layout: home
 permalink: /
 ---
 
-# Lorem ipsum
+# About
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Yo! My name is João and I'm studying the Common Core at 42 Porto. I'm a dedicated professional with experience in programming, graphic design, and web development. My primary areas of focus are cybersecurity and data analysis. I'm known for my strong organization and documentation skills, effective time management, and collaborative teamwork. I'm action-oriented and always eager to learn.
