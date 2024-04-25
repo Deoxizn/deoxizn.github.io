@@ -14,3 +14,9 @@ footer: '<a href="https://jotavare.github.io/cv/cv-joao-oliveira.pdf">cv</a> / <
 # Build settings
 markdown: kramdown
 # theme: jekyll-theme-console
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-github-metadata
+  - jekyll-include-cache
+  
