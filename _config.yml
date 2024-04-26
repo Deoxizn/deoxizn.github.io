@@ -1,7 +1,7 @@
-title: 'jotavare.github.io'
-description: "Segmentation Fault"
+title: 'Terminal Style CV'
+description: "Terminal Style CV"
 baseurl: "/"
-url: "https://jotavare.github.io"
+url: "https://jotavare.github.io/terminal-style-cv/"
 
 header_pages:
   - index.md
