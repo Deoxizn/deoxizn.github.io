@@ -1,4 +1,4 @@
-title: 'Devi Garcia'
+title: "Devi Garcia"
 description: "Devi Garcia's World"
 baseurl: "/"
 url: "https://dirty.pizza/"
@@ -9,11 +9,11 @@ header_pages:
 style: dark
 
 footer:
-    <a href="https://github.com/Deoxizn/deoxizn.github.io" target="_blank" rel="noopener noreferrer">github</a> / 
-    <a href="www.linkedin.com/in/david-garcia-318a3ba7" target="_blank" rel="noopener noreferrer">linkedin</a> / 
-    <a href="mailto:devi@dirty.pizza" target="_blank" rel="noopener noreferrer">contact</a> / 
-    <a href="https://cochiselinuxusergroup.org/" target="_blank" rel="noopener noreferrer">CLUG</a> /
-    <a href="DavidGarciaResumev2.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+  <a href="https://github.com/Deoxizn/deoxizn.github.io" target="_blank" rel="noopener noreferrer">github</a> /
+  <a href="www.linkedin.com/in/david-garcia-318a3ba7" target="_blank" rel="noopener noreferrer">linkedin</a> /
+  <a href="mailto:devi@dirty.pizza" target="_blank" rel="noopener noreferrer">contact</a> /
+  <a href="https://cochiselinuxusergroup.org/" target="_blank" rel="noopener noreferrer">CLUG</a> /
+  <a href="David_Garcia_General_Resume.pdf" target="_blank" rel="noopener noreferrer">CV</a>
 
 # Build settings
 markdown: kramdown
