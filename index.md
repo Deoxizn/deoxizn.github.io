@@ -6,23 +6,23 @@ permalink: /
 
 # Title: <span style="font-weight:normal">Hello, World!</span>
 
-# Date: <span style="font-weight:normal">May 15, 2025</span>
+# Date: <span style="font-weight:normal">January 29, 2026</span>
 
 <br>Hi,
 
-My name's Devi Garcia, a certified computer technician with a keen interest in cybersecurity. Currently based in Arizona.
+I’m Devi Garcia, a certified computer technician based in Arizona with a growing focus on cybersecurity.
 
 
-My journey began with a Certificate in Comptia A+, On top of many homelab projects and further learning and progressing into other certifications. As Well as community helping with Local Linux Group (Cochise Linux User Group)
+I started my journey by earning my CompTIA A+ certification and building hands-on experience through homelab projects and independent learning. I also enjoy giving back to the community by helping with the Cochise Linux User Group, where I assist others with Linux systems and general tech troubleshooting.
 
 
-I am currently studying to get my Security+, Network+, as well as going for Pentest+. As Well wanting to learn to program in python and other coding languages as i go along the way.
+I’m currently studying for my Security+ and Network+ certifications and plan to continue toward PenTest+. Along the way, I’m also learning Python and other programming languages to expand my technical skill set.
 
 
-As a professional, I'm recognized for my strong organizational skills, meticulous documentation practices, efficient time management, and collaborative approach to teamwork. I'm action-oriented and always eager to expand my horizons through continuous learning.
+I’m known for being highly organized, detail-oriented, and a strong team player. I take pride in good documentation, efficient time management, and staying proactive when it comes to learning and problem-solving.
 
 
-Outside of work and study, I enjoy gaming, watching anime, movies and TV shows. I'm also passionate about playing with technology in general like my own personal homelab. Like breaking it and fixing it or just upgrading it to its max potential.
+When I’m not working or studying, you’ll usually find me gaming, watching anime, or experimenting in my homelab — breaking things, fixing them, and upgrading systems just to see how far I can push them.
 
 
-If you are interested to know more, you can check more information in the links below.
+Feel free to check out the links below to learn more about my work and projects.
