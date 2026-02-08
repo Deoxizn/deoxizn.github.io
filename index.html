@@ -85,19 +85,26 @@
                 }
             }
 
-            /* --- STATUS INDICATOR --- */
+            /* STATUS & CLOCK */
             .status-container {
                 position: fixed;
                 top: 20px;
                 right: 20px;
                 display: flex;
-                align-items: center;
-                gap: 10px;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 5px;
                 font-size: 0.75rem;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 color: var(--accent);
                 z-index: 998;
+            }
+
+            .status-row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
             }
 
             .status-dot {
@@ -122,6 +129,11 @@
                     opacity: 1;
                     box-shadow: 0 0 8px var(--accent);
                 }
+            }
+
+            .clock {
+                font-family: inherit;
+                color: var(--muted);
             }
 
             .container {
@@ -229,7 +241,6 @@
                 .status-container {
                     top: 10px;
                     right: 10px;
-                    font-size: 0.6rem;
                 }
             }
         </style>
@@ -239,8 +250,11 @@
         <div class="crt-overlay"></div>
 
         <div class="status-container">
-            <div class="status-dot"></div>
-            <span>System: Online</span>
+            <div class="status-row">
+                <div class="status-dot"></div>
+                <span>System: Online</span>
+            </div>
+            <div id="clock" class="clock"></div>
         </div>
 
         <div class="container">
@@ -309,10 +323,22 @@
 
         <script>
             const terminal = document.getElementById("terminal");
+            const clockEl = document.getElementById("clock");
             let line = 0;
             let char = 0;
             let isTypingSecret = false;
 
+            // --- LIVE CLOCK ---
+            function updateClock() {
+                const now = new Date();
+                const timeStr =
+                    now.toISOString().split("T")[1].split(".")[0] + " UTC";
+                clockEl.textContent = timeStr;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // --- TERMINAL OUTPUT ---
             const output = [
                 "Last login: Tue on tty1\n",
                 "Unauthorized toppings will be removed.\n",
@@ -372,12 +398,11 @@
                 }
             }
 
-            // --- SECRET COMMAND LOGIC ---
+            // --- EASTER EGG ---
             let buffer = "";
             window.addEventListener("keydown", (e) => {
                 buffer += e.key.toLowerCase();
                 buffer = buffer.slice(-5);
-
                 if (buffer === "pizza" && !isTypingSecret) {
                     triggerSecret();
                 }
@@ -392,10 +417,8 @@
                     "System clear. Extra cheese enabled.\n",
                     "Stay hungry, stay secure. 🍕\n",
                 ];
-
                 const cursor = document.querySelector(".cursor");
                 if (cursor) cursor.remove();
-
                 output.push(...secretLines);
                 type();
             }
