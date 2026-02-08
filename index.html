@@ -51,8 +51,26 @@
                 margin-bottom: 4rem;
             }
 
+            .terminal-line {
+                white-space: pre-wrap;
+            }
+
             .prompt {
                 color: var(--accent);
+            }
+
+            .cursor {
+                display: inline-block;
+                width: 10px;
+                background: var(--accent);
+                margin-left: 2px;
+                animation: blink 1s steps(1) infinite;
+            }
+
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
             }
 
             h1 {
@@ -69,6 +87,7 @@
 
             .tagline {
                 max-width: 600px;
+                margin-top: 1.2rem;
             }
 
             .links {
@@ -79,11 +98,11 @@
                 margin-right: 1.2rem;
             }
 
-            /* ASCII */
+            /* ASCII PIZZA */
             .ascii {
                 white-space: pre;
                 color: var(--muted);
-                font-size: 0.85rem;
+                font-size: 0.95rem;
                 text-align: right;
             }
 
@@ -109,15 +128,6 @@
                 padding: 1.2rem;
             }
 
-            ul {
-                padding-left: 1.2rem;
-                margin: 0.5rem 0 0;
-            }
-
-            li {
-                margin-bottom: 0.4rem;
-            }
-
             footer {
                 margin-top: 5rem;
                 padding-top: 2rem;
@@ -133,6 +143,7 @@
                 }
                 .ascii {
                     text-align: left;
+                    margin-top: 2rem;
                 }
             }
         </style>
@@ -142,27 +153,11 @@
         <div class="container">
             <!-- HEADER -->
             <header>
-                <div>
-                    <div class="prompt">$ whoami</div>
-                    <h1>Devi Garcia</h1>
-                    <h2>Linux • IT • Cybersecurity</h2>
-
-                    <p class="tagline">
-                        Messy homelabs. Clean configs.<br />
-                        I’m a CompTIA A+ certified technician learning
-                        cybersecurity by building, breaking, and fixing real
-                        Linux-based systems.
-                    </p>
-
-                    <div class="links">
-                        <a href="#projects">projects</a>
-                        <a href="https://github.com/" target="_blank">github</a>
-                        <a href="#contact">contact</a>
-                    </div>
-                </div>
+                <div id="terminal"></div>
 
                 <div class="ascii">
-                    ____🍕____ / ____ \ | |____| | \__________/ dirty.pizza
+                    /\ /**\ /****\ /******\ /********\ /**********\
+                    /************\ -------------- dirty.pizza
                 </div>
             </header>
 
@@ -170,11 +165,10 @@
             <section>
                 <div class="section-title">about</div>
                 <p>
-                    I work primarily with Linux systems, hardware
-                    troubleshooting, and hands-on learning through homelabs and
-                    community support. I’m active in the Cochise Linux User
-                    Group, helping users install, configure, and troubleshoot
-                    Linux distributions.
+                    I’m a CompTIA A+ certified technician with a strong interest
+                    in Linux, networking, and cybersecurity. I learn by building
+                    homelabs, breaking systems, fixing them, and helping others
+                    through community Linux support.
                 </p>
             </section>
 
@@ -187,7 +181,7 @@
                         <li>System & hardware troubleshooting</li>
                         <li>Networking fundamentals</li>
                         <li>Virtualization & homelabs</li>
-                        <li>Basic security principles</li>
+                        <li>Security fundamentals</li>
                     </ul>
                 </div>
 
@@ -210,39 +204,23 @@
                     <div class="box">
                         <strong>Linux Homelab</strong>
                         <p>
-                            Personal lab environment used to test, break, and
-                            rebuild systems.
+                            Personal lab for testing, breaking, and rebuilding
+                            systems.
                         </p>
-                        <ul>
-                            <li>Virtualization & service isolation</li>
-                            <li>Backup and recovery testing</li>
-                            <li>Linux networking & troubleshooting</li>
-                        </ul>
                     </div>
-
                     <div class="box">
                         <strong>Community Linux Support</strong>
                         <p>
-                            Assisted users at Linux user group meetings with
-                            installs and issues.
+                            Hands-on help with installs, configuration, and
+                            troubleshooting.
                         </p>
-                        <ul>
-                            <li>Multi-distro support</li>
-                            <li>User-focused explanations</li>
-                            <li>Problem-solving in live environments</li>
-                        </ul>
                     </div>
-
                     <div class="box">
-                        <strong>IT & Hardware Diagnostics</strong>
+                        <strong>IT Diagnostics</strong>
                         <p>
-                            Applied A+ knowledge to diagnose hardware and OS
-                            issues.
+                            Hardware and OS troubleshooting using A+
+                            fundamentals.
                         </p>
-                        <ul>
-                            <li>Component troubleshooting</li>
-                            <li>System repair & configuration</li>
-                        </ul>
                     </div>
                 </div>
             </section>
@@ -250,7 +228,6 @@
             <!-- CONTACT -->
             <section id="contact">
                 <div class="section-title">contact</div>
-                <p>Want to talk Linux, security, or weird homelabs?</p>
                 <p>
                     <a href="mailto:youremail@example.com">email</a> |
                     <a href="https://github.com/" target="_blank">github</a> |
@@ -261,11 +238,55 @@
             </section>
 
             <footer>
-                <p>
-                    Devi Garcia — hosted on <strong>dirty.pizza</strong><br />
-                    Serious systems. Questionable domain.
-                </p>
+                Devi Garcia — hosted on <strong>dirty.pizza</strong><br />
+                Serious systems. Questionable domain.
             </footer>
         </div>
+
+        <!-- TERMINAL SCRIPT -->
+        <script>
+            const terminal = document.getElementById("terminal");
+
+            const lines = [
+                "$ whoami",
+                "Devi Garcia",
+                "Linux • IT • Cybersecurity",
+                "",
+                "$ cat /etc/domain",
+                "dirty.pizza",
+                "",
+                "Messy homelabs. Clean configs.",
+            ];
+
+            let lineIndex = 0;
+            let charIndex = 0;
+
+            function typeLine() {
+                if (lineIndex >= lines.length) {
+                    terminal.innerHTML += '<span class="cursor"></span>';
+                    return;
+                }
+
+                if (charIndex === 0) {
+                    terminal.innerHTML += '<div class="terminal-line"></div>';
+                }
+
+                const currentLine = lines[lineIndex];
+                const lineDiv = terminal.lastChild;
+
+                lineDiv.textContent += currentLine.charAt(charIndex);
+                charIndex++;
+
+                if (charIndex === currentLine.length) {
+                    lineIndex++;
+                    charIndex = 0;
+                    setTimeout(typeLine, 400);
+                } else {
+                    setTimeout(typeLine, 40);
+                }
+            }
+
+            typeLine();
+        </script>
     </body>
 </html>
