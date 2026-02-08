@@ -22,6 +22,22 @@
                 --glow: rgba(51, 255, 153, 0.6);
             }
 
+            /* Change this to only apply brackets to the main menu */
+            .links-container .link::before { content: "["; }
+            .links-container .link::after { content: "]"; }
+
+            /* Add this to ensure the footer link has the same glow/color */
+            footer .link {
+                color: #ff4d4d; /* Matches your --accent-color */
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+
+            footer .link:hover {
+                color: #fff;
+                text-shadow: 0 0 10px #ff4d4d;
+            }
+
             .roadmap-item:hover .glitch-bar {
                 animation: shake 0.15s infinite;
                 text-shadow:
@@ -397,7 +413,7 @@
             </section>
 
             <footer>
-                DEVI GARCIA — <a href="https://github.com/Deoxizn/deoxizn.github.io" target="_blank">DIRTY.PIZZA</a><br />
+                DEVI GARCIA — <a href="https://github.com/Deoxizn/deoxizn.github.io" class="class="link" target="_blank">DIRTY.PIZZA</a><br />
                 SERIOUS SYSTEMS. QUESTIONABLE DOMAIN.<br />
                 NODE STATUS: ACTIVE<br />
                 © 2025–2026 INTERNAL_MAINFRAME<br />
