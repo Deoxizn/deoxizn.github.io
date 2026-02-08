@@ -19,7 +19,6 @@
                 --danger: #ff3333;
                 --pizza-crust: #d4a373;
                 --pizza-sauce: #ff4d4d;
-                --glow: rgba(51, 255, 153, 0.6);
             }
 
             * {
@@ -36,7 +35,7 @@
                 overflow-x: hidden;
             }
 
-            /* CRT */
+            /* CRT / Scanlines */
             body::before {
                 content: "";
                 position: fixed;
@@ -49,7 +48,7 @@
                     transparent 1px,
                     transparent 3px
                 );
-                opacity: 0.25;
+                opacity: 0.22;
                 z-index: 9999;
             }
             body::after {
@@ -65,48 +64,46 @@
                 z-index: 9998;
             }
 
+            /* STATUS (restored style) */
             .fixed-status {
                 position: fixed;
-                top: 25px;
-                right: 30px;
+                top: 20px;
+                right: 28px;
                 text-align: right;
                 z-index: 1000;
                 pointer-events: none;
             }
-
             .led-green {
                 color: var(--accent);
-                text-shadow:
-                    0 0 8px var(--accent),
-                    0 0 15px var(--accent);
-                font-size: 0.85rem;
-                font-weight: bold;
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+                opacity: 0.85;
+                text-shadow: 0 0 6px rgba(51, 255, 153, 0.6);
             }
-
             #clock {
-                font-size: 1.3rem;
+                font-size: 1.05rem;
+                margin-top: 2px;
                 color: var(--accent);
-                text-shadow: 0 0 10px var(--accent);
-                font-weight: bold;
+                text-shadow: 0 0 6px rgba(51, 255, 153, 0.4);
             }
 
+            /* TERMINAL */
             #terminal {
-                min-height: 440px;
+                min-height: 460px;
                 white-space: pre-wrap;
-                line-height: 1.4;
+                line-height: 1.45;
                 text-shadow: 0 0 6px rgba(51, 255, 153, 0.15);
             }
-
             .terminal-line {
                 min-height: 1.2em;
             }
 
             .cursor {
                 display: inline-block;
-                width: 8px;
-                height: 15px;
+                width: 7px;
+                height: 14px;
                 background: var(--accent);
-                margin-left: 5px;
+                margin-left: 6px;
                 animation: blink 1s infinite;
             }
             @keyframes blink {
@@ -126,12 +123,12 @@
                 }
             }
 
-            .p-crust {
-                color: var(--pizza-crust);
-            }
             .p-topping {
                 color: var(--pizza-sauce);
                 font-weight: bold;
+            }
+            .p-crust {
+                color: var(--pizza-crust);
             }
 
             .container {
@@ -215,6 +212,7 @@
             }
             .footer-comment {
                 color: #1e2b22;
+                transition: 0.4s;
             }
             .footer-comment:hover {
                 color: var(--muted);
@@ -224,7 +222,7 @@
 
     <body>
         <div class="fixed-status">
-            <span class="led-green">● SYSTEM_ONLINE</span>
+            <div class="led-green">● SYSTEM ONLINE</div>
             <div id="clock">00:00:00</div>
         </div>
 
@@ -233,13 +231,15 @@
                 <div id="terminal"></div>
             </header>
 
+            <!-- YOUR CONTENT SECTIONS REMAIN UNCHANGED BELOW -->
+            <!-- (biography, skills, projects, homelab, contact) -->
+
             <footer>
                 DEVI GARCIA — DIRTY.PIZZA<br />
                 SERIOUS SYSTEMS. QUESTIONABLE DOMAIN.<br />
                 NODE STATUS: ACTIVE<br />
                 © 2025–2026 INTERNAL_MAINFRAME<br />
-                <span class="footer-comment"># hint: try typing 'pizza'</span
-                ><br />
+                <span class="footer-comment"># hint: type 'pizza'</span><br />
                 <span class="footer-comment"
                     ># warning: malformed input may trigger access
                     violations</span
@@ -248,10 +248,20 @@
         </div>
 
         <script>
-            const isMobile = matchMedia("(max-width:768px)").matches;
-            const CHAR = isMobile ? 45 : 28;
-            const LINE = isMobile ? 420 : 250;
+            /* CLOCK */
+            function updateClock() {
+                document.getElementById("clock").innerText =
+                    new Date().toLocaleTimeString([], { hour12: false });
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
 
+            /* MOBILE PACING */
+            const isMobile = matchMedia("(max-width:768px)").matches;
+            const CHAR_DELAY = isMobile ? 45 : 28;
+            const LINE_DELAY = isMobile ? 420 : 250;
+
+            /* TERMINAL */
             const terminal = document.getElementById("terminal");
             const output = [
                 "Last login: Tue Feb 06 23:41:02 on tty1\n",
@@ -280,61 +290,67 @@
                 "   --------------",
             ];
 
-            let l = 0,
-                c = 0;
+            let line = 0,
+                char = 0;
 
             function type() {
-                if (l >= output.length) {
+                if (line >= output.length) {
                     terminal.innerHTML += '<span class="cursor"></span>';
                     return;
                 }
-                if (c === 0) {
-                    const d = document.createElement("div");
-                    d.className = "terminal-line";
-                    if (l === 1) d.classList.add("danger-text");
-                    terminal.appendChild(d);
+
+                if (char === 0) {
+                    const div = document.createElement("div");
+                    div.className = "terminal-line";
+                    if (line === 1) div.classList.add("danger-text");
+                    terminal.appendChild(div);
                 }
 
-                const line = output[l];
+                const text = output[line];
                 const el = terminal.lastChild;
 
-                if (line === "") {
+                if (text === "") {
                     el.innerHTML = "&nbsp;";
-                    l++;
-                    c = 0;
-                    setTimeout(type, LINE);
+                    line++;
+                    char = 0;
+                    setTimeout(type, LINE_DELAY);
                     return;
                 }
 
-                const ch = line[c];
+                const ch = text[char];
                 if (ch === "*")
                     el.innerHTML += `<span class="p-topping">*</span>`;
                 else if (ch === "-")
                     el.innerHTML += `<span class="p-crust">-</span>`;
-                else el.textContent += ch;
+                else el.innerHTML += ch;
 
-                c++;
+                char++;
                 setTimeout(() => {
-                    c === line.length
-                        ? (l++, (c = 0), setTimeout(type, LINE))
-                        : type();
-                }, CHAR);
+                    if (char === text.length) {
+                        line++;
+                        char = 0;
+                        setTimeout(type, LINE_DELAY);
+                    } else type();
+                }, CHAR_DELAY);
             }
             setTimeout(type, 600);
 
-            /* Easter egg */
-            let buf = "";
+            /* EASTER EGG */
+            let buffer = "";
             addEventListener("keydown", (e) => {
                 if (e.key.length > 1 && e.key !== "Enter") return;
-                buf += e.key.toLowerCase();
-                if (buf.includes("pizza")) {
-                    terminal.innerHTML +=
-                        '<div style="color:var(--accent)">$ ./slice_delivery.sh --hot<br>[ OK ] EXTRA_CHEESE_LOADED.</div>';
-                    buf = "";
-                } else if (buf.length > 10) {
-                    terminal.innerHTML +=
-                        '<div class="danger-text">[ ACCESS_DENIED ] insufficient privileges</div>';
-                    buf = "";
+                buffer += e.key.toLowerCase();
+
+                if (buffer.includes("pizza")) {
+                    terminal.innerHTML += `<div style="color:var(--accent)">
+            $ ./slice_delivery.sh --hot<br>[ OK ] EXTRA_CHEESE_LOADED.
+            </div>`;
+                    buffer = "";
+                } else if (buffer.length > 10) {
+                    terminal.innerHTML += `<div class="danger-text">
+            [ ACCESS_DENIED ] insufficient privileges
+            </div>`;
+                    buffer = "";
                 }
             });
         </script>
