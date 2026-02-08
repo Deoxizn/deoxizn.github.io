@@ -134,6 +134,8 @@
             .clock {
                 font-family: inherit;
                 color: var(--muted);
+                min-width: 100px;
+                text-align: right;
             }
 
             .container {
@@ -200,6 +202,16 @@
                 background: rgba(20, 30, 20, 0.2);
             }
 
+            .project-tag {
+                font-size: 0.7rem;
+                color: var(--muted);
+                border: 1px solid var(--muted);
+                padding: 2px 5px;
+                margin-right: 5px;
+                display: inline-block;
+                margin-top: 10px;
+            }
+
             a {
                 color: var(--accent);
                 text-decoration: none;
@@ -231,6 +243,13 @@
                 color: var(--muted);
                 font-size: 0.85rem;
                 line-height: 1.6;
+            }
+
+            .footer-hint {
+                margin-top: 10px;
+                font-style: italic;
+                opacity: 0.6;
+                font-size: 0.75rem;
             }
 
             @media (max-width: 800px) {
@@ -296,6 +315,31 @@
             </section>
 
             <section>
+                <div class="section-title">projects / write-ups</div>
+                <div class="grid">
+                    <div class="box">
+                        <strong>Homelab Deployment</strong>
+                        <p style="font-size: 0.9rem; margin-top: 10px">
+                            Automated Linux server setup running Docker,
+                            Pi-hole, and a personal VPN for secure remote
+                            access.
+                        </p>
+                        <span class="project-tag">Linux</span>
+                        <span class="project-tag">Networking</span>
+                    </div>
+                    <div class="box">
+                        <strong>Network Security Audit</strong>
+                        <p style="font-size: 0.9rem; margin-top: 10px">
+                            Conducted Nmap vulnerability scans and Wireshark
+                            packet analysis to secure local network traffic.
+                        </p>
+                        <span class="project-tag">Nmap</span>
+                        <span class="project-tag">Security</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
                 <div class="section-title">contact</div>
                 <p>
                     <a href="mailto:david.c.garcia4283@gmail.com">email</a> |
@@ -318,6 +362,9 @@
             <footer>
                 Devi Garcia — dirty.pizza<br />
                 Serious systems. Questionable domain.
+                <div class="footer-hint">
+                    # Hint: Try typing 'pizza' on your keyboard
+                </div>
             </footer>
         </div>
 
@@ -328,12 +375,14 @@
             let char = 0;
             let isTypingSecret = false;
 
-            // --- LIVE CLOCK ---
+            // --- LIVE LOCAL CLOCK ---
             function updateClock() {
                 const now = new Date();
-                const timeStr =
-                    now.toISOString().split("T")[1].split(".")[0] + " UTC";
-                clockEl.textContent = timeStr;
+                clockEl.textContent = now.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                });
             }
             setInterval(updateClock, 1000);
             updateClock();
