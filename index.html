@@ -1,271 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Devi Garcia | dirty.pizza</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Devi Garcia | dirty.pizza</title>
 
-  <style>
-    :root {
-      --bg: #0f1115;
-      --card: #161a20;
-      --text: #e6e6e6;
-      --muted: #a0a6b1;
-      --accent: #e74c3c; /* pizza red */
-      --border: #242a33;
-    }
+        <style>
+            :root {
+                --bg: #0b0f0c;
+                --text: #d1f7c4;
+                --muted: #7aa37a;
+                --accent: #33ff99;
+                --border: #1e2b22;
+            }
 
-    * {
-      box-sizing: border-box;
-    }
+            * {
+                box-sizing: border-box;
+            }
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                line-height: 1.6;
+            }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+            a {
+                color: var(--accent);
+                text-decoration: none;
+            }
 
-    a:hover {
-      text-decoration: underline;
-    }
+            a:hover {
+                text-decoration: underline;
+            }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
+            .container {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 2rem 1.5rem;
+            }
 
-    header {
-      padding: 4rem 0 3rem;
-    }
+            /* HEADER */
+            header {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 2rem;
+                align-items: start;
+                margin-bottom: 4rem;
+            }
 
-    header h1 {
-      font-size: 2.8rem;
-      margin: 0;
-    }
+            .prompt {
+                color: var(--accent);
+            }
 
-    header h2 {
-      font-weight: 400;
-      color: var(--muted);
-      margin-top: 0.5rem;
-    }
+            h1 {
+                font-size: 1.8rem;
+                margin: 0.5rem 0 0;
+            }
 
-    .tagline {
-      margin-top: 1.5rem;
-      max-width: 650px;
-    }
+            h2 {
+                font-size: 1rem;
+                font-weight: normal;
+                color: var(--muted);
+                margin: 0.2rem 0 1.5rem;
+            }
 
-    .buttons {
-      margin-top: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+            .tagline {
+                max-width: 600px;
+            }
 
-    .btn {
-      border: 1px solid var(--border);
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      background: var(--card);
-      color: var(--text);
-      font-size: 0.95rem;
-    }
+            .links {
+                margin-top: 1.5rem;
+            }
 
-    .btn:hover {
-      border-color: var(--accent);
-    }
+            .links a {
+                margin-right: 1.2rem;
+            }
 
-    section {
-      margin-top: 4rem;
-    }
+            /* ASCII */
+            .ascii {
+                white-space: pre;
+                color: var(--muted);
+                font-size: 0.85rem;
+                text-align: right;
+            }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
+            /* SECTIONS */
+            section {
+                margin-top: 3.5rem;
+            }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.4rem;
-    }
+            .section-title::before {
+                content: "$ ";
+                color: var(--accent);
+            }
 
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
 
-    ul {
-      padding-left: 1.2rem;
-      margin: 0.5rem 0 0;
-    }
+            .box {
+                border: 1px solid var(--border);
+                padding: 1.2rem;
+            }
 
-    li {
-      margin-bottom: 0.4rem;
-    }
+            ul {
+                padding-left: 1.2rem;
+                margin: 0.5rem 0 0;
+            }
 
-    footer {
-      margin-top: 5rem;
-      padding: 2rem 0;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
+            li {
+                margin-bottom: 0.4rem;
+            }
 
-    footer a {
-      margin-right: 1rem;
-    }
+            footer {
+                margin-top: 5rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--border);
+                color: var(--muted);
+                font-size: 0.85rem;
+            }
 
-    .muted {
-      color: var(--muted);
-    }
-  </style>
-</head>
+            /* MOBILE */
+            @media (max-width: 800px) {
+                header {
+                    grid-template-columns: 1fr;
+                }
+                .ascii {
+                    text-align: left;
+                }
+            }
+        </style>
+    </head>
 
-<body>
-  <div class="container">
+    <body>
+        <div class="container">
+            <!-- HEADER -->
+            <header>
+                <div>
+                    <div class="prompt">$ whoami</div>
+                    <h1>Devi Garcia</h1>
+                    <h2>Linux • IT • Cybersecurity</h2>
 
-    <!-- HERO -->
-    <header>
-      <h1>Devi Garcia</h1>
-      <h2>Linux • IT • Cybersecurity</h2>
+                    <p class="tagline">
+                        Messy homelabs. Clean configs.<br />
+                        I’m a CompTIA A+ certified technician learning
+                        cybersecurity by building, breaking, and fixing real
+                        Linux-based systems.
+                    </p>
 
-      <p class="tagline">
-        Messy homelabs, clean configs. I’m a certified computer technician with a
-        strong interest in Linux systems, networking, and cybersecurity —
-        learning by building, breaking, and fixing real environments.
-      </p>
+                    <div class="links">
+                        <a href="#projects">projects</a>
+                        <a href="https://github.com/" target="_blank">github</a>
+                        <a href="#contact">contact</a>
+                    </div>
+                </div>
 
-      <div class="buttons">
-        <a class="btn" href="#projects">View Projects</a>
-        <a class="btn" href="https://github.com/" target="_blank">GitHub</a>
-        <a class="btn" href="#contact">Contact</a>
-      </div>
-    </header>
+                <div class="ascii">
+                    ____🍕____ / ____ \ | |____| | \__________/ dirty.pizza
+                </div>
+            </header>
 
-    <!-- ABOUT / SKILLS -->
-    <section class="grid">
-      <div class="card">
-        <h3>About Me</h3>
-        <p>
-          I’m a CompTIA A+ certified technician with hands-on experience working
-          with Linux-based systems, homelabs, and community tech support.
-          I actively participate in the Cochise Linux User Group, helping others
-          learn and troubleshoot Linux environments.
-        </p>
-        <p class="muted">
-          Based in Arizona · Always learning
-        </p>
-      </div>
+            <!-- ABOUT -->
+            <section>
+                <div class="section-title">about</div>
+                <p>
+                    I work primarily with Linux systems, hardware
+                    troubleshooting, and hands-on learning through homelabs and
+                    community support. I’m active in the Cochise Linux User
+                    Group, helping users install, configure, and troubleshoot
+                    Linux distributions.
+                </p>
+            </section>
 
-      <div class="card">
-        <h3>Skills</h3>
-        <ul>
-          <li>Linux (Ubuntu, Debian, Arch-based)</li>
-          <li>Hardware & OS troubleshooting</li>
-          <li>Networking fundamentals</li>
-          <li>Virtualization & homelabs</li>
-          <li>Basic security principles</li>
-          <li>Documentation & user support</li>
-        </ul>
-      </div>
-    </section>
+            <!-- SKILLS / CERTS -->
+            <section class="grid">
+                <div class="box">
+                    <div class="section-title">skills</div>
+                    <ul>
+                        <li>Linux (Ubuntu, Debian, Arch-based)</li>
+                        <li>System & hardware troubleshooting</li>
+                        <li>Networking fundamentals</li>
+                        <li>Virtualization & homelabs</li>
+                        <li>Basic security principles</li>
+                    </ul>
+                </div>
 
-    <!-- CERTIFICATIONS -->
-    <section class="grid">
-      <div class="card">
-        <h3>Certifications</h3>
-        <ul>
-          <li>✅ CompTIA A+</li>
-        </ul>
-      </div>
+                <div class="box">
+                    <div class="section-title">certifications</div>
+                    <ul>
+                        <li>✅ CompTIA A+</li>
+                        <li>⏳ Network+</li>
+                        <li>⏳ Security+</li>
+                        <li>🔜 Pentest+</li>
+                    </ul>
+                </div>
+            </section>
 
-      <div class="card">
-        <h3>Currently Studying</h3>
-        <ul>
-          <li>⏳ Network+</li>
-          <li>⏳ Security+</li>
-          <li>🔜 Pentest+</li>
-        </ul>
-      </div>
-    </section>
+            <!-- PROJECTS -->
+            <section id="projects">
+                <div class="section-title">projects</div>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <h2>Projects & Experience</h2>
+                <div class="grid">
+                    <div class="box">
+                        <strong>Linux Homelab</strong>
+                        <p>
+                            Personal lab environment used to test, break, and
+                            rebuild systems.
+                        </p>
+                        <ul>
+                            <li>Virtualization & service isolation</li>
+                            <li>Backup and recovery testing</li>
+                            <li>Linux networking & troubleshooting</li>
+                        </ul>
+                    </div>
 
-      <div class="grid">
-        <div class="card">
-          <h3>Linux Homelab</h3>
-          <p>
-            Built and maintained a personal Linux homelab for experimentation,
-            learning, and service hosting.
-          </p>
-          <ul>
-            <li>Virtualization & service isolation</li>
-            <li>System configuration and recovery</li>
-            <li>Hands-on Linux troubleshooting</li>
-            <li>Backup and system maintenance practices</li>
-          </ul>
+                    <div class="box">
+                        <strong>Community Linux Support</strong>
+                        <p>
+                            Assisted users at Linux user group meetings with
+                            installs and issues.
+                        </p>
+                        <ul>
+                            <li>Multi-distro support</li>
+                            <li>User-focused explanations</li>
+                            <li>Problem-solving in live environments</li>
+                        </ul>
+                    </div>
+
+                    <div class="box">
+                        <strong>IT & Hardware Diagnostics</strong>
+                        <p>
+                            Applied A+ knowledge to diagnose hardware and OS
+                            issues.
+                        </p>
+                        <ul>
+                            <li>Component troubleshooting</li>
+                            <li>System repair & configuration</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT -->
+            <section id="contact">
+                <div class="section-title">contact</div>
+                <p>Want to talk Linux, security, or weird homelabs?</p>
+                <p>
+                    <a href="mailto:youremail@example.com">email</a> |
+                    <a href="https://github.com/" target="_blank">github</a> |
+                    <a href="https://www.linkedin.com/" target="_blank"
+                        >linkedin</a
+                    >
+                </p>
+            </section>
+
+            <footer>
+                <p>
+                    Devi Garcia — hosted on <strong>dirty.pizza</strong><br />
+                    Serious systems. Questionable domain.
+                </p>
+            </footer>
         </div>
-
-        <div class="card">
-          <h3>Community Linux Support</h3>
-          <p>
-            Assisted users at Cochise Linux User Group meetings with installs,
-            configuration issues, and general Linux questions.
-          </p>
-          <ul>
-            <li>Explaining technical concepts clearly</li>
-            <li>Supporting multiple distributions</li>
-            <li>Guided installs and problem solving</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>IT & Hardware Troubleshooting</h3>
-          <p>
-            Applied A+ knowledge to diagnose and resolve hardware, OS, and basic
-            networking issues.
-          </p>
-          <ul>
-            <li>System diagnostics</li>
-            <li>Component replacement</li>
-            <li>User-focused problem resolution</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        Interested in Linux, security, or homelabs — or just want to talk tech?
-      </p>
-      <p>
-        <a href="mailto:david.c.garcia4283@gmail.com">Email</a>
-        <a href="https://github.com/Deoxizn" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/in/david-garcia-318a3ba7/" target="_blank">LinkedIn</a>
-      </p>
-    </section>
-
-    <footer>
-      <p>
-        © Devi Garcia — hosted on <strong>dirty.pizza</strong><br/>
-        Serious tech. Questionable domain.
-      </p>
-    </footer>
-
-  </div>
-</body>
+    </body>
 </html>
