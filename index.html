@@ -19,12 +19,47 @@
                 --danger: #ff3333;
                 --pizza-crust: #d4a373;
                 --pizza-sauce: #ff4d4d;
+                --glow: rgba(51, 255, 153, 0.6);
+            }
+
+            .roadmap-item:hover .glitch-bar {
+                animation: shake 0.15s infinite;
+                text-shadow:
+                    2px 0 rgba(255, 0, 80, 0.7),
+                    -2px 0 rgba(0, 255, 255, 0.7);
+                color: #fff;
+            }
+
+            .danger-zone:hover {
+                color: var(--danger) !important;
+                text-shadow: 0 0 10px var(--danger);
+            }
+
+            .roadmap-box:has(.danger-zone:hover) {
+                border-color: var(--danger) !important;
+            }
+
+            @keyframes shake {
+                0% {
+                    transform: translate(1px, 1px);
+                }
+                25% {
+                    transform: translate(-1px, -1px);
+                }
+                50% {
+                    transform: translate(-1px, 1px);
+                }
+                75% {
+                    transform: translate(1px, -1px);
+                }
+                100% {
+                    transform: translate(0, 0);
+                }
             }
 
             * {
                 box-sizing: border-box;
             }
-
             body {
                 margin: 0;
                 background: var(--bg);
@@ -35,8 +70,8 @@
                 overflow-x: hidden;
             }
 
-            /* CRT / Scanlines */
-            body::before {
+            /* CRT */
+            body:before {
                 content: "";
                 position: fixed;
                 inset: 0;
@@ -48,10 +83,10 @@
                     transparent 1px,
                     transparent 3px
                 );
-                opacity: 0.22;
+                opacity: 0.25;
                 z-index: 9999;
             }
-            body::after {
+            body:after {
                 content: "";
                 position: fixed;
                 inset: 0;
@@ -67,43 +102,43 @@
             /* STATUS */
             .fixed-status {
                 position: fixed;
-                top: 20px;
-                right: 28px;
+                top: 25px;
+                right: 30px;
                 text-align: right;
                 z-index: 1000;
                 pointer-events: none;
             }
             .led-green {
                 color: var(--accent);
-                font-size: 0.75rem;
-                letter-spacing: 1px;
-                opacity: 0.85;
-                text-shadow: 0 0 6px rgba(51, 255, 153, 0.6);
+                font-size: 0.85rem;
+                font-weight: bold;
+                text-shadow:
+                    0 0 8px var(--accent),
+                    0 0 15px var(--accent);
             }
             #clock {
-                font-size: 1.05rem;
-                margin-top: 2px;
+                font-size: 1.3rem;
                 color: var(--accent);
-                text-shadow: 0 0 6px rgba(51, 255, 153, 0.4);
+                font-weight: bold;
+                text-shadow: 0 0 10px var(--accent);
             }
 
             /* TERMINAL */
             #terminal {
-                min-height: 460px;
+                min-height: 440px;
                 white-space: pre-wrap;
-                line-height: 1.45;
+                line-height: 1.4;
                 text-shadow: 0 0 6px rgba(51, 255, 153, 0.15);
             }
             .terminal-line {
                 min-height: 1.2em;
             }
-
             .cursor {
                 display: inline-block;
-                width: 7px;
-                height: 14px;
+                width: 8px;
+                height: 15px;
                 background: var(--accent);
-                margin-left: 6px;
+                margin-left: 5px;
                 animation: blink 1s infinite;
             }
             @keyframes blink {
@@ -111,7 +146,6 @@
                     opacity: 0;
                 }
             }
-
             .danger-text {
                 color: var(--danger);
                 text-shadow: 0 0 5px var(--danger);
@@ -123,12 +157,12 @@
                 }
             }
 
+            .p-crust {
+                color: var(--pizza-crust);
+            }
             .p-topping {
                 color: var(--pizza-sauce);
                 font-weight: bold;
-            }
-            .p-crust {
-                color: var(--pizza-crust);
             }
 
             .container {
@@ -142,12 +176,13 @@
             .section-title {
                 color: var(--accent);
                 margin: 4rem 0 2rem;
+                font-weight: bold;
                 text-transform: uppercase;
                 letter-spacing: 2px;
                 border-bottom: 1px solid #1e2b22;
                 padding-bottom: 10px;
             }
-            .section-title::before {
+            .section-title:before {
                 content: "> ";
             }
 
@@ -155,6 +190,7 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 2.5rem;
+                margin-bottom: 3rem;
             }
 
             .box {
@@ -171,7 +207,7 @@
                 margin-bottom: 1.2rem;
                 opacity: 0.8;
             }
-            .box-subtitle::before {
+            .box-subtitle:before {
                 content: "# ";
             }
 
@@ -179,11 +215,12 @@
                 list-style: none;
                 padding: 0;
                 margin: 0;
+                font-size: 0.95rem;
             }
             .box li {
                 margin-bottom: 12px;
             }
-            .box li::before {
+            .box li:before {
                 content: "- ";
                 color: var(--muted);
                 margin-right: 10px;
@@ -192,14 +229,31 @@
             .project-tag {
                 font-size: 0.65rem;
                 color: var(--accent);
-                border: 1px solid #1e2b22;
+                border: 1px solid var(--muted);
                 padding: 3px 7px;
                 margin-right: 6px;
-                margin-top: 14px;
+                margin-top: 15px;
                 display: inline-block;
                 letter-spacing: 1px;
                 text-transform: uppercase;
-                opacity: 0.85;
+            }
+
+            .terminal-link-wrapper {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                margin-top: 20px;
+            }
+            .t-link {
+                color: var(--accent);
+                text-decoration: none;
+                padding: 8px 18px;
+                transition: 0.3s;
+            }
+            .t-link:hover {
+                border: 1px solid var(--accent);
+                background: rgba(51, 255, 153, 0.1);
+                box-shadow: 0 0 25px var(--glow);
             }
 
             footer {
@@ -221,19 +275,16 @@
 
     <body>
         <div class="fixed-status">
-            <div class="led-green">● SYSTEM ONLINE</div>
+            <span class="led-green">● SYSTEM_ONLINE</span>
             <div id="clock">00:00:00</div>
         </div>
 
         <div class="container">
-            <header>
-                <div id="terminal"></div>
-            </header>
+            <header><div id="terminal"></div></header>
 
-            <!-- RESTORED CONTENT -->
             <section>
                 <div class="section-title">biography</div>
-                <p>
+                <p style="line-height: 1.8; font-size: 1.05rem">
                     CompTIA A+ certified technician focused on Linux systems,
                     networking, and cybersecurity. I learn by building homelabs,
                     breaking things, fixing them, and helping others in the
@@ -241,7 +292,7 @@
                 </p>
             </section>
 
-            <section class="grid">
+            <div class="grid">
                 <div class="box">
                     <div class="box-subtitle">core_skills</div>
                     <ul>
@@ -252,45 +303,97 @@
                         <li>Hardware Diagnostics</li>
                     </ul>
                 </div>
-
-                <div class="box">
+                <div class="box roadmap-box">
                     <div class="box-subtitle">cert_roadmap</div>
                     <ul>
-                        <li>Network+</li>
-                        <li>Security+</li>
-                        <li>Linux+</li>
-                        <li>PenTest+</li>
+                        <li class="roadmap-item">
+                            Net+
+                            <span class="glitch-bar">[#####-----] 50%</span>
+                        </li>
+                        <li class="roadmap-item">
+                            Sec+
+                            <span class="glitch-bar">[########--] 80%</span>
+                        </li>
+                        <li class="roadmap-item">
+                            Linux+
+                            <span class="glitch-bar">[########--] 80%</span>
+                        </li>
+                        <li class="roadmap-item danger-zone">
+                            PenTest+
+                            <span class="glitch-bar">[----------] 0%</span>
+                        </li>
                     </ul>
                 </div>
-            </section>
-
+            </div>
             <section>
-                <div class="section-title">projects</div>
+                <div class="section-title">projects / repositories</div>
                 <div class="grid">
                     <a
-                        href="https://github.com/Deoxizn"
+                        href="https://github.com/Deoxizn/omarchy-space-bound-theme"
                         class="box"
                         target="_blank"
                     >
-                        <div class="box-subtitle">github_repos</div>
-                        <p>Personal projects, configs, and community work.</p>
-                        <span class="project-tag">GITHUB</span>
-                        <span class="project-tag">LINUX</span>
+                        <div class="box-subtitle">omarchy-space-bound</div>
+                        <p>Visual overhaul for desktop environments.</p>
+                        <span class="project-tag">CSS-THEME</span>
+                        <span class="project-tag">HYPRLAND-WM</span>
+                        <span class="project-tag">LINUX-DESKTOP</span>
+                    </a>
+                    <a
+                        href="https://github.com/Deoxizn/waybars"
+                        class="box"
+                        target="_blank"
+                    >
+                        <div class="box-subtitle">waybar_configs</div>
+                        <p>Modular Wayland bar configurations.</p>
+                        <span class="project-tag">WAYLAND</span>
+                        <span class="project-tag">WAYBAR</span>
+                        <span class="project-tag">JSON-CSS</span>
+                    </a>
+                    <a
+                        href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
+                        class="box"
+                        target="_blank"
+                    >
+                        <div class="box-subtitle">CLUG_Portal</div>
+                        <p>
+                            Community portal for the Cochise Linux Users Group.
+                        </p>
+                        <span class="project-tag">GITHUB-PAGES</span>
+                        <span class="project-tag">STATIC-SITE</span>
+                        <span class="project-tag">COMMUNITY</span>
                     </a>
                 </div>
             </section>
 
             <section>
                 <div class="section-title">contact</div>
-                <p>
-                    <a href="https://github.com/Deoxizn" target="_blank"
-                        >GitHub</a
+                <div class="terminal-link-wrapper">
+                    <a
+                        href="javascript:void(0)"
+                        class="t-link"
+                        onclick="copyEmail()"
+                        >[ EMAIL_COPY ]</a
                     >
-                    |
-                    <a href="https://www.linkedin.com/" target="_blank"
-                        >LinkedIn</a
+                    <a
+                        href="David_Garcia_General_Resume.pdf"
+                        class="t-link"
+                        target="_blank"
+                        >[ RESUME ]</a
                     >
-                </p>
+                    <a
+                        href="https://github.com/Deoxizn"
+                        class="t-link"
+                        target="_blank"
+                        >[ GITHUB ]</a
+                    >
+                    <a
+                        href="https://www.linkedin.com/in/david-garcia-318a3ba7/"
+                        class="t-link"
+                        target="_blank"
+                        >[ LINKEDIN ]</a
+                    >
+                </div>
             </section>
 
             <footer>
@@ -298,9 +401,9 @@
                 SERIOUS SYSTEMS. QUESTIONABLE DOMAIN.<br />
                 NODE STATUS: ACTIVE<br />
                 © 2025–2026 INTERNAL_MAINFRAME<br />
-                <span class="footer-comment"># hint: type 'pizza'</span><br />
+                <span class="footer-comment">// hint: type 'pizza'</span><br />
                 <span class="footer-comment"
-                    ># warning: malformed input may trigger access
+                    >// error: malformed input may trigger access
                     violations</span
                 >
             </footer>
@@ -314,7 +417,95 @@
             setInterval(updateClock, 1000);
             updateClock();
 
-            /* terminal JS unchanged (already working on live) */
+            const isMobile = matchMedia("(max-width:768px)").matches;
+            const CHAR_DELAY = isMobile ? 55 : 28;
+            const LINE_DELAY = isMobile ? 480 : 260;
+
+            const terminal = document.getElementById("terminal");
+            const output = [
+                "Last login: Tue Feb 06 23:41:02 on tty1\n",
+                "Unauthorized toppings will be removed.\n",
+                "",
+                "$ whoami",
+                "devi\n",
+                "",
+                "$ neofetch",
+                "OS: Linux",
+                "Host: dirty.pizza",
+                "Role: IT / Cybersecurity",
+                "Cert: CompTIA A+",
+                "Shell: bash\n",
+                "",
+                "$ cat /etc/domain",
+                "dirty.pizza\n",
+                "         /\\",
+                "        /**\\",
+                "       /****\\",
+                "      /******\\",
+                "     /********\\",
+                "    /**********\\",
+                "   /************\\",
+                "   --------------",
+            ];
+
+            let line = 0,
+                char = 0;
+            function type() {
+                if (line >= output.length) {
+                    terminal.innerHTML += '<span class="cursor"></span>';
+                    return;
+                }
+                if (char === 0) {
+                    const d = document.createElement("div");
+                    d.className = "terminal-line";
+                    if (line === 1) d.classList.add("danger-text");
+                    terminal.appendChild(d);
+                }
+                const text = output[line];
+                const el = terminal.lastChild;
+                if (text === "") {
+                    el.innerHTML = "&nbsp;";
+                    line++;
+                    char = 0;
+                    setTimeout(type, LINE_DELAY);
+                    return;
+                }
+                const ch = text[char];
+                if (ch === "*")
+                    el.innerHTML += '<span class="p-topping">*</span>';
+                else if (ch === "-")
+                    el.innerHTML += '<span class="p-crust">-</span>';
+                else el.innerHTML += ch;
+                char++;
+                if (char === text.length) {
+                    line++;
+                    char = 0;
+                    setTimeout(type, LINE_DELAY);
+                } else setTimeout(type, CHAR_DELAY);
+            }
+            setTimeout(type, 600);
+
+            /* Easter eggs */
+            let buffer = "";
+            addEventListener("keydown", (e) => {
+                if (e.key.length > 1 && e.key !== "Enter") return;
+                buffer += e.key.toLowerCase();
+                if (buffer.includes("pizza")) {
+                    terminal.innerHTML += `<div style="color:var(--accent)">
+$ ./slice_delivery.sh --hot<br>[ OK ] EXTRA_CHEESE_LOADED.
+</div>`;
+                    buffer = "";
+                } else if (buffer.length > 10) {
+                    terminal.innerHTML += `<div class="danger-text">
+[ ACCESS_DENIED ] insufficient privileges
+</div>`;
+                    buffer = "";
+                }
+            });
+
+            function copyEmail() {
+                navigator.clipboard.writeText("david.c.garcia4283@gmail.com");
+            }
         </script>
     </body>
 </html>
