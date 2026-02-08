@@ -14,72 +14,86 @@
             :root {
                 --bg: #0b0f0c;
                 --text: #d1f7c4;
-                --muted: #7aa37a;
+                --muted: #4e6a4e;
                 --accent: #33ff99;
+                --danger: #ff3333;
                 --glow: rgba(51, 255, 153, 0.4);
-                --glitch-red: rgba(255, 0, 80, 0.6);
-                --glitch-blue: rgba(0, 255, 255, 0.6);
+                --glitch-red: rgba(255, 0, 80, 0.7);
+                --glitch-blue: rgba(0, 255, 255, 0.7);
             }
 
             * {
                 box-sizing: border-box;
             }
-
             body {
                 margin: 0;
                 background: var(--bg);
                 color: var(--text);
                 font-family:
                     ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-                overflow-x: hidden;
-                text-shadow: 0 0 2px var(--glow);
                 padding: 2rem;
+                overflow-x: hidden;
             }
 
-            /* LED Floating Status (Top Right) */
+            /* --- FIXED LED STATUS --- */
             .fixed-status {
                 position: fixed;
                 top: 20px;
                 right: 20px;
                 text-align: right;
                 z-index: 1000;
-                font-weight: bold;
-                letter-spacing: 1px;
-                pointer-events: none; /* Don't block clicks */
+                pointer-events: none;
             }
-
             .led-green {
                 color: var(--accent);
                 text-shadow:
                     0 0 8px var(--accent),
-                    0 0 12px var(--accent);
+                    0 0 15px var(--accent);
                 font-size: 0.8rem;
                 display: block;
-                margin-bottom: 5px;
+                margin-bottom: 4px;
+                font-weight: bold;
             }
-
             #clock {
                 color: var(--accent);
-                font-size: 1.1rem;
+                font-size: 1.2rem;
                 text-shadow: 0 0 10px var(--accent);
-                opacity: 0.9;
+                font-weight: bold;
             }
 
+            /* --- LOADING OVERLAY --- */
+            #redirect-loader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: var(--bg);
+                z-index: 2000;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                color: var(--accent);
+            }
+            .loader-text {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            /* --- LAYOUT --- */
             .container {
-                max-width: 1000px;
+                max-width: 900px;
                 margin: 0 auto;
             }
-
             .section-title {
                 color: var(--accent);
-                margin-bottom: 1.5rem;
+                margin: 2.5rem 0 1rem 0;
                 font-weight: bold;
                 text-transform: uppercase;
                 letter-spacing: 2px;
                 border-bottom: 1px solid #1e2b22;
                 padding-bottom: 5px;
-                display: flex;
-                align-items: center;
             }
             .section-title::before {
                 content: "> ";
@@ -87,31 +101,31 @@
 
             .grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 1.5rem;
-                margin-top: 1rem;
-                margin-bottom: 2rem;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.2rem;
             }
 
             .box {
                 border: 1px solid #1e2b22;
                 padding: 1.2rem;
-                background: rgba(20, 30, 20, 0.2);
-                transition:
-                    transform 0.2s ease,
-                    border-color 0.2s ease;
+                background: rgba(20, 30, 20, 0.3);
+                transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                text-decoration: none;
+                color: inherit;
+                position: relative;
+                overflow: hidden;
             }
             .box:hover {
                 border-color: var(--accent);
+                transform: translateY(-2px);
+                box-shadow: 0 0 15px rgba(51, 255, 153, 0.05);
             }
 
             .box-subtitle {
-                font-size: 0.8rem;
-                opacity: 0.8;
-                margin-bottom: 0.8rem;
-                border-bottom: 1px dashed rgba(51, 255, 153, 0.2);
-                padding-bottom: 5px;
                 color: var(--accent);
+                font-size: 0.8rem;
+                margin-bottom: 0.8rem;
+                opacity: 0.8;
             }
             .box-subtitle::before {
                 content: "# ";
@@ -121,230 +135,230 @@
                 list-style: none;
                 padding: 0;
                 margin: 0;
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
             .box li {
-                line-height: 1.6;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
                 position: relative;
             }
             .box li::before {
-                content: "> ";
+                content: "- ";
                 color: var(--muted);
-                margin-right: 8px;
+                margin-right: 5px;
             }
 
-            /* Glitch Progress Bars */
+            /* --- GLITCH & DANGER EFFECTS --- */
             .roadmap-item {
-                position: relative;
+                cursor: crosshair;
+                transition: color 0.2s;
             }
             .glitch-bar {
                 display: inline-block;
-                margin-left: 10px;
+                margin-left: 8px;
+                font-weight: bold;
+                transition: all 0.2s;
             }
 
             .roadmap-item:hover .glitch-bar {
-                animation: glitch-anim 0.2s infinite;
+                animation: shake 0.15s infinite;
                 text-shadow:
                     2px 0 var(--glitch-red),
                     -2px 0 var(--glitch-blue);
                 color: #fff;
             }
 
-            @keyframes glitch-anim {
+            /* The Dangerous PenTest+ Hover */
+            .danger-zone:hover {
+                color: var(--danger) !important;
+                text-shadow: 0 0 10px var(--danger);
+            }
+            .danger-zone:hover .glitch-bar {
+                color: var(--danger) !important;
+                text-shadow:
+                    2px 0 #fff,
+                    -2px 0 #000;
+            }
+            .roadmap-box:has(.danger-zone:hover) {
+                border-color: var(--danger) !important;
+                box-shadow:
+                    inset 0 0 20px rgba(255, 51, 51, 0.1),
+                    0 0 15px rgba(255, 51, 51, 0.2) !important;
+            }
+
+            @keyframes shake {
                 0% {
-                    transform: translate(0);
+                    transform: translate(1px, 1px) scale(1);
                 }
-                33% {
-                    transform: translate(-2px, 1px);
+                25% {
+                    transform: translate(-1px, -1px) scale(1.01);
                 }
-                66% {
-                    transform: translate(2px, -1px);
+                50% {
+                    transform: translate(-1px, 1px) scale(1);
+                }
+                75% {
+                    transform: translate(1px, -1px) scale(1.01);
                 }
                 100% {
-                    transform: translate(0);
+                    transform: translate(0, 0) scale(1);
                 }
             }
 
-            .copy-skill {
-                opacity: 0;
+            .project-tag {
                 font-size: 0.7rem;
-                margin-left: 8px;
-                cursor: pointer;
                 color: var(--muted);
-            }
-            .box li:hover .copy-skill {
-                opacity: 1;
+                border: 1px solid var(--muted);
+                padding: 1px 5px;
+                margin-right: 5px;
             }
 
+            /* --- FOOTER & MISC --- */
+            footer {
+                margin-top: 5rem;
+                padding-top: 2rem;
+                border-top: 1px solid #1e2b22;
+                color: var(--muted);
+                font-size: 0.8rem;
+                line-height: 1.6;
+            }
+            .hint {
+                color: #0d120e;
+                cursor: default;
+                transition: 0.3s;
+                font-size: 0.7rem;
+            }
+            .hint:hover {
+                color: var(--muted);
+            }
             a {
                 color: var(--accent);
                 text-decoration: none;
             }
-
-            .crt-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background:
-                    linear-gradient(
-                        rgba(18, 16, 16, 0) 50%,
-                        rgba(0, 0, 0, 0.05) 50%
-                    ),
-                    linear-gradient(
-                        90deg,
-                        rgba(255, 0, 0, 0.01),
-                        rgba(0, 255, 0, 0.01),
-                        rgba(0, 255, 0, 0.01)
-                    );
-                background-size:
-                    100% 3px,
-                    3px 100%;
-                z-index: 999;
-                pointer-events: none;
-            }
-
-            footer {
-                margin-top: 4rem;
-                text-align: left; /* Aligned to left */
-                color: var(--muted);
-                font-size: 0.8rem;
-                border-top: 1px solid #1e2b22;
-                padding-top: 2rem;
+            a:hover {
+                text-decoration: underline;
             }
             .copy-btn {
                 background: none;
                 border: 1px solid var(--muted);
                 color: var(--muted);
-                font-family: inherit;
                 cursor: pointer;
                 padding: 2px 8px;
-            }
-
-            .hint {
+                font-family: inherit;
                 font-size: 0.7rem;
-                color: #1e2b22;
-                transition: color 0.3s;
-            }
-            .hint:hover {
-                color: var(--muted);
             }
         </style>
     </head>
     <body>
-        <div class="crt-overlay"></div>
-
         <div class="fixed-status">
             <span class="led-green">● SYSTEM_ONLINE</span>
             <div id="clock">00:00:00</div>
+        </div>
+
+        <div id="redirect-loader">
+            <div class="loader-text" id="loader-msg">READY...</div>
+            <div id="loader-bar">[----------]</div>
         </div>
 
         <div class="container">
             <header>
                 <div
                     id="terminal"
-                    style="min-height: 200px; margin-bottom: 2rem"
+                    style="
+                        min-height: 180px;
+                        border-left: 2px solid var(--accent);
+                        padding-left: 15px;
+                        margin-bottom: 3rem;
+                    "
                 ></div>
             </header>
 
             <section>
-                <div class="section-title">about</div>
+                <div class="section-title">biography</div>
                 <p>
-                    CompTIA A+ certified technician focused on Linux systems,
-                    networking, and cybersecurity. I build homelabs, break
-                    things, and fix them.
-                    <span class="hint">(try typing the domain name...)</span>
+                    CompTIA A+ certified technician specializing in Linux
+                    environments and network security. I focus on automating
+                    infrastructure and exploring cybersecurity vulnerabilities.
+                    <span class="hint">(tip: try typing the domain name)</span>
                 </p>
             </section>
 
             <div class="grid">
                 <div class="box">
-                    <div class="box-subtitle">skills</div>
+                    <div class="box-subtitle">core_skills</div>
                     <ul>
-                        <li>
-                            Linux (Ubuntu, Debian, Arch)
-                            <span class="copy-skill" onclick="copyText('Linux')"
-                                >⎘</span
-                            >
-                        </li>
-                        <li>
-                            Hardware Troubleshooting
-                            <span
-                                class="copy-skill"
-                                onclick="copyText('Hardware')"
-                                >⎘</span
-                            >
-                        </li>
-                        <li>
-                            Networking Fundamentals
-                            <span
-                                class="copy-skill"
-                                onclick="copyText('Networking')"
-                                >⎘</span
-                            >
-                        </li>
-                        <li>
-                            Virtualization & Docker
-                            <span
-                                class="copy-skill"
-                                onclick="copyText('Docker')"
-                                >⎘</span
-                            >
-                        </li>
+                        <li>Linux (Ubuntu/Debian/Arch)</li>
+                        <li>Network Hardening</li>
+                        <li>Docker & Virtualization</li>
+                        <li>Hardware Diagnostics</li>
                     </ul>
                 </div>
 
-                <div class="box">
-                    <div class="box-subtitle">learning roadmap</div>
+                <div class="box roadmap-box">
+                    <div class="box-subtitle">cert_roadmap</div>
                     <ul>
                         <li class="roadmap-item">
-                            ⏳ Network+
-                            <span class="glitch-bar"
-                                ><span style="color: var(--accent)">[#####</span
-                                ><span style="color: var(--muted)"
-                                    >-----] 50%</span
-                                ></span
-                            >
+                            Net+
+                            <span class="glitch-bar">[#####-----] 50%</span>
                         </li>
                         <li class="roadmap-item">
-                            ⏳ Security+
-                            <span class="glitch-bar"
-                                ><span style="color: var(--accent)"
-                                    >[########</span
-                                ><span style="color: var(--muted)"
-                                    >--] 80%</span
-                                ></span
-                            >
+                            Sec+
+                            <span class="glitch-bar">[########--] 80%</span>
                         </li>
                         <li class="roadmap-item">
-                            ⏳ Linux+
-                            <span class="glitch-bar"
-                                ><span style="color: var(--accent)"
-                                    >[########</span
-                                ><span style="color: var(--muted)"
-                                    >--] 80%</span
-                                ></span
-                            >
+                            Linux+
+                            <span class="glitch-bar">[########--] 80%</span>
                         </li>
-                        <li class="roadmap-item">
-                            🔜 PenTest+
-                            <span class="glitch-bar"
-                                ><span style="color: var(--muted)"
-                                    >[----------] 0%</span
-                                ></span
-                            >
+                        <li class="roadmap-item danger-zone">
+                            PenTest+
+                            <span class="glitch-bar">[----------] 0%</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <section>
-                <div class="section-title">homelab / services</div>
+                <div class="section-title">repositories</div>
+                <div class="grid">
+                    <a
+                        href="https://github.com/Deoxizn/omarchy-space-bound-theme"
+                        class="box project-link"
+                    >
+                        <div class="box-subtitle">omarchy-space-theme</div>
+                        <p style="font-size: 0.85rem">
+                            Custom space-inspired Zsh theme for Oh-My-Archy.
+                        </p>
+                        <span class="project-tag">ZSH</span
+                        ><span class="project-tag">SHELL</span>
+                    </a>
+                    <a
+                        href="https://github.com/Deoxizn/waybars"
+                        class="box project-link"
+                    >
+                        <div class="box-subtitle">waybar_configs</div>
+                        <p style="font-size: 0.85rem">
+                            Modular CSS/JSON layouts for Wayland bars.
+                        </p>
+                        <span class="project-tag">WAYLAND</span
+                        ><span class="project-tag">CSS</span>
+                    </a>
+                    <a
+                        href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
+                        class="box project-link"
+                    >
+                        <div class="box-subtitle">clug_web</div>
+                        <p style="font-size: 0.85rem">
+                            Landing page for the Cochise Linux Users Group.
+                        </p>
+                        <span class="project-tag">COMMUNITY</span
+                        ><span class="project-tag">HTML</span>
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">homelab_manifest</div>
                 <div class="grid">
                     <div class="box">
-                        <div class="box-subtitle">multimedia & streaming</div>
+                        <div class="box-subtitle">multimedia</div>
                         <ul>
                             <li>Plex</li>
                             <li>Tautulli</li>
@@ -361,7 +375,7 @@
                         </ul>
                     </div>
                     <div class="box">
-                        <div class="box-subtitle">download & automation</div>
+                        <div class="box-subtitle">utilities</div>
                         <ul>
                             <li>qBittorrent</li>
                             <li>SLSKD</li>
@@ -380,29 +394,30 @@
                         id="copyEmail"
                         onclick="copyEmailToClipboard()"
                     >
-                        email [copy]
+                        EMAIL_COPY
                     </button>
                     |
                     <a href="https://github.com/Deoxizn" target="_blank"
-                        >github</a
+                        >GITHUB</a
                     >
                     |
                     <a
                         href="https://www.linkedin.com/in/david-garcia-318a3ba7/"
                         target="_blank"
-                        >linkedin</a
+                        >LINKEDIN</a
                     >
                 </p>
             </section>
 
             <footer>
-                Devi Garcia — dirty.pizza<br />Serious systems. Questionable
-                domain.
+                DEVI GARCIA — DIRTY.PIZZA<br />
+                SYSTEM STATUS: OPTIMAL<br />
+                © 2026 INTERNAL_USE_ONLY
             </footer>
         </div>
 
         <script>
-            // Clock Logic
+            // --- CLOCK ---
             function updateClock() {
                 const now = new Date();
                 document.getElementById("clock").innerText =
@@ -411,27 +426,27 @@
             setInterval(updateClock, 1000);
             updateClock();
 
-            // Terminal Typing
+            // --- TERMINAL ---
             const terminal = document.getElementById("terminal");
+            const output = [
+                "BOOTING... SUCCESS\n",
+                "OS: Arch Linux x86_64",
+                "HOST: DirtyPizza-Mainframe",
+                "USER: dgarcia",
+                "WARNING: Unauthenticated access logged to PenTest module\n",
+                "$ whoami",
+                "Devi Garcia",
+                "$ status",
+                "Systems operational. Welcome back.\n",
+            ];
             let line = 0,
                 char = 0;
-            const output = [
-                "Last login: " + new Date().toDateString() + "\n",
-                "Unauthorized toppings will be removed.\n",
-                "$ whoami",
-                "Devi Garcia\n",
-                "$ neofetch",
-                "OS: Linux",
-                "Role: IT / Cybersecurity",
-                "Cert: CompTIA A+",
-                "Status: Active Labbing\n",
-            ];
 
             function type() {
                 if (line >= output.length) return;
                 if (char === 0) terminal.innerHTML += "<div></div>";
-                const current = output[line];
-                const el = terminal.lastChild;
+                let current = output[line];
+                let el = terminal.lastChild;
                 if (current === "\n") {
                     el.innerHTML = "&nbsp;";
                     line++;
@@ -449,31 +464,60 @@
             }
             setTimeout(type, 500);
 
-            // Easter Egg Logic
+            // --- REDIRECT LOADER ---
+            document.querySelectorAll(".project-link").forEach((link) => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const url = this.href;
+                    const loader = document.getElementById("redirect-loader");
+                    const msg = document.getElementById("loader-msg");
+                    const bar = document.getElementById("loader-bar");
+
+                    loader.style.display = "flex";
+
+                    const steps = [
+                        { m: "RESOLVING GITHUB.COM...", b: "[###-------]" },
+                        { m: "HANDSHAKE ESTABLISHED", b: "[######----]" },
+                        { m: "NEGOTIATING ENCRYPTION", b: "[#########-]" },
+                        { m: "REDIRECTING...", b: "[##########]" },
+                    ];
+
+                    steps.forEach((step, i) => {
+                        setTimeout(
+                            () => {
+                                msg.innerText = step.m;
+                                bar.innerText = step.b;
+                                if (i === steps.length - 1)
+                                    window.location.href = url;
+                            },
+                            (i + 1) * 600,
+                        );
+                    });
+                });
+            });
+
+            // --- EASTER EGG ---
             let buffer = "";
             window.addEventListener("keydown", (e) => {
                 buffer += e.key.toLowerCase();
                 if (buffer.includes("pizza")) {
-                    const secret = document.createElement("div");
-                    secret.style.color = "var(--accent)";
-                    secret.innerHTML =
-                        "$ order --extra-cheese<br>Connecting to pizza.repo... SUCCESS.<br>🍕 Enjoy your secret slice!";
-                    terminal.appendChild(secret);
+                    terminal.innerHTML += `<div style="color:var(--accent); margin-top:10px;">
+                        $ sudo apt-get install extra-cheese<br>
+                        [ OK ] Pizza found.<br>
+                        🍕🍕🍕 PIZZA_MODE_ACTIVATED 🍕🍕🍕
+                    </div>`;
                     buffer = "";
                 }
                 if (buffer.length > 10) buffer = buffer.substring(1);
             });
 
-            function copyText(text) {
-                navigator.clipboard.writeText(text);
-            }
             function copyEmailToClipboard() {
                 const email = "david.c.garcia4283@gmail.com";
                 const btn = document.getElementById("copyEmail");
                 navigator.clipboard.writeText(email).then(() => {
                     btn.innerText = "COPIED!";
                     setTimeout(() => {
-                        btn.innerText = "email [copy]";
+                        btn.innerText = "EMAIL_COPY";
                     }, 2000);
                 });
             }
