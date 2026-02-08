@@ -16,6 +16,7 @@
                 --text: #d1f7c4;
                 --muted: #7aa37a;
                 --accent: #33ff99;
+                --glow: rgba(51, 255, 153, 0.4);
             }
 
             * {
@@ -28,12 +29,69 @@
                 color: var(--text);
                 font-family:
                     ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                overflow-x: hidden;
+                /* Subtle text shadow for that "phosphor" bloom */
+                text-shadow: 0 0 2px var(--glow);
+            }
+
+            /* CRT Overlay Effect */
+            .crt-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background:
+                    linear-gradient(
+                        rgba(18, 16, 16, 0) 50%,
+                        rgba(0, 0, 0, 0.1) 50%
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(255, 0, 0, 0.02),
+                        rgba(0, 255, 0, 0.01),
+                        rgba(0, 0, 255, 0.02)
+                    );
+                background-size:
+                    100% 3px,
+                    3px 100%;
+                z-index: 999;
+                pointer-events: none;
+            }
+
+            body::after {
+                content: " ";
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background: rgba(18, 16, 16, 0.03);
+                opacity: 0;
+                z-index: 1000;
+                pointer-events: none;
+                animation: flicker 0.15s infinite;
+            }
+
+            @keyframes flicker {
+                0% {
+                    opacity: 0.97;
+                }
+                50% {
+                    opacity: 0.92;
+                }
+                100% {
+                    opacity: 0.96;
+                }
             }
 
             .container {
                 max-width: 1100px;
                 margin: 0 auto;
                 padding: 2rem 1.5rem;
+                position: relative;
+                z-index: 1;
             }
 
             header {
@@ -41,17 +99,15 @@
                 grid-template-columns: 1fr auto;
                 gap: 2rem;
                 align-items: start;
+                min-height: 380px;
             }
 
-            /* TERMINAL */
+            /* TERMINAL STYLES */
             .terminal-line {
                 white-space: pre-wrap;
+                min-height: 1.2em;
+                margin-bottom: 2px;
             }
-
-            .prompt {
-                color: var(--accent);
-            }
-
             .cursor {
                 display: inline-block;
                 width: 10px;
@@ -59,6 +115,7 @@
                 background: var(--accent);
                 animation: blink 1s steps(1) infinite;
                 margin-left: 4px;
+                vertical-align: middle;
             }
 
             @keyframes blink {
@@ -67,28 +124,18 @@
                 }
             }
 
-            /* ASCII */
-            .ascii-wrapper {
-                display: block;
-            }
-
-            .ascii {
-                font-size: 14px;
-                line-height: 1.2;
-                white-space: pre;
-                margin: 0;
-                padding: 0;
-                color: var(--muted);
-            }
-
-            /* SECTIONS */
+            /* SECTION STYLES */
             section {
                 margin-top: 3.5rem;
             }
-
+            .section-title {
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 1rem;
+                color: var(--accent);
+            }
             .section-title::before {
                 content: "$ ";
-                color: var(--accent);
             }
 
             .grid {
@@ -101,6 +148,32 @@
             .box {
                 border: 1px solid #1e2b22;
                 padding: 1.2rem;
+                background: rgba(20, 30, 20, 0.2);
+            }
+
+            /* LINK GLOW EFFECT */
+            a {
+                color: var(--accent);
+                text-decoration: none;
+                transition: all 0.3s ease;
+                padding: 2px 4px;
+            }
+
+            a:hover {
+                background: var(--accent);
+                color: var(--bg);
+                box-shadow: 0 0 15px var(--accent);
+                text-shadow: none;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+            li::before {
+                content: "> ";
+                color: var(--muted);
+                margin-right: 8px;
             }
 
             footer {
@@ -109,83 +182,13 @@
                 border-top: 1px solid #1e2b22;
                 color: var(--muted);
                 font-size: 0.85rem;
+                line-height: 1.6;
             }
 
-            /* MOBILE */
             @media (max-width: 800px) {
                 header {
                     grid-template-columns: 1fr;
-                }
-                .ascii-wrapper {
-                    margin-top: 2rem;
-                }
-
-                /* CRT Overlay Effect */
-                .crt-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100vw;
-                    height: 100vh;
-                    background:
-                        linear-gradient(
-                            rgba(18, 16, 16, 0) 50%,
-                            rgba(0, 0, 0, 0.1) 50%
-                        ),
-                        linear-gradient(
-                            90deg,
-                            rgba(255, 0, 0, 0.03),
-                            rgba(0, 255, 0, 0.01),
-                            rgba(0, 0, 255, 0.03)
-                        );
-                    background-size:
-                        100% 3px,
-                        3px 100%;
-                    z-index: 999;
-                    pointer-events: none; /* Allows you to still click links underneath */
-                }
-
-                /* Subtle Flicker Animation */
-                @keyframes flicker {
-                    0% {
-                        opacity: 0.97;
-                    }
-                    5% {
-                        opacity: 0.95;
-                    }
-                    10% {
-                        opacity: 0.9;
-                    }
-                    15% {
-                        opacity: 0.98;
-                    }
-                    30% {
-                        opacity: 0.95;
-                    }
-                    50% {
-                        opacity: 0.92;
-                    }
-                    80% {
-                        opacity: 0.98;
-                    }
-                    100% {
-                        opacity: 0.96;
-                    }
-                }
-
-                body::after {
-                    content: " ";
-                    display: block;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    bottom: 0;
-                    right: 0;
-                    background: rgba(18, 16, 16, 0.03);
-                    opacity: 0;
-                    z-index: 1000;
-                    pointer-events: none;
-                    animation: flicker 0.15s infinite;
+                    min-height: auto;
                 }
             }
         </style>
@@ -259,31 +262,32 @@
 
         <script>
             const terminal = document.getElementById("terminal");
-            const typeSound = document.getElementById("type-sound");
+            let line = 0;
+            let char = 0;
 
             const output = [
                 "Last login: Tue on tty1\n",
                 "Unauthorized toppings will be removed.\n",
-                "\n", // The physical space
+                "\n",
                 "$ whoami",
                 "Devi Garcia\n",
-                "\n", // The physical space
+                "\n",
                 "$ neofetch",
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
                 "Shell: bash\n",
-                "\n", // The physical space
+                "\n",
                 "$ cat /etc/domain",
                 "dirty.pizza\n",
-                "        /\\",
-                "       /**\\",
-                "      /****\\",
-                "     /******\\",
-                "    /********\\",
-                "   /**********\\",
-                "  /************\\",
-                "  --------------\n",
+                "         /\\",
+                "        /**\\",
+                "       /****\\",
+                "      /******\\",
+                "     /********\\",
+                "    /**********\\",
+                "   /************\\",
+                "   --------------\n",
             ];
 
             function type() {
@@ -299,19 +303,27 @@
                 const current = output[line];
                 const el = terminal.lastChild;
 
-                el.textContent += current.charAt(char);
-                char++;
-
-                if (char === current.length) {
+                if (current === "\n") {
+                    el.innerHTML = "&nbsp;";
                     line++;
                     char = 0;
-                    setTimeout(type, 250);
+                    setTimeout(type, 200);
                 } else {
-                    setTimeout(type, 28);
+                    el.textContent += current.charAt(char);
+                    char++;
+
+                    if (char === current.length) {
+                        line++;
+                        char = 0;
+                        setTimeout(type, 250);
+                    } else {
+                        setTimeout(type, 28);
+                    }
                 }
             }
 
-            type();
+            // Small delay before terminal starts for better UX
+            setTimeout(type, 500);
         </script>
     </body>
 </html>
