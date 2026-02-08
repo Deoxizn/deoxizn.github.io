@@ -119,16 +119,80 @@
                 .ascii-wrapper {
                     margin-top: 2rem;
                 }
+
+                /* CRT Overlay Effect */
+                .crt-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background:
+                        linear-gradient(
+                            rgba(18, 16, 16, 0) 50%,
+                            rgba(0, 0, 0, 0.1) 50%
+                        ),
+                        linear-gradient(
+                            90deg,
+                            rgba(255, 0, 0, 0.03),
+                            rgba(0, 255, 0, 0.01),
+                            rgba(0, 0, 255, 0.03)
+                        );
+                    background-size:
+                        100% 3px,
+                        3px 100%;
+                    z-index: 999;
+                    pointer-events: none; /* Allows you to still click links underneath */
+                }
+
+                /* Subtle Flicker Animation */
+                @keyframes flicker {
+                    0% {
+                        opacity: 0.97;
+                    }
+                    5% {
+                        opacity: 0.95;
+                    }
+                    10% {
+                        opacity: 0.9;
+                    }
+                    15% {
+                        opacity: 0.98;
+                    }
+                    30% {
+                        opacity: 0.95;
+                    }
+                    50% {
+                        opacity: 0.92;
+                    }
+                    80% {
+                        opacity: 0.98;
+                    }
+                    100% {
+                        opacity: 0.96;
+                    }
+                }
+
+                body::after {
+                    content: " ";
+                    display: block;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    background: rgba(18, 16, 16, 0.03);
+                    opacity: 0;
+                    z-index: 1000;
+                    pointer-events: none;
+                    animation: flicker 0.15s infinite;
+                }
             }
         </style>
     </head>
 
     <body>
-        <audio
-            id="type-sound"
-            src="https://codesandbox.io/api/v1/sandboxes/69687/assets/typewriter-key.mp3"
-            preload="auto"
-        ></audio>
+        <div class="crt-overlay"></div>
         <div class="container">
             <header>
                 <div id="terminal"></div>
@@ -200,16 +264,16 @@
             const output = [
                 "Last login: Tue on tty1\n",
                 "Unauthorized toppings will be removed.\n",
-                "\n", // The space you wanted
+                "\n", // The physical space
                 "$ whoami",
                 "Devi Garcia\n",
-                "\n", // The space you wanted
+                "\n", // The physical space
                 "$ neofetch",
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
                 "Shell: bash\n",
-                "\n", // The space you wanted
+                "\n", // The physical space
                 "$ cat /etc/domain",
                 "dirty.pizza\n",
                 "        /\\",
@@ -221,20 +285,6 @@
                 "  /************\\",
                 "  --------------\n",
             ];
-
-            let line = 0;
-            let char = 0;
-
-            function playSound() {
-                // Reset sound to start so it can trigger rapidly
-                typeSound.currentTime = 0;
-                // Adjust volume if it's too loud (0.0 to 1.0)
-                typeSound.volume = 0.2;
-                typeSound.play().catch((e) => {
-                    // Browsers block audio until the user clicks something.
-                    // This catch prevents console errors if they haven't clicked yet.
-                });
-            }
 
             function type() {
                 if (line >= output.length) {
@@ -249,13 +299,6 @@
                 const current = output[line];
                 const el = terminal.lastChild;
 
-                if (
-                    current.charAt(char) !== " " &&
-                    current.charAt(char) !== "\n"
-                ) {
-                    playSound();
-                }
-
                 el.textContent += current.charAt(char);
                 char++;
 
@@ -264,23 +307,10 @@
                     char = 0;
                     setTimeout(type, 250);
                 } else {
-                    // Speed variance makes it sound more natural
-                    let speed = current.charAt(char) === " " ? 50 : 28;
-                    setTimeout(type, speed);
+                    setTimeout(type, 28);
                 }
             }
 
-            // Optional: Start typing only after user interaction
-            // (Browsers often block sound until the user clicks the page)
-            window.addEventListener(
-                "click",
-                () => {
-                    if (line === 0 && char === 0) type();
-                },
-                { once: true },
-            );
-
-            // Or just try to start immediately
             type();
         </script>
     </body>
