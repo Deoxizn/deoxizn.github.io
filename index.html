@@ -121,19 +121,16 @@
                 margin-bottom: 3rem;
             }
 
+            /* Static Boxes (Hover Effect Removed) */
             .box {
                 border: 1px solid #1e2b22;
                 padding: 1.8rem;
                 background: rgba(20, 30, 20, 0.3);
-                transition: 0.3s;
                 text-decoration: none;
                 color: inherit;
                 display: block;
             }
-            .box:hover {
-                border-color: var(--accent);
-                transform: translateY(-5px);
-            }
+
             .box-subtitle {
                 color: var(--accent);
                 font-size: 0.9rem;
@@ -158,7 +155,7 @@
                 margin-right: 10px;
             }
 
-            /* Contact Terminal Links */
+            /* Contact Terminal Links (Keeping these Interactive) */
             .terminal-link-wrapper {
                 display: flex;
                 gap: 20px;
@@ -180,7 +177,6 @@
                 text-shadow: 0 0 10px var(--accent);
             }
 
-            /* Roadmap/Glitch */
             .glitch-bar {
                 display: inline-block;
                 margin-left: 10px;
@@ -229,7 +225,6 @@
                 display: inline-block;
             }
 
-            /* Footer Styles */
             footer {
                 margin-top: 8rem;
                 padding-top: 3rem;
@@ -237,7 +232,6 @@
                 color: var(--muted);
                 font-size: 0.85rem;
                 line-height: 2;
-                position: relative;
             }
             .footer-comment {
                 color: #1e2b22;
@@ -474,7 +468,6 @@
 
                 let charToType = current.charAt(char);
 
-                // Pizza Color Logic
                 if (line >= 15 && line <= 21) {
                     if (charToType === "*")
                         el.innerHTML += `<span class="p-topping">*</span>`;
@@ -497,7 +490,6 @@
             }
             setTimeout(type, 500);
 
-            // --- EASTER EGG ---
             let buffer = "";
             window.addEventListener("keydown", (e) => {
                 buffer += e.key.toLowerCase();
