@@ -25,6 +25,7 @@
             * {
                 box-sizing: border-box;
             }
+
             body {
                 margin: 0;
                 background: var(--bg);
@@ -35,7 +36,35 @@
                 overflow-x: hidden;
             }
 
-            /* LED Floating Status */
+            /* CRT */
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                background: repeating-linear-gradient(
+                    to bottom,
+                    rgba(255, 255, 255, 0.03),
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 3px
+                );
+                opacity: 0.25;
+                z-index: 9999;
+            }
+            body::after {
+                content: "";
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                background: radial-gradient(
+                    ellipse at center,
+                    transparent 60%,
+                    rgba(0, 0, 0, 0.45) 100%
+                );
+                z-index: 9998;
+            }
+
             .fixed-status {
                 position: fixed;
                 top: 25px;
@@ -44,32 +73,34 @@
                 z-index: 1000;
                 pointer-events: none;
             }
+
             .led-green {
                 color: var(--accent);
                 text-shadow:
                     0 0 8px var(--accent),
                     0 0 15px var(--accent);
                 font-size: 0.85rem;
-                display: block;
-                margin-bottom: 5px;
                 font-weight: bold;
             }
+
             #clock {
-                color: var(--accent);
                 font-size: 1.3rem;
+                color: var(--accent);
                 text-shadow: 0 0 10px var(--accent);
                 font-weight: bold;
             }
 
-            /* TERMINAL */
             #terminal {
                 min-height: 440px;
                 white-space: pre-wrap;
                 line-height: 1.4;
+                text-shadow: 0 0 6px rgba(51, 255, 153, 0.15);
             }
+
             .terminal-line {
                 min-height: 1.2em;
             }
+
             .cursor {
                 display: inline-block;
                 width: 8px;
@@ -84,23 +115,17 @@
                 }
             }
 
-            /* Danger Pulse */
             .danger-text {
                 color: var(--danger);
                 text-shadow: 0 0 5px var(--danger);
-                animation: pulse-danger 2s infinite ease-in-out;
+                animation: pulse 2s infinite;
             }
-            @keyframes pulse-danger {
-                0%,
-                100% {
-                    opacity: 1;
-                }
+            @keyframes pulse {
                 50% {
                     opacity: 0.7;
                 }
             }
 
-            /* ASCII Coloring */
             .p-crust {
                 color: var(--pizza-crust);
             }
@@ -119,8 +144,7 @@
 
             .section-title {
                 color: var(--accent);
-                margin: 4rem 0 2rem 0;
-                font-weight: bold;
+                margin: 4rem 0 2rem;
                 text-transform: uppercase;
                 letter-spacing: 2px;
                 border-bottom: 1px solid #1e2b22;
@@ -134,16 +158,14 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 2.5rem;
-                margin-bottom: 3rem;
             }
 
             .box {
                 border: 1px solid #1e2b22;
                 padding: 1.8rem;
                 background: rgba(20, 30, 20, 0.3);
-                text-decoration: none;
                 color: inherit;
-                display: block;
+                text-decoration: none;
             }
 
             .box-subtitle {
@@ -155,11 +177,11 @@
             .box-subtitle::before {
                 content: "# ";
             }
+
             .box ul {
                 list-style: none;
                 padding: 0;
                 margin: 0;
-                font-size: 0.95rem;
             }
             .box li {
                 margin-bottom: 12px;
@@ -170,73 +192,17 @@
                 margin-right: 10px;
             }
 
-            .terminal-link-wrapper {
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-                margin-top: 20px;
-            }
-            .t-link {
-                color: var(--accent);
-                text-decoration: none;
-                padding: 8px 18px;
-                border: 1px solid transparent;
-                transition: all 0.3s ease;
-                font-size: 0.95rem;
-            }
-            .t-link:hover {
-                border-color: var(--accent);
-                background: rgba(51, 255, 153, 0.1);
-                box-shadow: 0 0 25px var(--glow);
-                text-shadow: 0 0 10px var(--accent);
-            }
-
-            .glitch-bar {
-                display: inline-block;
-                margin-left: 10px;
-                font-weight: bold;
-            }
-            .roadmap-item:hover .glitch-bar {
-                animation: shake 0.15s infinite;
-                text-shadow:
-                    2px 0 rgba(255, 0, 80, 0.7),
-                    -2px 0 rgba(0, 255, 255, 0.7);
-                color: #fff;
-            }
-            .danger-zone:hover {
-                color: var(--danger) !important;
-                text-shadow: 0 0 10px var(--danger);
-            }
-            .roadmap-box:has(.danger-zone:hover) {
-                border-color: var(--danger) !important;
-            }
-
-            @keyframes shake {
-                0% {
-                    transform: translate(1px, 1px);
-                }
-                25% {
-                    transform: translate(-1px, -1px);
-                }
-                50% {
-                    transform: translate(-1px, 1px);
-                }
-                75% {
-                    transform: translate(1px, -1px);
-                }
-                100% {
-                    transform: translate(0, 0);
-                }
-            }
-
             .project-tag {
                 font-size: 0.65rem;
-                color: var(--muted);
-                border: 1px solid var(--muted);
-                padding: 2px 6px;
-                margin-right: 8px;
-                margin-top: 15px;
+                color: var(--accent);
+                border: 1px solid #1e2b22;
+                padding: 3px 7px;
+                margin-right: 6px;
+                margin-top: 14px;
                 display: inline-block;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                opacity: 0.85;
             }
 
             footer {
@@ -249,14 +215,13 @@
             }
             .footer-comment {
                 color: #1e2b22;
-                transition: 0.5s;
-                cursor: default;
             }
             .footer-comment:hover {
                 color: var(--muted);
             }
         </style>
     </head>
+
     <body>
         <div class="fixed-status">
             <span class="led-green">● SYSTEM_ONLINE</span>
@@ -268,190 +233,37 @@
                 <div id="terminal"></div>
             </header>
 
-            <section>
-                <div class="section-title">biography</div>
-                <p style="line-height: 1.8; font-size: 1.05rem">
-                    CompTIA A+ certified technician focused on Linux systems,
-                    networking, and cybersecurity. I learn by building homelabs,
-                    breaking things, fixing them, and helping others in the
-                    Linux community.
-                </p>
-            </section>
-
-            <div class="grid">
-                <div class="box">
-                    <div class="box-subtitle">core_skills</div>
-                    <ul>
-                        <li>Linux (Ubuntu/Debian/Arch)</li>
-                        <li>Networking fundamentals</li>
-                        <li>Security fundamentals</li>
-                        <li>Docker & Virtualization</li>
-                        <li>Hardware Diagnostics</li>
-                    </ul>
-                </div>
-
-                <div class="box roadmap-box">
-                    <div class="box-subtitle">cert_roadmap</div>
-                    <ul>
-                        <li class="roadmap-item">
-                            Net+
-                            <span class="glitch-bar">[#####-----] 50%</span>
-                        </li>
-                        <li class="roadmap-item">
-                            Sec+
-                            <span class="glitch-bar">[########--] 80%</span>
-                        </li>
-                        <li class="roadmap-item">
-                            Linux+
-                            <span class="glitch-bar">[########--] 80%</span>
-                        </li>
-                        <li class="roadmap-item danger-zone">
-                            PenTest+
-                            <span class="glitch-bar">[----------] 0%</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <section>
-                <div class="section-title">projects / repositories</div>
-                <div class="grid">
-                    <a
-                        href="https://github.com/Deoxizn/omarchy-space-bound-theme"
-                        class="box"
-                        target="_blank"
-                    >
-                        <div class="box-subtitle">omarchy-space-bound</div>
-                        <p style="font-size: 0.9rem; opacity: 0.9">
-                            Visual overhaul for desktop environments.
-                            Space-bound aesthetic with dark-matter tones.
-                        </p>
-                        <span class="project-tag">CSS</span
-                        ><span class="project-tag">HYPRLAND</span>
-                    </a>
-                    <a
-                        href="https://github.com/Deoxizn/waybars"
-                        class="box"
-                        target="_blank"
-                    >
-                        <div class="box-subtitle">waybar_configs</div>
-                        <p style="font-size: 0.9rem; opacity: 0.9">
-                            Modular JSON/CSS layouts for Wayland bars.
-                        </p>
-                        <span class="project-tag">JSON</span
-                        ><span class="project-tag">CSS</span>
-                    </a>
-                    <a
-                        href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
-                        class="box"
-                        target="_blank"
-                    >
-                        <div class="box-subtitle">CLUG_Portal</div>
-                        <p style="font-size: 0.9rem; opacity: 0.9">
-                            Community portal for the Cochise Linux Users Group.
-                        </p>
-                        <span class="project-tag">GITHUB_PAGES</span
-                        ><span class="project-tag">COMMUNITY</span>
-                    </a>
-                </div>
-            </section>
-
-            <section>
-                <div class="section-title">homelab_manifest</div>
-                <div class="grid">
-                    <div class="box">
-                        <div class="box-subtitle">multimedia</div>
-                        <ul>
-                            <li>Plex</li>
-                            <li>Tautulli</li>
-                            <li>Komga</li>
-                            <li>FreshRSS</li>
-                            <li>MKVToolnix</li>
-                        </ul>
-                    </div>
-                    <div class="box">
-                        <div class="box-subtitle">infrastructure</div>
-                        <ul>
-                            <li>Nginx Proxy Manager</li>
-                            <li>Watchtower</li>
-                            <li>Dockage</li>
-                            <li>CasaOS</li>
-                        </ul>
-                    </div>
-                    <div class="box">
-                        <div class="box-subtitle">utilities</div>
-                        <ul>
-                            <li>Karakeep</li>
-                            <li>qBittorrent</li>
-                            <li>SLSKD</li>
-                            <li>MeTube</li>
-                            <li>VaultWarden</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <div class="section-title">contact</div>
-                <div class="terminal-link-wrapper">
-                    <a
-                        href="javascript:void(0)"
-                        class="t-link"
-                        id="copyEmail"
-                        onclick="copyEmailToClipboard()"
-                        >[ EMAIL_COPY ]</a
-                    >
-                    <a
-                        href="https://github.com/Deoxizn"
-                        class="t-link"
-                        target="_blank"
-                        >[ GITHUB ]</a
-                    >
-                    <a
-                        href="https://www.linkedin.com/in/david-garcia-318a3ba7/"
-                        class="t-link"
-                        target="_blank"
-                        >[ LINKEDIN ]</a
-                    >
-                    <a
-                        href="David_Garcia_General_Resume.pdf"
-                        class="t-link"
-                        target="_blank"
-                        >[ Resume ]</a
-                    >
-                </div>
-            </section>
-
             <footer>
                 DEVI GARCIA — DIRTY.PIZZA<br />
                 SERIOUS SYSTEMS. QUESTIONABLE DOMAIN.<br />
                 NODE STATUS: ACTIVE<br />
-                © 2025-2026 INTERNAL_MAINFRAME<br />
+                © 2025–2026 INTERNAL_MAINFRAME<br />
+                <span class="footer-comment"># hint: try typing 'pizza'</span
+                ><br />
                 <span class="footer-comment"
-                    >// tip: type 'pizza' to initialize slice_delivery.sh</span
+                    ># warning: malformed input may trigger access
+                    violations</span
                 >
             </footer>
         </div>
 
         <script>
-            function updateClock() {
-                const now = new Date();
-                document.getElementById("clock").innerText =
-                    now.toLocaleTimeString([], { hour12: false });
-            }
-            setInterval(updateClock, 1000);
-            updateClock();
+            const isMobile = matchMedia("(max-width:768px)").matches;
+            const CHAR = isMobile ? 45 : 28;
+            const LINE = isMobile ? 420 : 250;
 
             const terminal = document.getElementById("terminal");
             const output = [
-                "Last login: Tue on tty1\n",
+                "Last login: Tue Feb 06 23:41:02 on tty1\n",
                 "Unauthorized toppings will be removed.\n",
                 "",
                 "$ whoami",
-                "Devi Garcia\n",
+                "devi\n",
                 "",
                 "$ neofetch",
                 "OS: Linux",
+                "Host: dirty.pizza",
+                "Kernel: 6.x",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
                 "Shell: bash\n",
@@ -468,98 +280,63 @@
                 "   --------------",
             ];
 
-            let line = 0;
-            let char = 0;
+            let l = 0,
+                c = 0;
 
             function type() {
-                if (line >= output.length) {
+                if (l >= output.length) {
                     terminal.innerHTML += '<span class="cursor"></span>';
                     return;
                 }
-                if (char === 0) {
-                    const lineDiv = document.createElement("div");
-                    lineDiv.className = "terminal-line";
-                    if (line === 1) lineDiv.classList.add("danger-text");
-                    terminal.appendChild(lineDiv);
+                if (c === 0) {
+                    const d = document.createElement("div");
+                    d.className = "terminal-line";
+                    if (l === 1) d.classList.add("danger-text");
+                    terminal.appendChild(d);
                 }
 
-                const current = output[line];
+                const line = output[l];
                 const el = terminal.lastChild;
 
-                if (current === "") {
+                if (line === "") {
                     el.innerHTML = "&nbsp;";
-                    line++;
-                    char = 0;
-                    setTimeout(type, 150);
+                    l++;
+                    c = 0;
+                    setTimeout(type, LINE);
                     return;
                 }
 
-                let charToType = current.charAt(char);
+                const ch = line[c];
+                if (ch === "*")
+                    el.innerHTML += `<span class="p-topping">*</span>`;
+                else if (ch === "-")
+                    el.innerHTML += `<span class="p-crust">-</span>`;
+                else el.textContent += ch;
 
-                if (line >= 14 && line <= 20) {
-                    if (charToType === "*")
-                        el.innerHTML += `<span class="p-topping">*</span>`;
-                    else el.innerHTML += charToType;
-                } else if (line === 21) {
-                    el.innerHTML += `<span class="p-crust">${charToType}</span>`;
-                } else {
-                    el.textContent += charToType;
-                }
-
-                char++;
-
-                if (char === current.length) {
-                    line++;
-                    char = 0;
-                    setTimeout(type, 250);
-                } else {
-                    setTimeout(type, 28);
-                }
+                c++;
+                setTimeout(() => {
+                    c === line.length
+                        ? (l++, (c = 0), setTimeout(type, LINE))
+                        : type();
+                }, CHAR);
             }
-            setTimeout(type, 500);
+            setTimeout(type, 600);
 
-            let buffer = "";
-            window.addEventListener("keydown", (e) => {
-                // Ignore keys like Shift, Control, etc.
+            /* Easter egg */
+            let buf = "";
+            addEventListener("keydown", (e) => {
                 if (e.key.length > 1 && e.key !== "Enter") return;
-
-                buffer += e.key.toLowerCase();
-
-                if (buffer.includes("pizza")) {
-                    const secret = document.createElement("div");
-                    secret.style.color = "var(--accent)";
-                    secret.style.marginTop = "15px";
-                    secret.style.paddingLeft = "10px";
-                    secret.style.borderLeft = "2px solid var(--accent)";
-                    secret.innerHTML =
-                        "$ ./slice_delivery.sh --hot<br>[ OK ] 🍕 EXTRA_CHEESE_LOADED. Enjoy your slice, Devi.";
-                    terminal.appendChild(secret);
-                    buffer = "";
-                } else if (buffer.length >= 10) {
-                    // Trigger access denied if typing nonsense
-                    const error = document.createElement("div");
-                    error.className = "danger-text";
-                    error.style.marginTop = "10px";
-                    error.innerHTML =
-                        "[ ACCESS_DENIED ] : User lacks sudo privileges for terminal input.";
-                    terminal.appendChild(error);
-                    buffer = "";
-                    // Auto-remove error after 3 seconds
-                    setTimeout(() => error.remove(), 3000);
+                buf += e.key.toLowerCase();
+                if (buf.includes("pizza")) {
+                    terminal.innerHTML +=
+                        '<div style="color:var(--accent)">$ ./slice_delivery.sh --hot<br>[ OK ] EXTRA_CHEESE_LOADED.</div>';
+                    buf = "";
+                } else if (buf.length > 10) {
+                    terminal.innerHTML +=
+                        '<div class="danger-text">[ ACCESS_DENIED ] insufficient privileges</div>';
+                    buf = "";
                 }
             });
-
-            function copyEmailToClipboard() {
-                const email = "david.c.garcia4283@gmail.com";
-                const btn = document.getElementById("copyEmail");
-                navigator.clipboard.writeText(email).then(() => {
-                    const originalText = btn.innerText;
-                    btn.innerText = "[ COPIED! ]";
-                    setTimeout(() => {
-                        btn.innerText = originalText;
-                    }, 2000);
-                });
-            }
         </script>
     </body>
 </html>
