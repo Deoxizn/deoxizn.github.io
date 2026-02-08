@@ -33,6 +33,25 @@
                 text-shadow: 0 0 2px var(--glow);
             }
 
+            /* Update this section in your CSS */
+            .box ul {
+                list-style: none;
+                padding: 0;
+                font-size: 0.9rem; /* Matches your project description size */
+            }
+
+            .box li {
+                white-space: nowrap; /* Prevents text from wrapping to a second line */
+                overflow: hidden;
+                text-overflow: ellipsis; /* Adds '...' if the skill is too long for the box */
+            }
+
+            li::before {
+                content: "> ";
+                color: var(--muted);
+                margin-right: 8px;
+            }
+
             /* CRT Overlay Effect */
             .crt-overlay {
                 position: fixed;
@@ -351,11 +370,11 @@
                 <div class="box">
                     <div class="section-title">skills</div>
                     <ul>
-                        <li>Linux (Ubuntu, Debian, Arch-based)</li>
-                        <li>System & hardware troubleshooting</li>
-                        <li>Networking fundamentals</li>
-                        <li>Virtualization (docker) & homelabs</li>
-                        <li>Security fundamentals</li>
+                        <li>Linux (Ubuntu, Debian, Arch)</li>
+                        <li>System & Hardware Troubleshooting</li>
+                        <li>Networking Fundamentals</li>
+                        <li>Virtualization & Docker</li>
+                        <li>Security Fundamentals</li>
                     </ul>
                 </div>
 
