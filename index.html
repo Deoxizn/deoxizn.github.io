@@ -33,7 +33,16 @@
                 text-shadow: 0 0 2px var(--glow);
             }
 
-            /* Wider grid columns to prevent word wrapping */
+            .box .section-title {
+                margin-bottom: 0.8rem;
+                border-bottom: 1px dashed rgba(51, 255, 153, 0.2);
+                padding-bottom: 5px;
+            }
+
+            .box .section-title::before {
+                content: "# "; /* Different prefix for sub-sections */
+            }
+
             .grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -41,17 +50,39 @@
                 margin-top: 1rem;
             }
 
+            .box {
+                border: 1px solid #1e2b22;
+                padding: 1.2rem;
+                background: rgba(20, 30, 20, 0.2);
+                transition:
+                    transform 0.2s ease,
+                    border-color 0.2s ease;
+            }
+
+            .box:hover {
+                transform: translateY(-3px);
+                border-color: var(--accent);
+            }
+
             .box ul {
                 list-style: none;
                 padding: 0;
                 font-size: 0.85rem;
+                letter-spacing: -0.2px;
             }
 
             .box li {
                 line-height: 1.6;
-                margin-bottom: 8px;
+                margin-bottom: 12px; /* Space between each list item */
                 position: relative;
-                display: block; /* Standard block behavior to prevent weird flex wraps */
+                display: block; /* Changed from flex to block to allow margin-top on children */
+            }
+
+            /* Keep the ">" for standard list items but not progress bars */
+            .box li::before {
+                content: "> ";
+                color: var(--muted);
+                margin-right: 8px;
             }
 
             /* The Copy Icon Style */
@@ -69,33 +100,29 @@
             .box li:hover .copy-skill {
                 opacity: 1;
             }
-
             .copy-skill:hover {
                 color: var(--accent);
             }
 
-            /* Better top section formatting */
-            .box ul {
-                list-style: none;
-                padding: 0;
-                font-size: 0.85rem; /* Slightly smaller to prevent wrap */
-                letter-spacing: -0.2px; /* Tightens text for longer words like Troubleshooting */
+            /* Progress Bar Styles */
+            .glitch-bar {
+                display: block; /* Forces it to the next line */
+                font-family: inherit;
+                font-size: 0.8rem;
+                position: relative;
+                cursor: default;
+                margin-top: 8px; /* THIS IS YOUR VERTICAL SPACE */
+                margin-left: 18px; /* Aligns it under the text, past the "> " */
             }
 
-            .box li {
-                line-height: 1.6;
-                margin-bottom: 4px;
-                display: flex; /* Ensures the ">" stays aligned with the text */
+            .glitch-bar:hover {
+                animation: bar-jitter 0.2s infinite;
+                text-shadow:
+                    2px 0 var(--glow),
+                    -2px 0 rgba(255, 0, 0, 0.2);
             }
 
-            li::before {
-                content: "> ";
-                color: var(--muted);
-                margin-right: 8px;
-                flex-shrink: 0; /* Prevents the arrow from squishing */
-            }
-
-            /* CRT Overlay Effect */
+            /* CRT & Terminal Effects */
             .crt-overlay {
                 position: fixed;
                 top: 0;
@@ -147,148 +174,6 @@
                 }
             }
 
-            /* STATUS & CLOCK */
-            .status-container {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                gap: 5px;
-                font-size: 0.75rem;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                color: var(--accent);
-                z-index: 998;
-            }
-
-            .status-row {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .status-dot {
-                width: 8px;
-                height: 8px;
-                background-color: var(--accent);
-                border-radius: 50%;
-                box-shadow: 0 0 8px var(--accent);
-                animation: pulse 2s infinite;
-            }
-
-            @keyframes pulse {
-                0% {
-                    opacity: 1;
-                    box-shadow: 0 0 8px var(--accent);
-                }
-                50% {
-                    opacity: 0.3;
-                    box-shadow: 0 0 2px var(--accent);
-                }
-                100% {
-                    opacity: 1;
-                    box-shadow: 0 0 8px var(--accent);
-                }
-            }
-
-            .clock {
-                font-family: inherit;
-                color: var(--muted);
-                min-width: 100px;
-                text-align: right;
-            }
-
-            .container {
-                max-width: 1100px;
-                margin: 0 auto;
-                padding: 2rem 1.5rem;
-                position: relative;
-                z-index: 1;
-            }
-
-            header {
-                display: grid;
-                grid-template-columns: 1fr auto;
-                gap: 2rem;
-                align-items: start;
-                min-height: 420px;
-            }
-
-            .terminal-line {
-                white-space: pre-wrap;
-                min-height: 1.2em;
-                margin-bottom: 2px;
-            }
-
-            .cursor {
-                display: inline-block;
-                width: 10px;
-                height: 1.1em;
-                background: var(--accent);
-                animation: blink 1s steps(1) infinite;
-                margin-left: 4px;
-                vertical-align: middle;
-            }
-
-            @keyframes blink {
-                50% {
-                    opacity: 0;
-                }
-            }
-
-            section {
-                margin-top: 3.5rem;
-            }
-            .section-title {
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                margin-bottom: 1rem;
-                color: var(--accent);
-            }
-            .section-title::before {
-                content: "$ ";
-            }
-
-            .grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 1.5rem;
-                margin-top: 1rem;
-            }
-
-            .box {
-                border: 1px solid #1e2b22;
-                padding: 1.2rem;
-                background: rgba(20, 30, 20, 0.2);
-                transition:
-                    transform 0.2s ease,
-                    border-color 0.2s ease;
-            }
-
-            .box:hover {
-                transform: translateY(-3px);
-                border-color: var(--accent);
-            }
-
-            /* Progress Bar Glitch Effect */
-            .glitch-bar {
-                display: inline-block;
-                font-family: inherit;
-                font-size: 0.8rem;
-                position: relative;
-                cursor: default;
-                margin-top: 6px; /* Space between text and bar */
-            }
-
-            .glitch-bar:hover {
-                animation: bar-jitter 0.2s infinite;
-                text-shadow:
-                    2px 0 var(--glow),
-                    -2px 0 rgba(255, 0, 0, 0.2);
-            }
-
             @keyframes bar-jitter {
                 0% {
                     transform: translate(0);
@@ -304,79 +189,8 @@
                     transform: translate(1px, 0.5px);
                     opacity: 0.9;
                 }
-                80% {
-                    transform: translate(0);
-                }
                 100% {
                     transform: translate(1px, -1px);
-                }
-            }
-
-            .project-tag {
-                font-size: 0.7rem;
-                color: var(--muted);
-                border: 1px solid var(--muted);
-                padding: 2px 5px;
-                margin-right: 5px;
-                display: inline-block;
-                margin-top: 10px;
-            }
-
-            a,
-            .copy-btn {
-                color: var(--accent);
-                text-decoration: none;
-                transition: all 0.2s ease;
-                padding: 0 4px;
-                cursor: pointer;
-                background: transparent;
-                border: none;
-                font-family: inherit;
-                font-size: inherit;
-            }
-
-            a:hover,
-            .copy-btn:hover {
-                background: var(--accent);
-                color: var(--bg);
-                box-shadow: 0 0 10px var(--accent);
-                text-shadow: none;
-            }
-
-            ul {
-                list-style: none;
-                padding: 0;
-            }
-            li::before {
-                content: "> ";
-                color: var(--muted);
-                margin-right: 8px;
-            }
-
-            footer {
-                margin-top: 5rem;
-                padding-top: 2rem;
-                border-top: 1px solid #1e2b22;
-                color: var(--muted);
-                font-size: 0.85rem;
-                line-height: 1.6;
-            }
-
-            .footer-hint {
-                margin-top: 10px;
-                font-style: italic;
-                opacity: 0.6;
-                font-size: 0.75rem;
-            }
-
-            @media (max-width: 800px) {
-                header {
-                    grid-template-columns: 1fr;
-                    min-height: auto;
-                }
-                .status-container {
-                    top: 10px;
-                    right: 10px;
                 }
             }
         </style>
@@ -555,6 +369,140 @@
                         <span class="project-tag">Hyprland</span>
                         <span class="project-tag">Rice</span>
                         <span class="project-tag">Wayland</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">homelab / services</div>
+                <div class="grid">
+                    <div class="box">
+                        <div
+                            class="section-title"
+                            style="font-size: 0.8rem; opacity: 0.8"
+                        >
+                            multimedia & streaming
+                        </div>
+                        <ul>
+                            <li>
+                                Plex Media Server
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('Plex')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                Tautulli (Monitoring)
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('Tautulli')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                Komga (Comics/Manga)
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('Komga')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                FreshRSS
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('FreshRSS')"
+                                    >⎘</span
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="box">
+                        <div
+                            class="section-title"
+                            style="font-size: 0.8rem; opacity: 0.8"
+                        >
+                            infrastructure & docker
+                        </div>
+                        <ul>
+                            <li>
+                                Nginx Proxy Manager
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('Nginx Proxy Manager')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                Watchtower (Auto-updates)
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('Watchtower')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                Dockge / CasaOS
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('Docker Stack')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                Synology DSM (NAS)
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('Synology NAS')"
+                                    >⎘</span
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="box">
+                        <div
+                            class="section-title"
+                            style="font-size: 0.8rem; opacity: 0.8"
+                        >
+                            download & automation
+                        </div>
+                        <ul>
+                            <li>
+                                qBittorrent / jDownloader
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('qBittorrent')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                SLSKD
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('SLSKD')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                MeTube (YouTube-DL)
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('MeTube')"
+                                    >⎘</span
+                                >
+                            </li>
+                            <li>
+                                VaultWarden (Bitwarden)
+                                <span
+                                    class="copy-skill"
+                                    onclick="copyText('VaultWarden')"
+                                    >⎘</span
+                                >
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </section>
