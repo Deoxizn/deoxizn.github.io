@@ -41,13 +41,11 @@
                 grid-template-columns: 1fr auto;
                 gap: 2rem;
                 align-items: start;
-                min-height: 400px; /* Prevents layout jump when clearing */
             }
 
             /* TERMINAL */
             .terminal-line {
                 white-space: pre-wrap;
-                min-height: 1.2em;
             }
 
             .prompt {
@@ -61,7 +59,6 @@
                 background: var(--accent);
                 animation: blink 1s steps(1) infinite;
                 margin-left: 4px;
-                vertical-align: middle;
             }
 
             @keyframes blink {
@@ -70,10 +67,23 @@
                 }
             }
 
+            /* ASCII */
+            .ascii-wrapper {
+                display: block;
+            }
+
+            .ascii {
+                font-size: 14px;
+                line-height: 1.2;
+                white-space: pre;
+                margin: 0;
+                padding: 0;
+                color: var(--muted);
+            }
+
             /* SECTIONS */
             section {
                 margin-top: 3.5rem;
-                scroll-margin-top: 2rem;
             }
 
             .section-title::before {
@@ -106,6 +116,9 @@
                 header {
                     grid-template-columns: 1fr;
                 }
+                .ascii-wrapper {
+                    margin-top: 2rem;
+                }
             }
         </style>
     </head>
@@ -116,7 +129,7 @@
                 <div id="terminal"></div>
             </header>
 
-            <section id="about">
+            <section>
                 <div class="section-title">about</div>
                 <p>
                     CompTIA A+ certified technician focused on Linux systems,
@@ -180,31 +193,28 @@
 
             const output = [
                 "Last login: Tue on tty1\n",
-                "Welcome to dirty.pizza",
                 "Unauthorized toppings will be removed.\n",
 
-                "devi@dirty-pizza:~$ whoami",
+                "$ whoami",
                 "Devi Garcia\n",
 
-                "devi@dirty-pizza:~$ neofetch",
+                "$ neofetch",
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
                 "Shell: bash\n",
 
-                "", // Added space between bash and next command
-
-                "devi@dirty-pizza:~$ cat /etc/domain",
+                "$ cat /etc/domain",
                 "dirty.pizza\n",
 
-                "devi@dirty-pizza:~$ ls /projects",
-                "homelab-v1  nmap-scripts  ansible-playbooks  pizza-logger\n",
-
-                "devi@dirty-pizza:~$ clear",
-                "ACTION_CLEAR",
-
-                "devi@dirty-pizza:~$ exit",
-                "logout",
+                "       /\\",
+                "      /**\\",
+                "     /****\\",
+                "    /******\\",
+                "   /********\\",
+                "  /**********\\",
+                " /************\\",
+                " --------------\n",
             ];
 
             let line = 0;
@@ -216,53 +226,25 @@
                     return;
                 }
 
-                const current = output[line];
-
-                // Logic for 'clear'
-                if (current === "ACTION_CLEAR") {
-                    setTimeout(() => {
-                        terminal.innerHTML = "";
-                        line++;
-                        type();
-                    }, 600);
-                    return;
-                }
-
                 if (char === 0) {
                     terminal.innerHTML += '<div class="terminal-line"></div>';
                 }
 
+                const current = output[line];
                 const el = terminal.lastChild;
-
-                // Handle the empty space line
-                if (current === "") {
-                    line++;
-                    setTimeout(type, 200);
-                    return;
-                }
 
                 el.textContent += current.charAt(char);
                 char++;
 
                 if (char === current.length) {
-                    // Logic for 'exit'
-                    if (current.includes("exit")) {
-                        setTimeout(() => {
-                            document
-                                .getElementById("about")
-                                .scrollIntoView({ behavior: "smooth" });
-                        }, 500);
-                    }
-
                     line++;
                     char = 0;
-                    setTimeout(type, 300);
+                    setTimeout(type, 250);
                 } else {
-                    setTimeout(type, 25);
+                    setTimeout(type, 28);
                 }
             }
 
-            // Start typing
             type();
         </script>
     </body>
