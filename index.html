@@ -276,14 +276,13 @@
             .glitch-bar {
                 display: inline-block;
                 font-family: inherit;
-                color: var(--muted);
                 font-size: 0.8rem;
                 position: relative;
                 cursor: default;
+                margin-top: 6px; /* Space between text and bar */
             }
 
             .glitch-bar:hover {
-                color: var(--accent);
                 animation: bar-jitter 0.2s infinite;
                 text-shadow:
                     2px 0 var(--glow),
@@ -466,20 +465,41 @@
                     <div class="section-title">learning roadmap</div>
                     <ul style="line-height: 1.8">
                         <li>
-                            ⏳ CompTIA Network+ <br />
-                            <span class="glitch-bar">[#####-----] 50%</span>
+                            ⏳ CompTIA Network+
+                            <span class="glitch-bar" style="display: block">
+                                <span style="color: var(--accent)">[#####</span
+                                ><span style="color: var(--muted)"
+                                    >-----] 50%</span
+                                >
+                            </span>
                         </li>
                         <li>
-                            ⏳ CompTIA Security+ <br />
-                            <span class="glitch-bar">[########--] 80%</span>
+                            ⏳ CompTIA Security+
+                            <span class="glitch-bar" style="display: block">
+                                <span style="color: var(--accent)"
+                                    >[########</span
+                                ><span style="color: var(--muted)"
+                                    >--] 80%</span
+                                >
+                            </span>
                         </li>
                         <li>
-                            ⏳ CompTIA Linux+ <br />
-                            <span class="glitch-bar">[########--] 80%</span>
+                            ⏳ CompTIA Linux+
+                            <span class="glitch-bar" style="display: block">
+                                <span style="color: var(--accent)"
+                                    >[########</span
+                                ><span style="color: var(--muted)"
+                                    >--] 80%</span
+                                >
+                            </span>
                         </li>
                         <li>
-                            🔜 CompTIA PenTest+ <br />
-                            <span class="glitch-bar">[----------] 0%</span>
+                            🔜 CompTIA PenTest+
+                            <span class="glitch-bar" style="display: block">
+                                <span style="color: var(--muted)"
+                                    >[----------] 0%</span
+                                >
+                            </span>
                         </li>
                     </ul>
                 </div>
