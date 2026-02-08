@@ -17,7 +17,7 @@
                 --muted: #4e6a4e;
                 --accent: #33ff99;
                 --danger: #ff3333;
-                --glow: rgba(51, 255, 153, 0.4);
+                --glow: rgba(51, 255, 153, 0.6);
                 --glitch-red: rgba(255, 0, 80, 0.7);
                 --glitch-blue: rgba(0, 255, 255, 0.7);
             }
@@ -35,7 +35,7 @@
                 overflow-x: hidden;
             }
 
-            /* LED Floating Status (Top Right) */
+            /* LED Floating Status */
             .fixed-status {
                 position: fixed;
                 top: 25px;
@@ -61,9 +61,9 @@
                 font-weight: bold;
             }
 
-            /* TERMINAL STYLING */
+            /* TERMINAL */
             #terminal {
-                min-height: 400px;
+                min-height: 420px;
                 white-space: pre-wrap;
                 line-height: 1.4;
             }
@@ -82,30 +82,6 @@
                 50% {
                     opacity: 0;
                 }
-            }
-
-            .ascii {
-                font-size: 14px;
-                line-height: 1.2;
-                white-space: pre;
-                margin: 0;
-                padding: 0;
-                color: var(--muted);
-            }
-
-            #redirect-loader {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: var(--bg);
-                z-index: 2000;
-                display: none;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                color: var(--accent);
             }
 
             .container {
@@ -175,7 +151,29 @@
                 margin-right: 10px;
             }
 
-            /* Glitch Progress Bars */
+            /* Contact Terminal Links */
+            .terminal-link-wrapper {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                margin-top: 20px;
+            }
+            .t-link {
+                color: var(--accent);
+                text-decoration: none;
+                padding: 5px 15px;
+                border: 1px solid transparent;
+                transition: all 0.3s ease;
+                font-size: 0.9rem;
+            }
+            .t-link:hover {
+                border-color: var(--accent);
+                background: rgba(51, 255, 153, 0.1);
+                box-shadow: 0 0 20px var(--glow);
+                text-shadow: 0 0 8px var(--accent);
+            }
+
+            /* Glitch Effects */
             .glitch-bar {
                 display: inline-block;
                 margin-left: 10px;
@@ -188,7 +186,6 @@
                     -2px 0 var(--glitch-blue);
                 color: #fff;
             }
-
             .danger-zone:hover {
                 color: var(--danger) !important;
                 text-shadow: 0 0 10px var(--danger);
@@ -233,36 +230,12 @@
                 font-size: 0.85rem;
                 line-height: 2;
             }
-            .hint {
-                color: #0d120e;
-                cursor: default;
-                transition: 0.8s;
-                font-size: 0.7rem;
-            }
-            .hint:hover {
-                color: var(--muted);
-            }
-
-            .copy-btn {
-                background: none;
-                border: 1px solid var(--muted);
-                color: var(--muted);
-                cursor: pointer;
-                padding: 4px 12px;
-                font-family: inherit;
-                font-size: 0.8rem;
-            }
         </style>
     </head>
     <body>
         <div class="fixed-status">
             <span class="led-green">● SYSTEM_ONLINE</span>
             <div id="clock">00:00:00</div>
-        </div>
-
-        <div id="redirect-loader">
-            <div id="loader-msg">ACCESSING_REMOTE_SOURCE...</div>
-            <div id="loader-bar">[----------]</div>
         </div>
 
         <div class="container">
@@ -276,7 +249,6 @@
                     CompTIA A+ certified technician specializing in Linux
                     environments and network security. I focus on automating
                     infrastructure and exploring cybersecurity vulnerabilities.
-                    <span class="hint">(tip: try typing the domain name)</span>
                 </p>
             </section>
 
@@ -315,11 +287,12 @@
             </div>
 
             <section>
-                <div class="section-title">repositories</div>
+                <div class="section-title">projects / repositories</div>
                 <div class="grid">
                     <a
                         href="https://github.com/Deoxizn/omarchy-space-bound-theme"
-                        class="box project-link"
+                        class="box"
+                        target="_blank"
                     >
                         <div class="box-subtitle">omarchy-space-bound</div>
                         <p style="font-size: 0.9rem; opacity: 0.9">
@@ -331,7 +304,8 @@
                     </a>
                     <a
                         href="https://github.com/Deoxizn/waybars"
-                        class="box project-link"
+                        class="box"
+                        target="_blank"
                     >
                         <div class="box-subtitle">waybar_configs</div>
                         <p style="font-size: 0.9rem; opacity: 0.9">
@@ -342,7 +316,8 @@
                     </a>
                     <a
                         href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
-                        class="box project-link"
+                        class="box"
+                        target="_blank"
                     >
                         <div class="box-subtitle">CLUG_Portal</div>
                         <p style="font-size: 0.9rem; opacity: 0.9">
@@ -355,62 +330,28 @@
             </section>
 
             <section>
-                <div class="section-title">homelab_manifest</div>
-                <div class="grid">
-                    <div class="box">
-                        <div class="box-subtitle">multimedia</div>
-                        <ul>
-                            <li>Plex</li>
-                            <li>Tautulli</li>
-                            <li>Komga</li>
-                            <li>FreshRSS</li>
-                        </ul>
-                    </div>
-                    <div class="box">
-                        <div class="box-subtitle">infrastructure</div>
-                        <ul>
-                            <li>Nginx Proxy Manager</li>
-                            <li>Watchtower</li>
-                            <li>CasaOS</li>
-                        </ul>
-                    </div>
-                    <div class="box">
-                        <div class="box-subtitle">utilities</div>
-                        <ul>
-                            <li>qBittorrent</li>
-                            <li>SLSKD</li>
-                            <li>MeTube</li>
-                            <li>VaultWarden</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section>
                 <div class="section-title">contact</div>
-                <p>
-                    <button
-                        class="copy-btn"
+                <div class="terminal-link-wrapper">
+                    <a
+                        href="javascript:void(0)"
+                        class="t-link"
                         id="copyEmail"
                         onclick="copyEmailToClipboard()"
+                        >[ EMAIL_COPY ]</a
                     >
-                        EMAIL_COPY
-                    </button>
-                    |
                     <a
                         href="https://github.com/Deoxizn"
+                        class="t-link"
                         target="_blank"
-                        style="margin-left: 15px"
-                        >GITHUB</a
+                        >[ GITHUB ]</a
                     >
-                    |
                     <a
                         href="https://www.linkedin.com/in/david-garcia-318a3ba7/"
+                        class="t-link"
                         target="_blank"
-                        style="margin-left: 15px"
-                        >LINKEDIN</a
+                        >[ LINKEDIN ]</a
                     >
-                </p>
+                </div>
             </section>
 
             <footer>
@@ -421,7 +362,6 @@
         </div>
 
         <script>
-            // --- CLOCK ---
             function updateClock() {
                 const now = new Date();
                 document.getElementById("clock").innerText =
@@ -430,12 +370,12 @@
             setInterval(updateClock, 1000);
             updateClock();
 
-            // --- YOUR TERMINAL LOGIC ---
             const terminal = document.getElementById("terminal");
             const output = [
                 "Last login: Tue on tty1\n",
                 "Welcome to dirty.pizza",
                 "Unauthorized toppings will be removed.\n",
+                "", // Spacer between removed and whoami
                 "$ whoami",
                 "Devi Garcia\n",
                 "", // Spacer
@@ -443,8 +383,7 @@
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
-                "Shell: bash",
-                "Domain: dirty.pizza\n",
+                "Shell: bash\n", // Domain line removed
                 "", // Spacer
                 "$ cat /etc/domain",
                 "dirty.pizza\n",
@@ -455,7 +394,7 @@
                 "     /********\\",
                 "    /**********\\",
                 "   /************\\",
-                "    --------------",
+                "   --------------", // Space removed from right
             ];
 
             let line = 0;
@@ -466,7 +405,6 @@
                     terminal.innerHTML += '<span class="cursor"></span>';
                     return;
                 }
-
                 if (char === 0) {
                     terminal.innerHTML += '<div class="terminal-line"></div>';
                 }
@@ -474,12 +412,11 @@
                 const current = output[line];
                 const el = terminal.lastChild;
 
-                // Handle empty string spacers
                 if (current === "") {
                     el.innerHTML = "&nbsp;";
                     line++;
                     char = 0;
-                    setTimeout(type, 100);
+                    setTimeout(type, 150);
                     return;
                 }
 
@@ -496,40 +433,14 @@
             }
             setTimeout(type, 500);
 
-            // --- REDIRECT LOADER ---
-            document.querySelectorAll(".project-link").forEach((link) => {
-                link.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    const url = this.href;
-                    document.getElementById("redirect-loader").style.display =
-                        "flex";
-                    setTimeout(() => {
-                        window.location.href = url;
-                    }, 1200);
-                });
-            });
-
-            // --- EASTER EGG ---
-            let buffer = "";
-            window.addEventListener("keydown", (e) => {
-                buffer += e.key.toLowerCase();
-                if (buffer.includes("pizza")) {
-                    const secret = document.createElement("div");
-                    secret.style.color = "var(--accent)";
-                    secret.innerHTML =
-                        "$ sudo get-pizza --extra-cheese<br>[ OK ] 🍕 PIZZA_MODE ACTIVE";
-                    terminal.appendChild(secret);
-                    buffer = "";
-                }
-            });
-
             function copyEmailToClipboard() {
                 const email = "david.c.garcia4283@gmail.com";
                 const btn = document.getElementById("copyEmail");
                 navigator.clipboard.writeText(email).then(() => {
-                    btn.innerText = "COPIED!";
+                    const originalText = btn.innerText;
+                    btn.innerText = "[ COPIED! ]";
                     setTimeout(() => {
-                        btn.innerText = "EMAIL_COPY";
+                        btn.innerText = originalText;
                     }, 2000);
                 });
             }
