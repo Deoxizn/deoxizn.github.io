@@ -204,19 +204,19 @@
                 "Cert: CompTIA A+",
                 "Shell: bash\n",
 
-                "", // empty space
+                "", // This adds the empty space you requested
 
                 "$ cat /etc/domain",
                 "dirty.pizza\n",
 
-                "       /\\",
-                "      /**\\",
-                "     /****\\",
-                "    /******\\",
-                "   /********\\",
-                "  /**********\\",
-                " /************\\",
-                " --------------\n",
+                "        /\\",
+                "       /**\\",
+                "      /****\\",
+                "     /******\\",
+                "    /********\\",
+                "   /**********\\",
+                "  /************\\",
+                "  --------------\n",
             ];
 
             let line = 0;
@@ -234,6 +234,13 @@
 
                 const current = output[line];
                 const el = terminal.lastChild;
+
+                // Handle empty lines immediately to avoid a typing delay on nothing
+                if (current === "") {
+                    line++;
+                    setTimeout(type, 100);
+                    return;
+                }
 
                 el.textContent += current.charAt(char);
                 char++;
