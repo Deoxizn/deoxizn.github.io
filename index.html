@@ -85,6 +85,45 @@
                 }
             }
 
+            /* --- STATUS INDICATOR --- */
+            .status-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--accent);
+                z-index: 998;
+            }
+
+            .status-dot {
+                width: 8px;
+                height: 8px;
+                background-color: var(--accent);
+                border-radius: 50%;
+                box-shadow: 0 0 8px var(--accent);
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0% {
+                    opacity: 1;
+                    box-shadow: 0 0 8px var(--accent);
+                }
+                50% {
+                    opacity: 0.3;
+                    box-shadow: 0 0 2px var(--accent);
+                }
+                100% {
+                    opacity: 1;
+                    box-shadow: 0 0 8px var(--accent);
+                }
+            }
+
             .container {
                 max-width: 1100px;
                 margin: 0 auto;
@@ -187,12 +226,23 @@
                     grid-template-columns: 1fr;
                     min-height: auto;
                 }
+                .status-container {
+                    top: 10px;
+                    right: 10px;
+                    font-size: 0.6rem;
+                }
             }
         </style>
     </head>
 
     <body>
         <div class="crt-overlay"></div>
+
+        <div class="status-container">
+            <div class="status-dot"></div>
+            <span>System: Online</span>
+        </div>
+
         <div class="container">
             <header>
                 <div id="terminal"></div>
@@ -326,7 +376,7 @@
             let buffer = "";
             window.addEventListener("keydown", (e) => {
                 buffer += e.key.toLowerCase();
-                buffer = buffer.slice(-5); // Keep last 5 chars
+                buffer = buffer.slice(-5);
 
                 if (buffer === "pizza" && !isTypingSecret) {
                     triggerSecret();
@@ -343,7 +393,6 @@
                     "Stay hungry, stay secure. 🍕\n",
                 ];
 
-                // Remove cursor while secret types
                 const cursor = document.querySelector(".cursor");
                 if (cursor) cursor.remove();
 
