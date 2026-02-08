@@ -31,23 +31,83 @@
                     ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
                 overflow-x: hidden;
                 text-shadow: 0 0 2px var(--glow);
+                padding: 2rem;
             }
 
-            .box .section-title {
+            /* Status Dot and Pulse Animation */
+            .status-indicator {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-right: 10px;
+                background-color: var(--muted); /* Default to muted/offline */
+                transition: background-color 0.3s ease;
+            }
+
+            .status-online {
+                background-color: #00ff00;
+                box-shadow: 0 0 8px #00ff00;
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.2);
+                    opacity: 0.7;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            .container {
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+
+            /* Main Section Titles */
+            .section-title {
+                color: var(--accent);
+                margin-bottom: 1.5rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                border-bottom: 1px solid #1e2b22;
+                padding-bottom: 5px;
+                display: flex;
+                align-items: center;
+            }
+
+            .section-title::before {
+                content: "> ";
+            }
+
+            /* Sub-titles inside boxes */
+            .box-subtitle {
+                font-size: 0.8rem;
+                opacity: 0.8;
                 margin-bottom: 0.8rem;
                 border-bottom: 1px dashed rgba(51, 255, 153, 0.2);
                 padding-bottom: 5px;
+                color: var(--accent);
             }
 
-            .box .section-title::before {
-                content: "# "; /* Different prefix for sub-sections */
+            .box-subtitle::before {
+                content: "# ";
             }
 
             .grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 1.5rem;
                 margin-top: 1rem;
+                margin-bottom: 2rem;
             }
 
             .box {
@@ -67,59 +127,62 @@
             .box ul {
                 list-style: none;
                 padding: 0;
+                margin: 0;
                 font-size: 0.85rem;
-                letter-spacing: -0.2px;
             }
 
             .box li {
                 line-height: 1.6;
-                margin-bottom: 12px; /* Space between each list item */
+                margin-bottom: 8px;
                 position: relative;
-                display: block; /* Changed from flex to block to allow margin-top on children */
             }
 
-            /* Keep the ">" for standard list items but not progress bars */
             .box li::before {
                 content: "> ";
                 color: var(--muted);
                 margin-right: 8px;
             }
 
-            /* The Copy Icon Style */
+            /* Fix for progress bars - remove the ">" prefix */
+            .box .roadmap-item::before {
+                content: "";
+                margin-right: 0;
+            }
+
+            a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .project-tag {
+                font-size: 0.7rem;
+                background: #1e2b22;
+                padding: 2px 6px;
+                margin-right: 5px;
+                border-radius: 3px;
+                color: var(--muted);
+            }
+
             .copy-skill {
                 opacity: 0;
                 font-size: 0.7rem;
                 margin-left: 8px;
                 cursor: pointer;
                 color: var(--muted);
-                transition:
-                    opacity 0.2s,
-                    color 0.2s;
             }
 
             .box li:hover .copy-skill {
                 opacity: 1;
             }
-            .copy-skill:hover {
-                color: var(--accent);
-            }
 
-            /* Progress Bar Styles */
             .glitch-bar {
-                display: block; /* Forces it to the next line */
-                font-family: inherit;
+                display: block;
                 font-size: 0.8rem;
-                position: relative;
-                cursor: default;
-                margin-top: 8px; /* THIS IS YOUR VERTICAL SPACE */
-                margin-left: 18px; /* Aligns it under the text, past the "> " */
-            }
-
-            .glitch-bar:hover {
-                animation: bar-jitter 0.2s infinite;
-                text-shadow:
-                    2px 0 var(--glow),
-                    -2px 0 rgba(255, 0, 0, 0.2);
+                margin-top: 4px;
+                margin-left: 10px;
             }
 
             /* CRT & Terminal Effects */
@@ -147,51 +210,26 @@
                 pointer-events: none;
             }
 
-            body::after {
-                content: " ";
-                display: block;
-                position: fixed;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                background: rgba(18, 16, 16, 0.03);
-                opacity: 0;
-                z-index: 1000;
-                pointer-events: none;
-                animation: flicker 0.15s infinite;
+            footer {
+                margin-top: 4rem;
+                padding-top: 2rem;
+                border-top: 1px solid #1e2b22;
+                color: var(--muted);
+                font-size: 0.8rem;
+                text-align: center;
             }
 
-            @keyframes flicker {
-                0% {
-                    opacity: 0.97;
-                }
-                50% {
-                    opacity: 0.92;
-                }
-                100% {
-                    opacity: 0.96;
-                }
+            .copy-btn {
+                background: none;
+                border: 1px solid var(--muted);
+                color: var(--muted);
+                font-family: inherit;
+                cursor: pointer;
+                padding: 2px 8px;
             }
-
-            @keyframes bar-jitter {
-                0% {
-                    transform: translate(0);
-                }
-                20% {
-                    transform: translate(-1px, 1px);
-                    opacity: 0.8;
-                }
-                40% {
-                    transform: translate(-1px, -1px);
-                }
-                60% {
-                    transform: translate(1px, 0.5px);
-                    opacity: 0.9;
-                }
-                100% {
-                    transform: translate(1px, -1px);
-                }
+            .copy-btn:hover {
+                border-color: var(--accent);
+                color: var(--accent);
             }
         </style>
     </head>
@@ -199,17 +237,12 @@
     <body>
         <div class="crt-overlay"></div>
 
-        <div class="status-container">
-            <div class="status-row">
-                <div class="status-dot"></div>
-                <span>System: Online</span>
-            </div>
-            <div id="clock" class="clock"></div>
-        </div>
-
         <div class="container">
             <header>
-                <div id="terminal"></div>
+                <div
+                    id="terminal"
+                    style="min-height: 250px; margin-bottom: 2rem"
+                ></div>
             </header>
 
             <section>
@@ -222,29 +255,21 @@
                 </p>
             </section>
 
-            <section class="grid">
+            <div class="grid">
                 <div class="box">
-                    <div class="section-title">skills</div>
+                    <div class="box-subtitle">skills</div>
                     <ul>
                         <li>
                             Linux (Ubuntu, Debian, Arch)
-                            <span
-                                class="copy-skill"
-                                onclick="
-                                    copyText('Linux (Ubuntu, Debian, Arch)')
-                                "
+                            <span class="copy-skill" onclick="copyText('Linux')"
                                 >⎘</span
                             >
                         </li>
                         <li>
-                            System & Hardware Troubleshooting
+                            Hardware Troubleshooting
                             <span
                                 class="copy-skill"
-                                onclick="
-                                    copyText(
-                                        'System & Hardware Troubleshooting',
-                                    )
-                                "
+                                onclick="copyText('Hardware')"
                                 >⎘</span
                             >
                         </li>
@@ -252,7 +277,7 @@
                             Networking Fundamentals
                             <span
                                 class="copy-skill"
-                                onclick="copyText('Networking Fundamentals')"
+                                onclick="copyText('Networking')"
                                 >⎘</span
                             >
                         </li>
@@ -260,7 +285,7 @@
                             Virtualization & Docker
                             <span
                                 class="copy-skill"
-                                onclick="copyText('Virtualization & Docker')"
+                                onclick="copyText('Docker')"
                                 >⎘</span
                             >
                         </li>
@@ -268,7 +293,7 @@
                             Security Fundamentals
                             <span
                                 class="copy-skill"
-                                onclick="copyText('Security Fundamentals')"
+                                onclick="copyText('Security')"
                                 >⎘</span
                             >
                         </li>
@@ -276,48 +301,30 @@
                 </div>
 
                 <div class="box">
-                    <div class="section-title">learning roadmap</div>
-                    <ul style="line-height: 1.8">
-                        <li>
+                    <div class="box-subtitle">learning roadmap</div>
+                    <ul>
+                        <li class="roadmap-item">
                             ⏳ CompTIA Network+
-                            <span class="glitch-bar" style="display: block">
-                                <span style="color: var(--accent)">[#####</span
+                            <span class="glitch-bar"
+                                ><span style="color: var(--accent)">[#####</span
                                 ><span style="color: var(--muted)"
                                     >-----] 50%</span
-                                >
-                            </span>
+                                ></span
+                            >
                         </li>
-                        <li>
+                        <li class="roadmap-item">
                             ⏳ CompTIA Security+
-                            <span class="glitch-bar" style="display: block">
-                                <span style="color: var(--accent)"
+                            <span class="glitch-bar"
+                                ><span style="color: var(--accent)"
                                     >[########</span
                                 ><span style="color: var(--muted)"
                                     >--] 80%</span
-                                >
-                            </span>
-                        </li>
-                        <li>
-                            ⏳ CompTIA Linux+
-                            <span class="glitch-bar" style="display: block">
-                                <span style="color: var(--accent)"
-                                    >[########</span
-                                ><span style="color: var(--muted)"
-                                    >--] 80%</span
-                                >
-                            </span>
-                        </li>
-                        <li>
-                            🔜 CompTIA PenTest+
-                            <span class="glitch-bar" style="display: block">
-                                <span style="color: var(--muted)"
-                                    >[----------] 0%</span
-                                >
-                            </span>
+                                ></span
+                            >
                         </li>
                     </ul>
                 </div>
-            </section>
+            </div>
 
             <section>
                 <div class="section-title">projects / repositories</div>
@@ -326,49 +333,25 @@
                         <a
                             href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
                             target="_blank"
+                            ><strong>CLUG Website</strong></a
                         >
-                            <strong>CLUG Website</strong>
-                        </a>
-                        <p style="font-size: 0.9rem; margin-top: 10px">
-                            Deployment and curation of the Cochise Linux Users
-                            Group site. Managed via Jekyll with a focus on
-                            community documentation.
+                        <p style="font-size: 0.85rem; margin-top: 10px">
+                            Deployment and curation of the CLUG site via Jekyll.
                         </p>
-                        <span class="project-tag">Jekyll</span>
-                        <span class="project-tag">Open Source</span>
+                        <span class="project-tag">Jekyll</span
+                        ><span class="project-tag">Open Source</span>
                     </div>
                     <div class="box">
                         <a
                             href="https://github.com/Deoxizn/waybars"
                             target="_blank"
+                            ><strong>Waybar Configs</strong></a
                         >
-                            <strong>Waybar Configs</strong>
-                        </a>
-                        <p style="font-size: 0.9rem; margin-top: 10px">
-                            Highly customized status bars for Wayland. Includes
-                            modular CSS and scripts for monitoring system vitals
-                            and network status.
+                        <p style="font-size: 0.85rem; margin-top: 10px">
+                            Custom status bars for Wayland environments.
                         </p>
-                        <span class="project-tag">Wayland</span>
-                        <span class="project-tag">CSS</span>
-                        <span class="project-tag">JSON</span>
-                    </div>
-                    <div class="box">
-                        <a
-                            href="https://github.com/Deoxizn/omarchy-space-bound-theme"
-                            target="_blank"
-                        >
-                            <strong>Space Bound Theme</strong>
-                        </a>
-                        <p style="font-size: 0.9rem; margin-top: 10px">
-                            A comprehensive aesthetic overhaul for the Hyprland
-                            tiling compositor. Features custom window rules,
-                            workspace animations, and a cohesive workflow
-                            optimized for high-performance Wayland environments.
-                        </p>
-                        <span class="project-tag">Hyprland</span>
-                        <span class="project-tag">Rice</span>
-                        <span class="project-tag">Wayland</span>
+                        <span class="project-tag">Wayland</span
+                        ><span class="project-tag">CSS</span>
                     </div>
                 </div>
             </section>
@@ -377,37 +360,36 @@
                 <div class="section-title">homelab / services</div>
                 <div class="grid">
                     <div class="box">
-                        <div
-                            class="section-title"
-                            style="font-size: 0.8rem; opacity: 0.8"
-                        >
-                            multimedia & streaming
-                        </div>
+                        <div class="box-subtitle">multimedia & streaming</div>
                         <ul>
-                            <li>
-                                Plex Media Server
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('Plex')"
-                                    >⎘</span
-                                >
-                            </li>
-                            <li>
-                                Tautulli (Monitoring)
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('Tautulli')"
-                                    >⎘</span
-                                >
-                            </li>
-                            <li>
-                                Komga (Comics/Manga)
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('Komga')"
-                                    >⎘</span
-                                >
-                            </li>
+                            <div class="box">
+                                <div class="box-subtitle">
+                                    multimedia & streaming
+                                </div>
+                                <ul>
+                                    <li>
+                                        <span
+                                            class="status-indicator"
+                                            id="status-plex"
+                                        ></span
+                                        >Plex Media Server
+                                    </li>
+                                    <li>
+                                        <span
+                                            class="status-indicator"
+                                            id="status-tautulli"
+                                        ></span
+                                        >Tautulli
+                                    </li>
+                                    <li>
+                                        <span
+                                            class="status-indicator"
+                                            id="status-komga"
+                                        ></span
+                                        >Komga
+                                    </li>
+                                </ul>
+                            </div>
                             <li>
                                 FreshRSS
                                 <span
@@ -418,25 +400,27 @@
                             </li>
                         </ul>
                     </div>
-
                     <div class="box">
-                        <div
-                            class="section-title"
-                            style="font-size: 0.8rem; opacity: 0.8"
-                        >
-                            infrastructure & docker
-                        </div>
+                        <div class="box-subtitle">infrastructure & docker</div>
                         <ul>
                             <li>
-                                Nginx Proxy Manager
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >Nginx Proxy Manager
                                 <span
                                     class="copy-skill"
-                                    onclick="copyText('Nginx Proxy Manager')"
+                                    onclick="copyText('NPM')"
                                     >⎘</span
                                 >
                             </li>
                             <li>
-                                Watchtower (Auto-updates)
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >Watchtower
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('Watchtower')"
@@ -444,42 +428,40 @@
                                 >
                             </li>
                             <li>
-                                Dockge / CasaOS
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >Dockge / CasaOS
                                 <span
                                     class="copy-skill"
-                                    onclick="copyText('Docker Stack')"
-                                    >⎘</span
-                                >
-                            </li>
-                            <li>
-                                Synology DSM (NAS)
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('Synology NAS')"
+                                    onclick="copyText('CasaOS')"
                                     >⎘</span
                                 >
                             </li>
                         </ul>
                     </div>
-
                     <div class="box">
-                        <div
-                            class="section-title"
-                            style="font-size: 0.8rem; opacity: 0.8"
-                        >
-                            download & automation
-                        </div>
+                        <div class="box-subtitle">download & automation</div>
                         <ul>
                             <li>
-                                qBittorrent / jDownloader
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >qBittorrent
                                 <span
                                     class="copy-skill"
-                                    onclick="copyText('qBittorrent')"
+                                    onclick="copyText('qBit')"
                                     >⎘</span
                                 >
                             </li>
                             <li>
-                                SLSKD
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >SLSKD
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('SLSKD')"
@@ -487,7 +469,11 @@
                                 >
                             </li>
                             <li>
-                                MeTube (YouTube-DL)
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >MeTube
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('MeTube')"
@@ -495,7 +481,11 @@
                                 >
                             </li>
                             <li>
-                                VaultWarden (Bitwarden)
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >VaultWarden
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('VaultWarden')"
@@ -527,77 +517,35 @@
                         target="_blank"
                         >linkedin</a
                     >
-                    |
-                    <a href="David_Garcia_General_Resume.pdf" target="_blank"
-                        >Resume</a
-                    >
                 </p>
             </section>
 
             <footer>
                 Devi Garcia — dirty.pizza<br />
                 Serious systems. Questionable domain.
-                <div class="footer-hint">
-                    # Hint: Try typing 'pizza' on your keyboard
-                </div>
             </footer>
         </div>
 
         <script>
             const terminal = document.getElementById("terminal");
-            const clockEl = document.getElementById("clock");
             let line = 0;
             let char = 0;
-            let isTypingSecret = false;
-
-            function updateClock() {
-                const now = new Date();
-                clockEl.textContent = now.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                });
-            }
-            setInterval(updateClock, 1000);
-            updateClock();
 
             const output = [
-                "Last login: Tue on tty1\n",
+                "Last login: Sat Feb 07 on tty1\n",
                 "Unauthorized toppings will be removed.\n",
-                "\n",
                 "$ whoami",
                 "Devi Garcia\n",
-                "\n",
                 "$ neofetch",
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
-                "Shell: bash\n",
-                "\n",
-                "$ cat /etc/domain",
-                "dirty.pizza\n",
-                "         /\\",
-                "        /**\\",
-                "       /****\\",
-                "      /******\\",
-                "     /********\\",
-                "    /**********\\",
-                "   /************\\",
-                "   --------------\n",
+                "Status: Active Labbing\n",
             ];
 
             function type() {
-                if (line >= output.length) {
-                    if (!document.querySelector(".cursor")) {
-                        terminal.innerHTML += '<span class="cursor"></span>';
-                    }
-                    return;
-                }
-
-                if (char === 0) {
-                    terminal.innerHTML += '<div class="terminal-line"></div>';
-                }
-
+                if (line >= output.length) return;
+                if (char === 0) terminal.innerHTML += "<div></div>";
                 const current = output[line];
                 const el = terminal.lastChild;
 
@@ -609,60 +557,29 @@
                 } else {
                     el.textContent += current.charAt(char);
                     char++;
-
                     if (char === current.length) {
                         line++;
                         char = 0;
-                        setTimeout(type, 250);
+                        setTimeout(type, 300);
                     } else {
-                        setTimeout(type, 28);
+                        setTimeout(type, 30);
                     }
                 }
+            }
+            setTimeout(type, 500);
+
+            function copyText(text) {
+                navigator.clipboard.writeText(text);
             }
 
             function copyEmailToClipboard() {
                 const email = "david.c.garcia4283@gmail.com";
                 const btn = document.getElementById("copyEmail");
-
                 navigator.clipboard.writeText(email).then(() => {
-                    const originalText = btn.innerText;
                     btn.innerText = "COPIED!";
                     setTimeout(() => {
-                        btn.innerText = originalText;
+                        btn.innerText = "email [copy]";
                     }, 2000);
-                });
-            }
-
-            let buffer = "";
-            window.addEventListener("keydown", (e) => {
-                buffer += e.key.toLowerCase();
-                buffer = buffer.slice(-5);
-                if (buffer === "pizza" && !isTypingSecret) {
-                    triggerSecret();
-                }
-            });
-
-            function triggerSecret() {
-                isTypingSecret = true;
-                const secretLines = [
-                    "\n",
-                    "$ sudo access --override",
-                    "Checking ingredients...",
-                    "System clear. Extra cheese enabled.\n",
-                    "Stay hungry, stay secure. 🍕\n",
-                ];
-                const cursor = document.querySelector(".cursor");
-                if (cursor) cursor.remove();
-                output.push(...secretLines);
-                type();
-            }
-
-            setTimeout(type, 500);
-
-            function copyText(text) {
-                navigator.clipboard.writeText(text).then(() => {
-                    // Optional: you could add a 'copied' toast here,
-                    // but keeping it silent fits the terminal vibe.
                 });
             }
         </script>
