@@ -63,7 +63,7 @@
 
             /* TERMINAL */
             #terminal {
-                min-height: 420px;
+                min-height: 440px;
                 white-space: pre-wrap;
                 line-height: 1.4;
             }
@@ -161,19 +161,20 @@
             .t-link {
                 color: var(--accent);
                 text-decoration: none;
-                padding: 5px 15px;
+                padding: 8px 18px;
                 border: 1px solid transparent;
                 transition: all 0.3s ease;
-                font-size: 0.9rem;
+                font-size: 0.95rem;
+                background: rgba(51, 255, 153, 0.02);
             }
             .t-link:hover {
                 border-color: var(--accent);
                 background: rgba(51, 255, 153, 0.1);
-                box-shadow: 0 0 20px var(--glow);
-                text-shadow: 0 0 8px var(--accent);
+                box-shadow: 0 0 25px var(--glow);
+                text-shadow: 0 0 10px var(--accent);
             }
 
-            /* Glitch Effects */
+            /* Glitch & Danger Zone */
             .glitch-bar {
                 display: inline-block;
                 margin-left: 10px;
@@ -330,6 +331,38 @@
             </section>
 
             <section>
+                <div class="section-title">homelab_manifest</div>
+                <div class="grid">
+                    <div class="box">
+                        <div class="box-subtitle">multimedia</div>
+                        <ul>
+                            <li>Plex</li>
+                            <li>Tautulli</li>
+                            <li>Komga</li>
+                            <li>FreshRSS</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <div class="box-subtitle">infrastructure</div>
+                        <ul>
+                            <li>Nginx Proxy Manager</li>
+                            <li>Watchtower</li>
+                            <li>CasaOS</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <div class="box-subtitle">utilities</div>
+                        <ul>
+                            <li>qBittorrent</li>
+                            <li>SLSKD</li>
+                            <li>MeTube</li>
+                            <li>VaultWarden</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
                 <div class="section-title">contact</div>
                 <div class="terminal-link-wrapper">
                     <a
@@ -375,16 +408,16 @@
                 "Last login: Tue on tty1\n",
                 "Welcome to dirty.pizza",
                 "Unauthorized toppings will be removed.\n",
-                "", // Spacer between removed and whoami
+                "", // Spacer 1
                 "$ whoami",
                 "Devi Garcia\n",
-                "", // Spacer
+                "", // Spacer 2
                 "$ neofetch",
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
-                "Shell: bash\n", // Domain line removed
-                "", // Spacer
+                "Shell: bash\n",
+                "", // Spacer 3
                 "$ cat /etc/domain",
                 "dirty.pizza\n",
                 "         /\\",
@@ -394,7 +427,7 @@
                 "     /********\\",
                 "    /**********\\",
                 "   /************\\",
-                "   --------------", // Space removed from right
+                "   --------------",
             ];
 
             let line = 0;
