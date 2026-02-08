@@ -391,7 +391,11 @@
                                 </ul>
                             </div>
                             <li>
-                                FreshRSS
+                                <span
+                                    class="status-indicator"
+                                    id="status-rss"
+                                ></span
+                                >FreshRSS
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('FreshRSS')"
@@ -404,11 +408,7 @@
                         <div class="box-subtitle">infrastructure & docker</div>
                         <ul>
                             <li>
-                                <span
-                                    class="status-indicator"
-                                    id="status-plex"
-                                ></span
-                                >Nginx Proxy Manager
+                                Nginx Proxy Manager
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('NPM')"
@@ -416,11 +416,7 @@
                                 >
                             </li>
                             <li>
-                                <span
-                                    class="status-indicator"
-                                    id="status-plex"
-                                ></span
-                                >Watchtower
+                                Watchtower
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('Watchtower')"
@@ -428,11 +424,7 @@
                                 >
                             </li>
                             <li>
-                                <span
-                                    class="status-indicator"
-                                    id="status-plex"
-                                ></span
-                                >Dockge / CasaOS
+                                Dockge / CasaOS
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('CasaOS')"
@@ -447,7 +439,7 @@
                             <li>
                                 <span
                                     class="status-indicator"
-                                    id="status-plex"
+                                    id="status-qbt"
                                 ></span
                                 >qBittorrent
                                 <span
@@ -457,11 +449,7 @@
                                 >
                             </li>
                             <li>
-                                <span
-                                    class="status-indicator"
-                                    id="status-plex"
-                                ></span
-                                >SLSKD
+                                SLSKD
                                 <span
                                     class="copy-skill"
                                     onclick="copyText('SLSKD')"
@@ -471,7 +459,7 @@
                             <li>
                                 <span
                                     class="status-indicator"
-                                    id="status-plex"
+                                    id="status-mtb"
                                 ></span
                                 >MeTube
                                 <span
@@ -483,7 +471,7 @@
                             <li>
                                 <span
                                     class="status-indicator"
-                                    id="status-plex"
+                                    id="status-vwd"
                                 ></span
                                 >VaultWarden
                                 <span
@@ -582,6 +570,34 @@
                     }, 2000);
                 });
             }
+
+            // Service status checker
+            async function checkService(id, url) {
+                const indicator = document.getElementById(id);
+                try {
+                    // We use mode: 'no-cors' to avoid browser security blocks on private IPs
+                    const response = await fetch(url, {
+                        mode: "no-cors",
+                        cache: "no-cache",
+                    });
+                    indicator.classList.add("status-online");
+                } catch (error) {
+                    console.log(`${id} is unreachable:`, error);
+                    // Indicator stays muted if unreachable
+                }
+            }
+
+            // Run checks after the page loads
+            window.addEventListener("load", () => {
+                // Replace these with your actual subdomains to make them "real"
+                checkService("status-plex", "https://plex.dirty.pizza");
+                checkService("status-tautulli", "https://tautulli.dirty.pizza");
+                checkService("status-komga", "https://komga.dirty.pizza");
+                checkService("status-rss", "https://rss.dirty.pizza");
+                checkService("status-qbt", "https://qbt.dirty.pizza");
+                checkService("status-mtb", "https://metube.dirty.pizza");
+                checkService("status-vwd", "https://vwarden.dirty.pizza");
+            });
         </script>
     </body>
 </html>
