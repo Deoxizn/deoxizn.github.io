@@ -22,20 +22,17 @@
                 --glow: rgba(51, 255, 153, 0.6);
             }
 
-            /* Change this to only apply brackets to the main menu */
-            .links-container .link::before { content: "["; }
-            .links-container .link::after { content: "]"; }
-
-            /* Add this to ensure the footer link has the same glow/color */
+            /* Styling for the footer link */
             footer .link {
-                color: #ff4d4d; /* Matches your --accent-color */
+                color: var(--accent);
                 text-decoration: none;
                 transition: all 0.3s ease;
             }
 
             footer .link:hover {
                 color: #fff;
-                text-shadow: 0 0 10px #ff4d4d;
+                text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+                background: rgba(51, 255, 153, 0.1);
             }
 
             .roadmap-item:hover .glitch-bar {
@@ -413,15 +410,12 @@
             </section>
 
             <footer>
-                DEVI GARCIA — <a href="https://github.com/Deoxizn/deoxizn.github.io" class="class="link" target="_blank">DIRTY.PIZZA</a><br />
+                DEVI GARCIA — <a href="https://github.com/Deoxizn/deoxizn.github.io" class="link" target="_blank">DIRTY.PIZZA</a><br />
                 SERIOUS SYSTEMS. QUESTIONABLE DOMAIN.<br />
                 NODE STATUS: ACTIVE<br />
                 © 2025–2026 INTERNAL_MAINFRAME<br />
                 <span class="footer-comment">// hint: type 'pizza'</span><br />
-                <span class="footer-comment"
-                    >// error: malformed input may trigger access
-                    violations</span
-                >
+                <span class="footer-comment">// error: malformed input may trigger access violations</span>
             </footer>
         </div>
 
