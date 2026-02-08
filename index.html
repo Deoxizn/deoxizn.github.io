@@ -33,7 +33,48 @@
                 text-shadow: 0 0 2px var(--glow);
             }
 
-            /* Update this section in your CSS */
+            /* Wider grid columns to prevent word wrapping */
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .box ul {
+                list-style: none;
+                padding: 0;
+                font-size: 0.85rem;
+            }
+
+            .box li {
+                line-height: 1.6;
+                margin-bottom: 8px;
+                position: relative;
+                display: block; /* Standard block behavior to prevent weird flex wraps */
+            }
+
+            /* The Copy Icon Style */
+            .copy-skill {
+                opacity: 0;
+                font-size: 0.7rem;
+                margin-left: 8px;
+                cursor: pointer;
+                color: var(--muted);
+                transition:
+                    opacity 0.2s,
+                    color 0.2s;
+            }
+
+            .box li:hover .copy-skill {
+                opacity: 1;
+            }
+
+            .copy-skill:hover {
+                color: var(--accent);
+            }
+
+            /* Better top section formatting */
             .box ul {
                 list-style: none;
                 padding: 0;
@@ -372,18 +413,52 @@
                 <div class="box">
                     <div class="section-title">skills</div>
                     <ul>
-                        <li>Linux (Ubuntu, Debian, Arch)</li>
-                        <li>System & Hardware Troubleshooting</li>
-                        <li>Networking Fundamentals</li>
-                        <li>Virtualization & Docker</li>
-                        <li>Security Fundamentals</li>
-                    </ul>
-                </div>
-
-                <div class="box">
-                    <div class="section-title">certifications</div>
-                    <ul>
-                        <li>✅ CompTIA A+</li>
+                        <li>
+                            Linux (Ubuntu, Debian, Arch)
+                            <span
+                                class="copy-skill"
+                                onclick="
+                                    copyText('Linux (Ubuntu, Debian, Arch)')
+                                "
+                                >⎘</span
+                            >
+                        </li>
+                        <li>
+                            System & Hardware Troubleshooting
+                            <span
+                                class="copy-skill"
+                                onclick="
+                                    copyText(
+                                        'System & Hardware Troubleshooting',
+                                    )
+                                "
+                                >⎘</span
+                            >
+                        </li>
+                        <li>
+                            Networking Fundamentals
+                            <span
+                                class="copy-skill"
+                                onclick="copyText('Networking Fundamentals')"
+                                >⎘</span
+                            >
+                        </li>
+                        <li>
+                            Virtualization & Docker
+                            <span
+                                class="copy-skill"
+                                onclick="copyText('Virtualization & Docker')"
+                                >⎘</span
+                            >
+                        </li>
+                        <li>
+                            Security Fundamentals
+                            <span
+                                class="copy-skill"
+                                onclick="copyText('Security Fundamentals')"
+                                >⎘</span
+                            >
+                        </li>
                     </ul>
                 </div>
 
@@ -615,6 +690,13 @@
             }
 
             setTimeout(type, 500);
+
+            function copyText(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    // Optional: you could add a 'copied' toast here,
+                    // but keeping it silent fits the terminal vibe.
+                });
+            }
         </script>
     </body>
 </html>
