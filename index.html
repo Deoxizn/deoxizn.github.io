@@ -34,20 +34,20 @@
                 padding: 2rem;
             }
 
-            /* Status Dot and Pulse Animation */
+            /* Status Indicator */
             .status-indicator {
                 display: inline-block;
                 width: 8px;
                 height: 8px;
                 border-radius: 50%;
                 margin-right: 10px;
-                background-color: var(--muted); /* Default to muted/offline */
+                background-color: #1e2b22;
                 transition: background-color 0.3s ease;
             }
 
             .status-online {
-                background-color: #00ff00;
-                box-shadow: 0 0 8px #00ff00;
+                background-color: var(--accent);
+                box-shadow: 0 0 8px var(--accent);
                 animation: pulse 2s infinite;
             }
 
@@ -71,7 +71,6 @@
                 margin: 0 auto;
             }
 
-            /* Main Section Titles */
             .section-title {
                 color: var(--accent);
                 margin-bottom: 1.5rem;
@@ -88,7 +87,6 @@
                 content: "> ";
             }
 
-            /* Sub-titles inside boxes */
             .box-subtitle {
                 font-size: 0.8rem;
                 opacity: 0.8;
@@ -143,39 +141,11 @@
                 margin-right: 8px;
             }
 
-            /* Fix for progress bars - remove the ">" prefix */
+            /* Remove prefix for specific items */
+            .box .no-prefix::before,
             .box .roadmap-item::before {
                 content: "";
                 margin-right: 0;
-            }
-
-            a {
-                color: var(--accent);
-                text-decoration: none;
-            }
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .project-tag {
-                font-size: 0.7rem;
-                background: #1e2b22;
-                padding: 2px 6px;
-                margin-right: 5px;
-                border-radius: 3px;
-                color: var(--muted);
-            }
-
-            .copy-skill {
-                opacity: 0;
-                font-size: 0.7rem;
-                margin-left: 8px;
-                cursor: pointer;
-                color: var(--muted);
-            }
-
-            .box li:hover .copy-skill {
-                opacity: 1;
             }
 
             .glitch-bar {
@@ -185,7 +155,30 @@
                 margin-left: 10px;
             }
 
-            /* CRT & Terminal Effects */
+            .copy-skill {
+                opacity: 0;
+                font-size: 0.7rem;
+                margin-left: 8px;
+                cursor: pointer;
+                color: var(--muted);
+            }
+            .box li:hover .copy-skill {
+                opacity: 1;
+            }
+
+            a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+            .project-tag {
+                font-size: 0.7rem;
+                background: #1e2b22;
+                padding: 2px 6px;
+                margin-right: 5px;
+                border-radius: 3px;
+                color: var(--muted);
+            }
+
             .crt-overlay {
                 position: fixed;
                 top: 0;
@@ -212,13 +205,12 @@
 
             footer {
                 margin-top: 4rem;
-                padding-top: 2rem;
-                border-top: 1px solid #1e2b22;
+                text-align: center;
                 color: var(--muted);
                 font-size: 0.8rem;
-                text-align: center;
+                border-top: 1px solid #1e2b22;
+                padding-top: 2rem;
             }
-
             .copy-btn {
                 background: none;
                 border: 1px solid var(--muted);
@@ -233,10 +225,8 @@
             }
         </style>
     </head>
-
     <body>
         <div class="crt-overlay"></div>
-
         <div class="container">
             <header>
                 <div
@@ -250,8 +240,7 @@
                 <p>
                     CompTIA A+ certified technician focused on Linux systems,
                     networking, and cybersecurity. I learn by building homelabs,
-                    breaking things, fixing them, and helping others in the
-                    Linux community.
+                    breaking things, and fixing them.
                 </p>
             </section>
 
@@ -289,14 +278,6 @@
                                 >⎘</span
                             >
                         </li>
-                        <li>
-                            Security Fundamentals
-                            <span
-                                class="copy-skill"
-                                onclick="copyText('Security')"
-                                >⎘</span
-                            >
-                        </li>
                     </ul>
                 </div>
 
@@ -304,7 +285,7 @@
                     <div class="box-subtitle">learning roadmap</div>
                     <ul>
                         <li class="roadmap-item">
-                            ⏳ CompTIA Network+
+                            ⏳ Network+
                             <span class="glitch-bar"
                                 ><span style="color: var(--accent)">[#####</span
                                 ><span style="color: var(--muted)"
@@ -313,7 +294,7 @@
                             >
                         </li>
                         <li class="roadmap-item">
-                            ⏳ CompTIA Security+
+                            ⏳ Security+
                             <span class="glitch-bar"
                                 ><span style="color: var(--accent)"
                                     >[########</span
@@ -322,39 +303,27 @@
                                 ></span
                             >
                         </li>
+                        <li class="roadmap-item">
+                            ⏳ Linux+
+                            <span class="glitch-bar"
+                                ><span style="color: var(--accent)"
+                                    >[########</span
+                                ><span style="color: var(--muted)"
+                                    >--] 80%</span
+                                ></span
+                            >
+                        </li>
+                        <li class="roadmap-item">
+                            🔜 PenTest+
+                            <span class="glitch-bar"
+                                ><span style="color: var(--muted)"
+                                    >[----------] 0%</span
+                                ></span
+                            >
+                        </li>
                     </ul>
                 </div>
             </div>
-
-            <section>
-                <div class="section-title">projects / repositories</div>
-                <div class="grid">
-                    <div class="box">
-                        <a
-                            href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
-                            target="_blank"
-                            ><strong>CLUG Website</strong></a
-                        >
-                        <p style="font-size: 0.85rem; margin-top: 10px">
-                            Deployment and curation of the CLUG site via Jekyll.
-                        </p>
-                        <span class="project-tag">Jekyll</span
-                        ><span class="project-tag">Open Source</span>
-                    </div>
-                    <div class="box">
-                        <a
-                            href="https://github.com/Deoxizn/waybars"
-                            target="_blank"
-                            ><strong>Waybar Configs</strong></a
-                        >
-                        <p style="font-size: 0.85rem; margin-top: 10px">
-                            Custom status bars for Wayland environments.
-                        </p>
-                        <span class="project-tag">Wayland</span
-                        ><span class="project-tag">CSS</span>
-                    </div>
-                </div>
-            </section>
 
             <section>
                 <div class="section-title">homelab / services</div>
@@ -362,35 +331,28 @@
                     <div class="box">
                         <div class="box-subtitle">multimedia & streaming</div>
                         <ul>
-                            <div class="box">
-                                <div class="box-subtitle">
-                                    multimedia & streaming
-                                </div>
-                                <ul>
-                                    <li>
-                                        <span
-                                            class="status-indicator"
-                                            id="status-plex"
-                                        ></span
-                                        >Plex Media Server
-                                    </li>
-                                    <li>
-                                        <span
-                                            class="status-indicator"
-                                            id="status-tautulli"
-                                        ></span
-                                        >Tautulli
-                                    </li>
-                                    <li>
-                                        <span
-                                            class="status-indicator"
-                                            id="status-komga"
-                                        ></span
-                                        >Komga
-                                    </li>
-                                </ul>
-                            </div>
-                            <li>
+                            <li class="no-prefix">
+                                <span
+                                    class="status-indicator"
+                                    id="status-plex"
+                                ></span
+                                >Plex
+                            </li>
+                            <li class="no-prefix">
+                                <span
+                                    class="status-indicator"
+                                    id="status-tautulli"
+                                ></span
+                                >Tautulli
+                            </li>
+                            <li class="no-prefix">
+                                <span
+                                    class="status-indicator"
+                                    id="status-komga"
+                                ></span
+                                >Komga
+                            </li>
+                            <li class="no-prefix">
                                 <span
                                     class="status-indicator"
                                     id="status-rss"
@@ -407,78 +369,35 @@
                     <div class="box">
                         <div class="box-subtitle">infrastructure & docker</div>
                         <ul>
-                            <li>
-                                Nginx Proxy Manager
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('NPM')"
-                                    >⎘</span
-                                >
-                            </li>
-                            <li>
-                                Watchtower
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('Watchtower')"
-                                    >⎘</span
-                                >
-                            </li>
-                            <li>
-                                Dockge / CasaOS
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('CasaOS')"
-                                    >⎘</span
-                                >
-                            </li>
+                            <li class="no-prefix">Nginx Proxy Manager</li>
+                            <li class="no-prefix">Watchtower</li>
+                            <li class="no-prefix">CasaOS</li>
                         </ul>
                     </div>
                     <div class="box">
                         <div class="box-subtitle">download & automation</div>
                         <ul>
-                            <li>
+                            <li class="no-prefix">
                                 <span
                                     class="status-indicator"
                                     id="status-qbt"
                                 ></span
                                 >qBittorrent
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('qBit')"
-                                    >⎘</span
-                                >
                             </li>
-                            <li>
-                                SLSKD
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('SLSKD')"
-                                    >⎘</span
-                                >
-                            </li>
-                            <li>
+                            <li class="no-prefix">SLSKD</li>
+                            <li class="no-prefix">
                                 <span
                                     class="status-indicator"
                                     id="status-mtb"
                                 ></span
                                 >MeTube
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('MeTube')"
-                                    >⎘</span
-                                >
                             </li>
-                            <li>
+                            <li class="no-prefix">
                                 <span
                                     class="status-indicator"
                                     id="status-vwd"
                                 ></span
                                 >VaultWarden
-                                <span
-                                    class="copy-skill"
-                                    onclick="copyText('VaultWarden')"
-                                    >⎘</span
-                                >
                             </li>
                         </ul>
                     </div>
@@ -509,16 +428,16 @@
             </section>
 
             <footer>
-                Devi Garcia — dirty.pizza<br />
-                Serious systems. Questionable domain.
+                Devi Garcia — dirty.pizza<br />Serious systems. Questionable
+                domain.
             </footer>
         </div>
 
         <script>
+            // Terminal Typing Logic
             const terminal = document.getElementById("terminal");
-            let line = 0;
-            let char = 0;
-
+            let line = 0,
+                char = 0;
             const output = [
                 "Last login: Sat Feb 07 on tty1\n",
                 "Unauthorized toppings will be removed.\n",
@@ -536,7 +455,6 @@
                 if (char === 0) terminal.innerHTML += "<div></div>";
                 const current = output[line];
                 const el = terminal.lastChild;
-
                 if (current === "\n") {
                     el.innerHTML = "&nbsp;";
                     line++;
@@ -549,17 +467,15 @@
                         line++;
                         char = 0;
                         setTimeout(type, 300);
-                    } else {
-                        setTimeout(type, 30);
-                    }
+                    } else setTimeout(type, 30);
                 }
             }
             setTimeout(type, 500);
 
+            // Copy Functions
             function copyText(text) {
                 navigator.clipboard.writeText(text);
             }
-
             function copyEmailToClipboard() {
                 const email = "david.c.garcia4283@gmail.com";
                 const btn = document.getElementById("copyEmail");
@@ -574,22 +490,16 @@
             // Service status checker
             async function checkService(id, url) {
                 const indicator = document.getElementById(id);
+                if (!indicator) return;
                 try {
-                    // We use mode: 'no-cors' to avoid browser security blocks on private IPs
-                    const response = await fetch(url, {
-                        mode: "no-cors",
-                        cache: "no-cache",
-                    });
+                    await fetch(url, { mode: "no-cors", cache: "no-cache" });
                     indicator.classList.add("status-online");
                 } catch (error) {
-                    console.log(`${id} is unreachable:`, error);
-                    // Indicator stays muted if unreachable
+                    console.log(`${id} unreachable`);
                 }
             }
 
-            // Run checks after the page loads
             window.addEventListener("load", () => {
-                // Replace these with your actual subdomains to make them "real"
                 checkService("status-plex", "https://plex.dirty.pizza");
                 checkService("status-tautulli", "https://tautulli.dirty.pizza");
                 checkService("status-komga", "https://komga.dirty.pizza");
