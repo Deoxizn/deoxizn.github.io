@@ -170,7 +170,6 @@
                 margin-right: 10px;
             }
 
-            /* Contact Terminal Links */
             .terminal-link-wrapper {
                 display: flex;
                 gap: 20px;
@@ -474,7 +473,6 @@
                 if (char === 0) {
                     const lineDiv = document.createElement("div");
                     lineDiv.className = "terminal-line";
-                    // Apply danger color to the warning line (index 1)
                     if (line === 1) lineDiv.classList.add("danger-text");
                     terminal.appendChild(lineDiv);
                 }
@@ -492,7 +490,6 @@
 
                 let charToType = current.charAt(char);
 
-                // Pizza Color Logic (Updated Indices for slice)
                 if (line >= 14 && line <= 20) {
                     if (charToType === "*")
                         el.innerHTML += `<span class="p-topping">*</span>`;
@@ -517,7 +514,11 @@
 
             let buffer = "";
             window.addEventListener("keydown", (e) => {
+                // Ignore keys like Shift, Control, etc.
+                if (e.key.length > 1 && e.key !== "Enter") return;
+
                 buffer += e.key.toLowerCase();
+
                 if (buffer.includes("pizza")) {
                     const secret = document.createElement("div");
                     secret.style.color = "var(--accent)";
@@ -528,8 +529,18 @@
                         "$ ./slice_delivery.sh --hot<br>[ OK ] 🍕 EXTRA_CHEESE_LOADED. Enjoy your slice, Devi.";
                     terminal.appendChild(secret);
                     buffer = "";
+                } else if (buffer.length >= 10) {
+                    // Trigger access denied if typing nonsense
+                    const error = document.createElement("div");
+                    error.className = "danger-text";
+                    error.style.marginTop = "10px";
+                    error.innerHTML =
+                        "[ ACCESS_DENIED ] : User lacks sudo privileges for terminal input.";
+                    terminal.appendChild(error);
+                    buffer = "";
+                    // Auto-remove error after 3 seconds
+                    setTimeout(() => error.remove(), 3000);
                 }
-                if (buffer.length > 10) buffer = buffer.substring(1);
             });
 
             function copyEmailToClipboard() {
