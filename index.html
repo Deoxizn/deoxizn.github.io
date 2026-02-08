@@ -124,6 +124,11 @@
     </head>
 
     <body>
+        <audio
+            id="type-sound"
+            src="https://codesandbox.io/api/v1/sandboxes/69687/assets/typewriter-key.mp3"
+            preload="auto"
+        ></audio>
         <div class="container">
             <header>
                 <div id="terminal"></div>
@@ -190,29 +195,23 @@
 
         <script>
             const terminal = document.getElementById("terminal");
+            const typeSound = document.getElementById("type-sound");
 
             const output = [
                 "Last login: Tue on tty1\n",
                 "Unauthorized toppings will be removed.\n",
-
-                "\n", // This adds the physical vertical space
-
+                "\n", // The space you wanted
                 "$ whoami",
                 "Devi Garcia\n",
-
-                "\n", // This adds the physical vertical space
-
+                "\n", // The space you wanted
                 "$ neofetch",
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
                 "Shell: bash\n",
-
-                "\n", // This adds the physical vertical space
-
+                "\n", // The space you wanted
                 "$ cat /etc/domain",
                 "dirty.pizza\n",
-
                 "        /\\",
                 "       /**\\",
                 "      /****\\",
@@ -225,6 +224,17 @@
 
             let line = 0;
             let char = 0;
+
+            function playSound() {
+                // Reset sound to start so it can trigger rapidly
+                typeSound.currentTime = 0;
+                // Adjust volume if it's too loud (0.0 to 1.0)
+                typeSound.volume = 0.2;
+                typeSound.play().catch((e) => {
+                    // Browsers block audio until the user clicks something.
+                    // This catch prevents console errors if they haven't clicked yet.
+                });
+            }
 
             function type() {
                 if (line >= output.length) {
@@ -239,11 +249,11 @@
                 const current = output[line];
                 const el = terminal.lastChild;
 
-                // Handle empty lines immediately to avoid a typing delay on nothing
-                if (current === "") {
-                    line++;
-                    setTimeout(type, 100);
-                    return;
+                if (
+                    current.charAt(char) !== " " &&
+                    current.charAt(char) !== "\n"
+                ) {
+                    playSound();
                 }
 
                 el.textContent += current.charAt(char);
@@ -254,10 +264,23 @@
                     char = 0;
                     setTimeout(type, 250);
                 } else {
-                    setTimeout(type, 28);
+                    // Speed variance makes it sound more natural
+                    let speed = current.charAt(char) === " " ? 50 : 28;
+                    setTimeout(type, speed);
                 }
             }
 
+            // Optional: Start typing only after user interaction
+            // (Browsers often block sound until the user clicks the page)
+            window.addEventListener(
+                "click",
+                () => {
+                    if (line === 0 && char === 0) type();
+                },
+                { once: true },
+            );
+
+            // Or just try to start immediately
             type();
         </script>
     </body>
