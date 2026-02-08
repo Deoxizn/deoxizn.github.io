@@ -100,8 +100,9 @@
 
             /* ASCII PIZZA */
             .ascii {
-                white-space: pre;
                 color: var(--muted);
+                font-family:
+                    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
                 font-size: 0.95rem;
                 text-align: right;
             }
@@ -155,10 +156,18 @@
             <header>
                 <div id="terminal"></div>
 
-                <div class="ascii">
-                    /\ /**\ /****\ /******\ /********\ /**********\
-                    /************\ -------------- dirty.pizza
-                </div>
+                <pre class="ascii">
+                    /\
+                   /  \
+                  /====\
+                 /======\
+                /========\
+               /==========\
+              /============\
+             ---------------
+              dirty.pizza
+
+                </pre>
             </header>
 
             <!-- ABOUT -->
