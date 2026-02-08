@@ -122,21 +122,6 @@
         <div class="container">
             <header>
                 <div id="terminal"></div>
-
-                <div class="ascii-wrapper">
-                    <pre class="ascii">
-       /\
-      /**\
-     /****\
-    /******\
-   /********\
-  /**********\
- /************\
- --------------
-  dirty.pizza
-</pre
-                    >
-                </div>
             </header>
 
             <section>
@@ -196,43 +181,56 @@
                 "Last login: Tue on tty1\n",
                 "Welcome to dirty.pizza",
                 "Unauthorized toppings will be removed.\n",
+
                 "$ whoami",
                 "Devi Garcia\n",
+
                 "$ neofetch",
                 "OS: Linux",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
                 "Shell: bash",
                 "Domain: dirty.pizza\n",
+
                 "$ cat /etc/domain",
                 "dirty.pizza\n",
+
+                "       /\\",
+                "      /**\\",
+                "     /****\\",
+                "    /******\\",
+                "   /********\\",
+                "  /**********\\",
+                " /************\\",
+                " --------------",
+                "  dirty.pizza\n",
             ];
 
-            let i = 0;
-            let j = 0;
+            let line = 0;
+            let char = 0;
 
             function type() {
-                if (i >= output.length) {
+                if (line >= output.length) {
                     terminal.innerHTML += '<span class="cursor"></span>';
                     return;
                 }
 
-                if (j === 0) {
+                if (char === 0) {
                     terminal.innerHTML += '<div class="terminal-line"></div>';
                 }
 
-                const line = output[i];
-                const lineDiv = terminal.lastChild;
+                const current = output[line];
+                const el = terminal.lastChild;
 
-                lineDiv.textContent += line.charAt(j);
-                j++;
+                el.textContent += current.charAt(char);
+                char++;
 
-                if (j === line.length) {
-                    i++;
-                    j = 0;
-                    setTimeout(type, 300);
+                if (char === current.length) {
+                    line++;
+                    char = 0;
+                    setTimeout(type, 250);
                 } else {
-                    setTimeout(type, 30);
+                    setTimeout(type, 28);
                 }
             }
 
