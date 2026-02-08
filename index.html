@@ -276,6 +276,46 @@
                     top: 10px;
                     right: 10px;
                 }
+
+                /* Progress Bar Glitch Effect */
+                .glitch-bar {
+                    display: inline-block;
+                    font-family: ui-monospace, monospace;
+                    color: var(--muted);
+                    font-size: 0.8rem;
+                    position: relative;
+                }
+
+                .glitch-bar:hover {
+                    color: var(--accent);
+                    animation: bar-jitter 0.2s infinite;
+                    text-shadow:
+                        2px 0 var(--glow),
+                        -2px 0 rgba(255, 0, 0, 0.2);
+                }
+
+                @keyframes bar-jitter {
+                    0% {
+                        transform: translate(0);
+                    }
+                    20% {
+                        transform: translate(-1px, 1px);
+                        opacity: 0.8;
+                    }
+                    40% {
+                        transform: translate(-1px, -1px);
+                    }
+                    60% {
+                        transform: translate(1px, 0.5px);
+                        opacity: 0.9;
+                    }
+                    80% {
+                        transform: translate(0);
+                    }
+                    100% {
+                        transform: translate(1px, -1px);
+                    }
+                }
             }
         </style>
     </head>
@@ -327,10 +367,23 @@
 
                 <div class="box">
                     <div class="section-title">learning roadmap</div>
-                    <ul>
-                        <li>⏳ CompTIA Network+</li>
-                        <li>⏳ CompTIA Security+</li>
-                        <li>🔜 CompTIA PenTest+</li>
+                    <ul style="line-height: 1.8">
+                        <li>
+                            ⏳ CompTIA Network+ <br />
+                            <span class="glitch-bar">[#####-----] 50%</span>
+                        </li>
+                        <li>
+                            ⏳ CompTIA Security+ <br />
+                            <span class="glitch-bar">[########--] 80%</span>
+                        </li>
+                        <li>
+                            ⏳ CompTIA Linux+ <br />
+                            <span class="glitch-bar">[########--] 80%</span>
+                        </li>
+                        <li>
+                            🔜 CompTIA PenTest+ <br />
+                            <span class="glitch-bar">[----------] 0%</span>
+                        </li>
                     </ul>
                 </div>
             </section>
