@@ -61,6 +61,38 @@
                 font-weight: bold;
             }
 
+            /* TERMINAL STYLING */
+            #terminal {
+                min-height: 400px;
+                white-space: pre-wrap;
+                line-height: 1.4;
+            }
+            .terminal-line {
+                min-height: 1.2em;
+            }
+            .cursor {
+                display: inline-block;
+                width: 8px;
+                height: 15px;
+                background: var(--accent);
+                margin-left: 5px;
+                animation: blink 1s infinite;
+            }
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            .ascii {
+                font-size: 14px;
+                line-height: 1.2;
+                white-space: pre;
+                margin: 0;
+                padding: 0;
+                color: var(--muted);
+            }
+
             #redirect-loader {
                 position: fixed;
                 top: 0;
@@ -80,7 +112,6 @@
                 max-width: 950px;
                 margin: 0 auto;
             }
-
             header {
                 margin-bottom: 5rem;
             }
@@ -117,7 +148,6 @@
             .box:hover {
                 border-color: var(--accent);
                 transform: translateY(-5px);
-                text-decoration: none !important;
             }
 
             .box-subtitle {
@@ -146,6 +176,11 @@
             }
 
             /* Glitch Progress Bars */
+            .glitch-bar {
+                display: inline-block;
+                margin-left: 10px;
+                font-weight: bold;
+            }
             .roadmap-item:hover .glitch-bar {
                 animation: shake 0.15s infinite;
                 text-shadow:
@@ -232,10 +267,7 @@
 
         <div class="container">
             <header>
-                <pre
-                    id="terminal"
-                    style="font-size: 0.85rem; line-height: 1.2"
-                ></pre>
+                <div id="terminal"></div>
             </header>
 
             <section>
@@ -291,8 +323,8 @@
                     >
                         <div class="box-subtitle">omarchy-space-bound</div>
                         <p style="font-size: 0.9rem; opacity: 0.9">
-                            A celestial-themed UI overhaul. Deep space tones for
-                            modern desktop environments.
+                            Visual overhaul for desktop environments.
+                            Space-bound aesthetic with dark-matter tones.
                         </p>
                         <span class="project-tag">CSS</span
                         ><span class="project-tag">HYPRLAND</span>
@@ -303,8 +335,7 @@
                     >
                         <div class="box-subtitle">waybar_configs</div>
                         <p style="font-size: 0.9rem; opacity: 0.9">
-                            Custom JSON/CSS modules for Wayland status bars.
-                            Clean, modular, functional.
+                            Modular JSON/CSS layouts for Wayland bars.
                         </p>
                         <span class="project-tag">JSON</span
                         ><span class="project-tag">CSS</span>
@@ -315,8 +346,7 @@
                     >
                         <div class="box-subtitle">CLUG_Portal</div>
                         <p style="font-size: 0.9rem; opacity: 0.9">
-                            Maintaining the digital presence for the Cochise
-                            Linux Users Group community.
+                            Community portal for the Cochise Linux Users Group.
                         </p>
                         <span class="project-tag">GITHUB_PAGES</span
                         ><span class="project-tag">COMMUNITY</span>
@@ -391,6 +421,7 @@
         </div>
 
         <script>
+            // --- CLOCK ---
             function updateClock() {
                 const now = new Date();
                 document.getElementById("clock").innerText =
@@ -399,64 +430,97 @@
             setInterval(updateClock, 1000);
             updateClock();
 
+            // --- YOUR TERMINAL LOGIC ---
             const terminal = document.getElementById("terminal");
-            const pizzaArt = `
-      _....._
-   _.:*.--**--.*:._
- .:*./#######\\.*:.
-:*./###########\\.*:
-:*|#############|*:
-:*.\###########/.*:.
-  *:.*--**--.*:*
-     "*****"
-            `;
-
-            const lines = [
-                "dgarcia@dirty.pizza",
-                "-------------------",
-                "OS: Arch Linux x86_64",
-                "HOST: Mainframe-01",
-                "UPTIME: 420 days",
-                "SHELL: zsh",
-                "STATUS: Active Labbing",
-                "GOAL: PenTest Certification",
-                "\n$ whoami",
-                "Devi Garcia",
-                "$ neofetch --pizza",
+            const output = [
+                "Last login: Tue on tty1\n",
+                "Welcome to dirty.pizza",
+                "Unauthorized toppings will be removed.\n",
+                "$ whoami",
+                "Devi Garcia\n",
+                "", // Spacer
+                "$ neofetch",
+                "OS: Linux",
+                "Role: IT / Cybersecurity",
+                "Cert: CompTIA A+",
+                "Shell: bash",
+                "Domain: dirty.pizza\n",
+                "", // Spacer
+                "$ cat /etc/domain",
+                "dirty.pizza\n",
+                "         /\\",
+                "        /**\\",
+                "       /****\\",
+                "      /******\\",
+                "     /********\\",
+                "    /**********\\",
+                "   /************\\",
+                "    --------------",
             ];
 
-            let lineIdx = 0;
-            function typeLines() {
-                if (lineIdx < lines.length) {
-                    terminal.textContent += lines[lineIdx] + "\n";
-                    lineIdx++;
-                    setTimeout(typeLines, 150);
+            let line = 0;
+            let char = 0;
+
+            function type() {
+                if (line >= output.length) {
+                    terminal.innerHTML += '<span class="cursor"></span>';
+                    return;
+                }
+
+                if (char === 0) {
+                    terminal.innerHTML += '<div class="terminal-line"></div>';
+                }
+
+                const current = output[line];
+                const el = terminal.lastChild;
+
+                // Handle empty string spacers
+                if (current === "") {
+                    el.innerHTML = "&nbsp;";
+                    line++;
+                    char = 0;
+                    setTimeout(type, 100);
+                    return;
+                }
+
+                el.textContent += current.charAt(char);
+                char++;
+
+                if (char === current.length) {
+                    line++;
+                    char = 0;
+                    setTimeout(type, 250);
                 } else {
-                    terminal.textContent += pizzaArt;
+                    setTimeout(type, 28);
                 }
             }
-            setTimeout(typeLines, 500);
+            setTimeout(type, 500);
 
+            // --- REDIRECT LOADER ---
             document.querySelectorAll(".project-link").forEach((link) => {
                 link.addEventListener("click", function (e) {
                     e.preventDefault();
                     const url = this.href;
-                    const loader = document.getElementById("redirect-loader");
-                    loader.style.display = "flex";
+                    document.getElementById("redirect-loader").style.display =
+                        "flex";
                     setTimeout(() => {
                         window.location.href = url;
-                    }, 1500);
+                    }, 1200);
                 });
             });
 
+            // --- EASTER EGG ---
             let buffer = "";
             window.addEventListener("keydown", (e) => {
                 buffer += e.key.toLowerCase();
                 if (buffer.includes("pizza")) {
-                    terminal.textContent += "\n[ OK ] EXTRA CHEESE LOADED. 🍕";
+                    const secret = document.createElement("div");
+                    secret.style.color = "var(--accent)";
+                    secret.innerHTML =
+                        "$ sudo get-pizza --extra-cheese<br>[ OK ] 🍕 PIZZA_MODE ACTIVE";
+                    terminal.appendChild(secret);
                     buffer = "";
                 }
-                if (buffer.length > 10) buffer = buffer.substring(1);
             });
 
             function copyEmailToClipboard() {
