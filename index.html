@@ -191,7 +191,7 @@
 
             .grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 1.5rem;
                 margin-top: 1rem;
             }
@@ -200,6 +200,14 @@
                 border: 1px solid #1e2b22;
                 padding: 1.2rem;
                 background: rgba(20, 30, 20, 0.2);
+                transition:
+                    transform 0.2s ease,
+                    border-color 0.2s ease;
+            }
+
+            .box:hover {
+                transform: translateY(-3px);
+                border-color: var(--accent);
             }
 
             .project-tag {
@@ -212,14 +220,21 @@
                 margin-top: 10px;
             }
 
-            a {
+            a,
+            .copy-btn {
                 color: var(--accent);
                 text-decoration: none;
                 transition: all 0.2s ease;
-                padding: 0 2px;
+                padding: 0 4px;
+                cursor: pointer;
+                background: transparent;
+                border: none;
+                font-family: inherit;
+                font-size: inherit;
             }
 
-            a:hover {
+            a:hover,
+            .copy-btn:hover {
                 background: var(--accent);
                 color: var(--bg);
                 box-shadow: 0 0 10px var(--accent);
@@ -315,26 +330,51 @@
             </section>
 
             <section>
-                <div class="section-title">projects / write-ups</div>
+                <div class="section-title">projects / repositories</div>
                 <div class="grid">
                     <div class="box">
-                        <strong>Homelab Deployment</strong>
+                        <a
+                            href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
+                            target="_blank"
+                            ><strong>CLUG Website</strong></a
+                        >
                         <p style="font-size: 0.9rem; margin-top: 10px">
-                            Automated Linux server setup running Docker,
-                            Pi-hole, and a personal VPN for secure remote
-                            access.
+                            Deployment and curation of the Cochise Linux Users
+                            Group site. Managed via Jekyll with a focus on
+                            community documentation.
                         </p>
-                        <span class="project-tag">Linux</span>
-                        <span class="project-tag">Networking</span>
+                        <span class="project-tag">Jekyll</span>
+                        <span class="project-tag">Open Source</span>
                     </div>
                     <div class="box">
-                        <strong>Network Security Audit</strong>
+                        <a
+                            href="https://github.com/Deoxizn/waybars"
+                            target="_blank"
+                            ><strong>Waybar Configs</strong></a
+                        >
                         <p style="font-size: 0.9rem; margin-top: 10px">
-                            Conducted Nmap vulnerability scans and Wireshark
-                            packet analysis to secure local network traffic.
+                            Highly customized status bars for Wayland. Includes
+                            modular CSS and scripts for monitoring system vitals
+                            and network status.
                         </p>
-                        <span class="project-tag">Nmap</span>
-                        <span class="project-tag">Security</span>
+                        <span class="project-tag">Wayland</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JSON</span>
+                    </div>
+                    <div class="box">
+                        <a
+                            href="https://github.com/Deoxizn/omarchy-space-bound-theme"
+                            target="_blank"
+                            ><strong>Space Bound Theme</strong></a
+                        >
+                        <p style="font-size: 0.9rem; margin-top: 10px">
+                            A comprehensive aesthetic overhaul for KDE Plasma.
+                            Utilizes Window Rules and custom KWin scripts for a
+                            cohesive desktop experience.
+                        </p>
+                        <span class="project-tag">KDE Plasma</span>
+                        <span class="project-tag">Rice</span>
+                        <span class="project-tag">Linux Desktop</span>
                     </div>
                 </div>
             </section>
@@ -342,7 +382,14 @@
             <section>
                 <div class="section-title">contact</div>
                 <p>
-                    <a href="mailto:david.c.garcia4283@gmail.com">email</a> |
+                    <button
+                        class="copy-btn"
+                        id="copyEmail"
+                        onclick="copyEmailToClipboard()"
+                    >
+                        email [copy]
+                    </button>
+                    |
                     <a href="https://github.com/Deoxizn" target="_blank"
                         >github</a
                     >
@@ -375,7 +422,6 @@
             let char = 0;
             let isTypingSecret = false;
 
-            // --- LIVE LOCAL CLOCK ---
             function updateClock() {
                 const now = new Date();
                 clockEl.textContent = now.toLocaleTimeString([], {
@@ -387,7 +433,6 @@
             setInterval(updateClock, 1000);
             updateClock();
 
-            // --- TERMINAL OUTPUT ---
             const output = [
                 "Last login: Tue on tty1\n",
                 "Unauthorized toppings will be removed.\n",
@@ -447,7 +492,20 @@
                 }
             }
 
-            // --- EASTER EGG ---
+            // --- COPY FUNCTION ---
+            function copyEmailToClipboard() {
+                const email = "david.c.garcia4283@gmail.com";
+                const btn = document.getElementById("copyEmail");
+
+                navigator.clipboard.writeText(email).then(() => {
+                    const originalText = btn.innerText;
+                    btn.innerText = "COPIED!";
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                    }, 2000);
+                });
+            }
+
             let buffer = "";
             window.addEventListener("keydown", (e) => {
                 buffer += e.key.toLowerCase();
