@@ -11,7 +11,6 @@
                 --text: #d1f7c4;
                 --muted: #7aa37a;
                 --accent: #33ff99;
-                --border: #1e2b22;
             }
 
             * {
@@ -24,16 +23,6 @@
                 color: var(--text);
                 font-family:
                     ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-                line-height: 1.6;
-            }
-
-            a {
-                color: var(--accent);
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: underline;
             }
 
             .container {
@@ -42,15 +31,14 @@
                 padding: 2rem 1.5rem;
             }
 
-            /* HEADER */
             header {
                 display: grid;
                 grid-template-columns: 1fr auto;
                 gap: 2rem;
                 align-items: start;
-                margin-bottom: 4rem;
             }
 
+            /* TERMINAL */
             .terminal-line {
                 white-space: pre-wrap;
             }
@@ -62,9 +50,10 @@
             .cursor {
                 display: inline-block;
                 width: 10px;
+                height: 1em;
                 background: var(--accent);
-                margin-left: 2px;
                 animation: blink 1s steps(1) infinite;
+                margin-left: 4px;
             }
 
             @keyframes blink {
@@ -73,38 +62,18 @@
                 }
             }
 
-            h1 {
-                font-size: 1.8rem;
-                margin: 0.5rem 0 0;
+            /* ASCII */
+            .ascii-wrapper {
+                display: block;
             }
 
-            h2 {
-                font-size: 1rem;
-                font-weight: normal;
-                color: var(--muted);
-                margin: 0.2rem 0 1.5rem;
-            }
-
-            .tagline {
-                max-width: 600px;
-                margin-top: 1.2rem;
-            }
-
-            .links {
-                margin-top: 1.5rem;
-            }
-
-            .links a {
-                margin-right: 1.2rem;
-            }
-
-            /* ASCII PIZZA */
             .ascii {
+                font-size: 14px;
+                line-height: 1.2;
+                white-space: pre;
+                margin: 0;
+                padding: 0;
                 color: var(--muted);
-                font-family:
-                    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-                font-size: 0.95rem;
-                text-align: right;
             }
 
             /* SECTIONS */
@@ -125,14 +94,14 @@
             }
 
             .box {
-                border: 1px solid var(--border);
+                border: 1px solid #1e2b22;
                 padding: 1.2rem;
             }
 
             footer {
                 margin-top: 5rem;
                 padding-top: 2rem;
-                border-top: 1px solid var(--border);
+                border-top: 1px solid #1e2b22;
                 color: var(--muted);
                 font-size: 0.85rem;
             }
@@ -142,8 +111,7 @@
                 header {
                     grid-template-columns: 1fr;
                 }
-                .ascii {
-                    text-align: left;
+                .ascii-wrapper {
                     margin-top: 2rem;
                 }
             }
@@ -152,36 +120,35 @@
 
     <body>
         <div class="container">
-            <!-- HEADER -->
             <header>
                 <div id="terminal"></div>
 
-                <pre class="ascii">
-                    /\
-                   /  \
-                  /====\
-                 /======\
-                /========\
-               /==========\
-              /============\
-             ---------------
-              dirty.pizza
-
-                </pre>
+                <div class="ascii-wrapper">
+                    <pre class="ascii">
+       /\
+      /**\
+     /****\
+    /******\
+   /********\
+  /**********\
+ /************\
+ --------------
+  dirty.pizza
+</pre
+                    >
+                </div>
             </header>
 
-            <!-- ABOUT -->
             <section>
                 <div class="section-title">about</div>
                 <p>
-                    I’m a CompTIA A+ certified technician with a strong interest
-                    in Linux, networking, and cybersecurity. I learn by building
-                    homelabs, breaking systems, fixing them, and helping others
-                    through community Linux support.
+                    CompTIA A+ certified technician focused on Linux systems,
+                    networking, and cybersecurity. I learn by building homelabs,
+                    breaking things, fixing them, and helping others in the
+                    Linux community.
                 </p>
             </section>
 
-            <!-- SKILLS / CERTS -->
             <section class="grid">
                 <div class="box">
                     <div class="section-title">skills</div>
@@ -205,37 +172,7 @@
                 </div>
             </section>
 
-            <!-- PROJECTS -->
-            <section id="projects">
-                <div class="section-title">projects</div>
-
-                <div class="grid">
-                    <div class="box">
-                        <strong>Linux Homelab</strong>
-                        <p>
-                            Personal lab for testing, breaking, and rebuilding
-                            systems.
-                        </p>
-                    </div>
-                    <div class="box">
-                        <strong>Community Linux Support</strong>
-                        <p>
-                            Hands-on help with installs, configuration, and
-                            troubleshooting.
-                        </p>
-                    </div>
-                    <div class="box">
-                        <strong>IT Diagnostics</strong>
-                        <p>
-                            Hardware and OS troubleshooting using A+
-                            fundamentals.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CONTACT -->
-            <section id="contact">
+            <section>
                 <div class="section-title">contact</div>
                 <p>
                     <a href="mailto:youremail@example.com">email</a> |
@@ -247,55 +184,59 @@
             </section>
 
             <footer>
-                Devi Garcia — hosted on <strong>dirty.pizza</strong><br />
+                Devi Garcia — dirty.pizza<br />
                 Serious systems. Questionable domain.
             </footer>
         </div>
 
-        <!-- TERMINAL SCRIPT -->
         <script>
             const terminal = document.getElementById("terminal");
 
-            const lines = [
+            const output = [
+                "Last login: Tue on tty1\n",
+                "Welcome to dirty.pizza",
+                "Unauthorized toppings will be removed.\n",
                 "$ whoami",
-                "Devi Garcia",
-                "Linux • IT • Cybersecurity",
-                "",
+                "Devi Garcia\n",
+                "$ neofetch",
+                "OS: Linux",
+                "Role: IT / Cybersecurity",
+                "Cert: CompTIA A+",
+                "Shell: bash",
+                "Domain: dirty.pizza\n",
                 "$ cat /etc/domain",
-                "dirty.pizza",
-                "",
-                "Messy homelabs. Clean configs.",
+                "dirty.pizza\n",
             ];
 
-            let lineIndex = 0;
-            let charIndex = 0;
+            let i = 0;
+            let j = 0;
 
-            function typeLine() {
-                if (lineIndex >= lines.length) {
+            function type() {
+                if (i >= output.length) {
                     terminal.innerHTML += '<span class="cursor"></span>';
                     return;
                 }
 
-                if (charIndex === 0) {
+                if (j === 0) {
                     terminal.innerHTML += '<div class="terminal-line"></div>';
                 }
 
-                const currentLine = lines[lineIndex];
+                const line = output[i];
                 const lineDiv = terminal.lastChild;
 
-                lineDiv.textContent += currentLine.charAt(charIndex);
-                charIndex++;
+                lineDiv.textContent += line.charAt(j);
+                j++;
 
-                if (charIndex === currentLine.length) {
-                    lineIndex++;
-                    charIndex = 0;
-                    setTimeout(typeLine, 400);
+                if (j === line.length) {
+                    i++;
+                    j = 0;
+                    setTimeout(type, 300);
                 } else {
-                    setTimeout(typeLine, 40);
+                    setTimeout(type, 30);
                 }
             }
 
-            typeLine();
+            type();
         </script>
     </body>
 </html>
