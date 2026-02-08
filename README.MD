@@ -1,3 +1,8 @@
+![image](dirtypizza.png) 
+    
+    
+  
+      
 # 🍕 Dirty Pizza
 
 > **"Stay hungry, stay dirty."**
