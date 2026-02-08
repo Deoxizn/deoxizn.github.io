@@ -17,6 +17,8 @@
                 --muted: #7aa37a;
                 --accent: #33ff99;
                 --glow: rgba(51, 255, 153, 0.4);
+                --glitch-red: rgba(255, 0, 80, 0.6);
+                --glitch-blue: rgba(0, 255, 255, 0.6);
             }
 
             * {
@@ -34,51 +36,33 @@
                 padding: 2rem;
             }
 
-            /* Header Layout */
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                flex-wrap: wrap;
-                margin-bottom: 2rem;
-            }
-
-            /* Status & Clock */
-            .sys-info {
+            /* LED Floating Status (Top Right) */
+            .fixed-status {
+                position: fixed;
+                top: 20px;
+                right: 20px;
                 text-align: right;
+                z-index: 1000;
+                font-weight: bold;
+                letter-spacing: 1px;
+                pointer-events: none; /* Don't block clicks */
+            }
+
+            .led-green {
+                color: var(--accent);
+                text-shadow:
+                    0 0 8px var(--accent),
+                    0 0 12px var(--accent);
                 font-size: 0.8rem;
-                color: var(--muted);
+                display: block;
+                margin-bottom: 5px;
             }
 
-            .status-indicator {
-                display: inline-block;
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                margin-right: 10px;
-                background-color: #1e2b22;
-                transition: background-color 0.3s ease;
-            }
-
-            .status-online {
-                background-color: var(--accent);
-                box-shadow: 0 0 8px var(--accent);
-                animation: pulse 2s infinite;
-            }
-
-            @keyframes pulse {
-                0% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-                50% {
-                    transform: scale(1.2);
-                    opacity: 0.7;
-                }
-                100% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
+            #clock {
+                color: var(--accent);
+                font-size: 1.1rem;
+                text-shadow: 0 0 10px var(--accent);
+                opacity: 0.9;
             }
 
             .container {
@@ -97,22 +81,8 @@
                 display: flex;
                 align-items: center;
             }
-
             .section-title::before {
                 content: "> ";
-            }
-
-            .box-subtitle {
-                font-size: 0.8rem;
-                opacity: 0.8;
-                margin-bottom: 0.8rem;
-                border-bottom: 1px dashed rgba(51, 255, 153, 0.2);
-                padding-bottom: 5px;
-                color: var(--accent);
-            }
-
-            .box-subtitle::before {
-                content: "# ";
             }
 
             .grid {
@@ -131,10 +101,20 @@
                     transform 0.2s ease,
                     border-color 0.2s ease;
             }
-
             .box:hover {
-                transform: translateY(-3px);
                 border-color: var(--accent);
+            }
+
+            .box-subtitle {
+                font-size: 0.8rem;
+                opacity: 0.8;
+                margin-bottom: 0.8rem;
+                border-bottom: 1px dashed rgba(51, 255, 153, 0.2);
+                padding-bottom: 5px;
+                color: var(--accent);
+            }
+            .box-subtitle::before {
+                content: "# ";
             }
 
             .box ul {
@@ -154,18 +134,36 @@
                 margin-right: 8px;
             }
 
-            .box .no-prefix::before,
-            .box .roadmap-item::before {
-                content: "";
-                margin-right: 0;
+            /* Glitch Progress Bars */
+            .roadmap-item {
+                position: relative;
             }
-
-            /* Roadmap/Progress Bar Fix */
             .glitch-bar {
                 display: inline-block;
-                font-size: 0.8rem;
                 margin-left: 10px;
-                letter-spacing: 1px;
+            }
+
+            .roadmap-item:hover .glitch-bar {
+                animation: glitch-anim 0.2s infinite;
+                text-shadow:
+                    2px 0 var(--glitch-red),
+                    -2px 0 var(--glitch-blue);
+                color: #fff;
+            }
+
+            @keyframes glitch-anim {
+                0% {
+                    transform: translate(0);
+                }
+                33% {
+                    transform: translate(-2px, 1px);
+                }
+                66% {
+                    transform: translate(2px, -1px);
+                }
+                100% {
+                    transform: translate(0);
+                }
             }
 
             .copy-skill {
@@ -193,13 +191,13 @@
                 background:
                     linear-gradient(
                         rgba(18, 16, 16, 0) 50%,
-                        rgba(0, 0, 0, 0.1) 50%
+                        rgba(0, 0, 0, 0.05) 50%
                     ),
                     linear-gradient(
                         90deg,
-                        rgba(255, 0, 0, 0.02),
+                        rgba(255, 0, 0, 0.01),
                         rgba(0, 255, 0, 0.01),
-                        rgba(0, 255, 0, 0.02)
+                        rgba(0, 255, 0, 0.01)
                     );
                 background-size:
                     100% 3px,
@@ -210,7 +208,7 @@
 
             footer {
                 margin-top: 4rem;
-                text-align: center;
+                text-align: left; /* Aligned to left */
                 color: var(--muted);
                 font-size: 0.8rem;
                 border-top: 1px solid #1e2b22;
@@ -224,34 +222,40 @@
                 cursor: pointer;
                 padding: 2px 8px;
             }
-            .copy-btn:hover {
-                border-color: var(--accent);
-                color: var(--accent);
+
+            .hint {
+                font-size: 0.7rem;
+                color: #1e2b22;
+                transition: color 0.3s;
+            }
+            .hint:hover {
+                color: var(--muted);
             }
         </style>
     </head>
     <body>
         <div class="crt-overlay"></div>
+
+        <div class="fixed-status">
+            <span class="led-green">● SYSTEM_ONLINE</span>
+            <div id="clock">00:00:00</div>
+        </div>
+
         <div class="container">
             <header>
-                <div id="terminal" style="min-height: 200px; flex: 1"></div>
-                <div class="sys-info">
-                    <div>
-                        SYSTEM:
-                        <span id="sys-status" style="color: var(--accent)"
-                            >ONLINE</span
-                        >
-                    </div>
-                    <div id="clock">00:00:00</div>
-                </div>
+                <div
+                    id="terminal"
+                    style="min-height: 200px; margin-bottom: 2rem"
+                ></div>
             </header>
 
             <section>
                 <div class="section-title">about</div>
                 <p>
                     CompTIA A+ certified technician focused on Linux systems,
-                    networking, and cybersecurity. I learn by building homelabs,
-                    breaking things, and fixing them.
+                    networking, and cybersecurity. I build homelabs, break
+                    things, and fix them.
+                    <span class="hint">(try typing the domain name...)</span>
                 </p>
             </section>
 
@@ -342,69 +346,27 @@
                     <div class="box">
                         <div class="box-subtitle">multimedia & streaming</div>
                         <ul>
-                            <li class="no-prefix">
-                                <span
-                                    class="status-indicator"
-                                    id="status-plex"
-                                ></span
-                                >Plex
-                            </li>
-                            <li class="no-prefix">
-                                <span
-                                    class="status-indicator"
-                                    id="status-tautulli"
-                                ></span
-                                >Tautulli
-                            </li>
-                            <li class="no-prefix">
-                                <span
-                                    class="status-indicator"
-                                    id="status-komga"
-                                ></span
-                                >Komga
-                            </li>
-                            <li class="no-prefix">
-                                <span
-                                    class="status-indicator"
-                                    id="status-rss"
-                                ></span
-                                >FreshRSS
-                            </li>
+                            <li>Plex</li>
+                            <li>Tautulli</li>
+                            <li>Komga</li>
+                            <li>FreshRSS</li>
                         </ul>
                     </div>
                     <div class="box">
                         <div class="box-subtitle">infrastructure</div>
                         <ul>
-                            <li class="no-prefix">Nginx Proxy Manager</li>
-                            <li class="no-prefix">Watchtower</li>
-                            <li class="no-prefix">CasaOS</li>
+                            <li>Nginx Proxy Manager</li>
+                            <li>Watchtower</li>
+                            <li>CasaOS</li>
                         </ul>
                     </div>
                     <div class="box">
                         <div class="box-subtitle">download & automation</div>
                         <ul>
-                            <li class="no-prefix">
-                                <span
-                                    class="status-indicator"
-                                    id="status-qbt"
-                                ></span
-                                >qBittorrent
-                            </li>
-                            <li class="no-prefix">SLSKD</li>
-                            <li class="no-prefix">
-                                <span
-                                    class="status-indicator"
-                                    id="status-mtb"
-                                ></span
-                                >MeTube
-                            </li>
-                            <li class="no-prefix">
-                                <span
-                                    class="status-indicator"
-                                    id="status-vwd"
-                                ></span
-                                >VaultWarden
-                            </li>
+                            <li>qBittorrent</li>
+                            <li>SLSKD</li>
+                            <li>MeTube</li>
+                            <li>VaultWarden</li>
                         </ul>
                     </div>
                 </div>
@@ -487,27 +449,19 @@
             }
             setTimeout(type, 500);
 
-            // Services Status
-            async function checkService(id, url) {
-                const indicator = document.getElementById(id);
-                if (!indicator) return;
-                try {
-                    // Using fetch with no-cors to bypass some security blocks for simple up/down checks
-                    await fetch(url, { mode: "no-cors" });
-                    indicator.classList.add("status-online");
-                } catch (e) {
-                    console.log(id + " offline");
+            // Easter Egg Logic
+            let buffer = "";
+            window.addEventListener("keydown", (e) => {
+                buffer += e.key.toLowerCase();
+                if (buffer.includes("pizza")) {
+                    const secret = document.createElement("div");
+                    secret.style.color = "var(--accent)";
+                    secret.innerHTML =
+                        "$ order --extra-cheese<br>Connecting to pizza.repo... SUCCESS.<br>🍕 Enjoy your secret slice!";
+                    terminal.appendChild(secret);
+                    buffer = "";
                 }
-            }
-
-            window.addEventListener("load", () => {
-                checkService("status-plex", "https://plex.dirty.pizza");
-                checkService("status-tautulli", "https://tautulli.dirty.pizza");
-                checkService("status-komga", "https://komga.dirty.pizza");
-                checkService("status-rss", "https://rss.dirty.pizza");
-                checkService("status-qbt", "https://qbt.dirty.pizza");
-                checkService("status-mtb", "https://metube.dirty.pizza");
-                checkService("status-vwd", "https://vwarden.dirty.pizza");
+                if (buffer.length > 10) buffer = buffer.substring(1);
             });
 
             function copyText(text) {
