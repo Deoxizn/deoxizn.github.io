@@ -84,6 +84,22 @@
                 }
             }
 
+            /* Danger Pulse */
+            .danger-text {
+                color: var(--danger);
+                text-shadow: 0 0 5px var(--danger);
+                animation: pulse-danger 2s infinite ease-in-out;
+            }
+            @keyframes pulse-danger {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.7;
+                }
+            }
+
             /* ASCII Coloring */
             .p-crust {
                 color: var(--pizza-crust);
@@ -121,7 +137,6 @@
                 margin-bottom: 3rem;
             }
 
-            /* Static Boxes (Hover Effect Removed) */
             .box {
                 border: 1px solid #1e2b22;
                 padding: 1.8rem;
@@ -155,7 +170,7 @@
                 margin-right: 10px;
             }
 
-            /* Contact Terminal Links (Keeping these Interactive) */
+            /* Contact Terminal Links */
             .terminal-link-wrapper {
                 display: flex;
                 gap: 20px;
@@ -419,7 +434,6 @@
             const terminal = document.getElementById("terminal");
             const output = [
                 "Last login: Tue on tty1\n",
-                "Welcome to dirty.pizza",
                 "Unauthorized toppings will be removed.\n",
                 "",
                 "$ whoami",
@@ -452,7 +466,11 @@
                     return;
                 }
                 if (char === 0) {
-                    terminal.innerHTML += '<div class="terminal-line"></div>';
+                    const lineDiv = document.createElement("div");
+                    lineDiv.className = "terminal-line";
+                    // Apply danger color to the warning line (index 1)
+                    if (line === 1) lineDiv.classList.add("danger-text");
+                    terminal.appendChild(lineDiv);
                 }
 
                 const current = output[line];
@@ -468,11 +486,12 @@
 
                 let charToType = current.charAt(char);
 
-                if (line >= 15 && line <= 21) {
+                // Pizza Color Logic (Updated Indices for slice)
+                if (line >= 14 && line <= 20) {
                     if (charToType === "*")
                         el.innerHTML += `<span class="p-topping">*</span>`;
                     else el.innerHTML += charToType;
-                } else if (line === 22) {
+                } else if (line === 21) {
                     el.innerHTML += `<span class="p-crust">${charToType}</span>`;
                 } else {
                     el.textContent += charToType;
