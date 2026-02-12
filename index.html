@@ -16,6 +16,30 @@
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://dirty.pizza/">
         <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://dirty.pizza/">
+        <meta property="og:image" content="https://raw.githubusercontent.com/Deoxizn/deoxizn.github.io/refs/heads/main/dirtypizza.png">
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Devi Garcia",
+          "url": "https://dirty.pizza/",
+          "sameAs": [
+            "https://github.com/Deoxizn",
+            "https://www.linkedin.com/in/david-garcia-318a3ba7/"
+          ],
+          "jobTitle": "IT & Cybersecurity Technician",
+          "knowsAbout": [
+            "Linux",
+            "Cybersecurity",
+            "Networking",
+            "Homelab Infrastructure",
+            "Docker",
+            "CompTIA A+"
+          ]
+        }
+        </script>
+
 
         <title>DIRTY.PIZZA // Stay hungry, stay dirty.</title>
 
@@ -292,6 +316,12 @@
             .footer-comment:hover {
                 color: var(--muted);
             }
+
+            @media (prefers-reduced-motion: reduce) {
+              * {
+                animation: none !important;
+              }
+            }
         </style>
     </head>
 
@@ -302,7 +332,10 @@
         </div>
 
         <div class="container">
-            <header><div id="terminal"></div></header>
+            <header><h1 style="position:absolute; left:-9999px;">
+            Devi Garcia – Linux & Cybersecurity Technician Portfolio
+            </h1>
+<div id="terminal"></div></header>
 
             <section>
                 <div class="section-title">biography</div>
@@ -431,24 +464,28 @@
                         href="javascript:void(0)"
                         class="t-link"
                         onclick="copyEmail()"
+                        aria-label="Copy email address to clipboard"
                         >[ EMAIL_COPY ]</a
                     >
                     <a
                         href="David_Garcia_General_Resume.pdf"
                         class="t-link"
                         target="_blank"
+                        rel="noopener noreferrer"
                         >[ RESUME ]</a
                     >
                     <a
                         href="https://github.com/Deoxizn"
                         class="t-link"
                         target="_blank"
+                        rel="noopener noreferrer"
                         >[ GITHUB ]</a
                     >
                     <a
                         href="https://www.linkedin.com/in/david-garcia-318a3ba7/"
                         class="t-link"
                         target="_blank"
+                        rel="noopener noreferrer"
                         >[ LINKEDIN ]</a
                     >
                 </div>
