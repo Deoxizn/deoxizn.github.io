@@ -274,6 +274,28 @@
                 content: "# ";
             }
 
+            .box-subsection {
+                margin-top: 1.4rem;
+                padding-top: 1.2rem;
+                border-top: 1px solid #1e2b22;
+            }
+            .box-subsection:first-of-type {
+                border-top: none;
+                margin-top: 0;
+                padding-top: 0;
+            }
+            .box-subsection-title {
+                color: var(--muted);
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                margin-bottom: 0.8rem;
+            }
+            .box-subsection-title:before {
+                content: "// ";
+                color: var(--accent);
+            }
+
             .box ul {
                 list-style: none;
                 padding: 0;
@@ -403,58 +425,85 @@
                 <div class="section-title">projects / repositories</div>
                 <div class="grid">
                     <div class="box">
-                        <div class="box-subtitle">omarchy_themes</div>
-                        <br />Visual overhaul for Hyprland desktop
-                        environment.<br /><br />
-                        <p>
-                            <a
-                                href="https://github.com/Deoxizn/omarchy-space-bound-theme"
-                                class="t-link"
-                                target="_blank"
-                                >Space Bound</a
-                            >
-                            |
-                            <a
-                                href="https://github.com/Deoxizn/omarchy-unicorn-dream-theme"
-                                class="t-link"
-                                target="_blank"
-                                >Unicorn Dream</a
-                            ><br /><br />
-                            <a
-                                href="https://github.com/Deoxizn/omarchy-killer-klowns-theme"
-                                class="t-link"
-                                target="_blank"
-                                >Killer Klowns</a
-                            >
-                            |
-                            <a
-                                href="https://github.com/Deoxizn/omarchy-hacker-vibes-theme"
-                                class="t-link"
-                                target="_blank"
-                                >Hacker Vibes</a
-                            ><br /><br />
-                            <a
-                                href="https://github.com/Deoxizn/omarchy-one-piece-theme"
-                                class="t-link"
-                                target="_blank"
-                                >One Piece</a
-                            >
-                        </p>
-                        <span class="project-tag">CSS-THEME</span>
+                        <div class="box-subtitle">omarchy_desktop</div>
+                        <div class="box-subsection">
+                            <div class="box-subsection-title">omarchy_themes</div>
+                            <p>Visual overhaul for Hyprland desktop environment.</p>
+                            <p>
+                                <a
+                                    href="https://github.com/Deoxizn/omarchy-space-bound-theme"
+                                    class="t-link"
+                                    target="_blank"
+                                    >Space Bound</a
+                                >
+                                |
+                                <a
+                                    href="https://github.com/Deoxizn/omarchy-unicorn-dream-theme"
+                                    class="t-link"
+                                    target="_blank"
+                                    >Unicorn Dream</a
+                                ><br /><br />
+                                <a
+                                    href="https://github.com/Deoxizn/omarchy-killer-klowns-theme"
+                                    class="t-link"
+                                    target="_blank"
+                                    >Killer Klowns</a
+                                >
+                                |
+                                <a
+                                    href="https://github.com/Deoxizn/omarchy-hacker-vibes-theme"
+                                    class="t-link"
+                                    target="_blank"
+                                    >Hacker Vibes</a
+                                ><br /><br />
+                                <a
+                                    href="https://github.com/Deoxizn/omarchy-one-piece-theme"
+                                    class="t-link"
+                                    target="_blank"
+                                    >One Piece</a
+                                >
+                            </p>
+                        </div>
+                        <div class="box-subsection">
+                            <div class="box-subsection-title">waybar_configs</div>
+                            <p>
+                                <a
+                                    href="https://github.com/Deoxizn/waybars"
+                                    class="t-link"
+                                    target="_blank"
+                                    >waybars</a
+                                >
+                                — Modular Wayland bar configurations.
+                            </p>
+                        </div>
+                        <div class="box-subsection">
+                            <div class="box-subsection-title">quickshell_plugins</div>
+                            <p>
+                                <a
+                                    href="https://github.com/Deoxizn/devicebattstats"
+                                    class="t-link"
+                                    target="_blank"
+                                    >Device Battery Stats</a
+                                >
+                                — Battery and charging status for wireless devices.
+                            </p>
+                            <p>
+                                <a
+                                    href="https://github.com/Deoxizn/keybind-manager"
+                                    class="t-link"
+                                    target="_blank"
+                                    >Keybind Manager</a
+                                >
+                                — Add, override, and disable Hyprland keybindings from the bar.
+                            </p>
+                        </div>
+                        <span class="project-tag">OMARCHY</span>
+                        <span class="project-tag">QUICKSHELL</span>
                         <span class="project-tag">HYPRLAND-WM</span>
-                        <span class="project-tag">LINUX-DESKTOP</span>
-                    </div>
-                    <a
-                        href="https://github.com/Deoxizn/waybars"
-                        class="box"
-                        target="_blank"
-                    >
-                        <div class="box-subtitle">waybar_configs</div>
-                        <p>Modular Wayland bar configurations.</p>
-                        <span class="project-tag">WAYLAND</span>
+                        <span class="project-tag">CSS-THEME</span>
                         <span class="project-tag">WAYBAR</span>
-                        <span class="project-tag">JSON-CSS</span>
-                    </a>
+                        <span class="project-tag">QML</span>
+                    </div>
                     <a
                         href="https://github.com/CochiseLinuxUsersGroup/CochiseLinuxUsersGroup.github.io"
                         class="box"
