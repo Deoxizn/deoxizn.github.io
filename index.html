@@ -692,14 +692,14 @@
 
             const terminal = document.getElementById("terminal");
             const output = [
-                "Last login: Tue Feb 06 23:41:02 on tty1\n",
+                "Last login: " + new Date().toString().split(" ").slice(0, 5).join(" ") + " on tty1\n",
                 "Unauthorized toppings will be removed.\n",
                 "",
                 "$ whoami",
                 "devi\n",
                 "",
                 "$ fastfetch",
-                "OS: Arch Linux",
+                "OS: \u25B2 Arch Linux",
                 "Host: dirty.pizza",
                 "Role: IT / Cybersecurity",
                 "Cert: CompTIA A+",
