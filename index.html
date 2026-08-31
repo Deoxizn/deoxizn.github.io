@@ -323,6 +323,74 @@
                 color: var(--accent);
             }
 
+            .linux-projects-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0 2.5rem;
+                align-items: start;
+                position: relative;
+            }
+            .linux-projects-grid::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                width: 1px;
+                background: linear-gradient(
+                    to bottom,
+                    transparent,
+                    var(--accent) 15%,
+                    var(--accent) 85%,
+                    transparent
+                );
+                opacity: 0.35;
+                box-shadow: 0 0 8px var(--glow);
+                transform: translateX(-0.5px);
+            }
+            .linux-projects-grid .box-subsection {
+                margin-top: 1.4rem;
+                padding-top: 1.2rem;
+            }
+            .linux-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                justify-content: center;
+                margin-top: 1.8rem;
+                padding-top: 1.2rem;
+                border-top: 1px solid #1e2b22;
+                box-shadow: 0 -6px 12px -10px var(--glow);
+            }
+            .linux-tags .project-tag {
+                margin-top: 0;
+            }
+            @media (min-width: 769px) {
+                .linux-projects-grid .box-subsection:nth-child(-n + 2) {
+                    border-top: none;
+                    margin-top: 0;
+                    padding-top: 0;
+                }
+            }
+            @media (max-width: 768px) {
+                .linux-projects-grid {
+                    grid-template-columns: 1fr;
+                }
+                .linux-projects-grid::before {
+                    display: none;
+                }
+                .linux-projects-grid .box-subsection:nth-child(-n + 2) {
+                    border-top: 1px solid #1e2b22;
+                    margin-top: 1.4rem;
+                    padding-top: 1.2rem;
+                }
+                .linux-projects-grid .box-subsection:first-child {
+                    border-top: none;
+                    margin-top: 0;
+                    padding-top: 0;
+                }
+            }
+
             .box ul {
                 list-style: none;
                 padding: 0;
@@ -547,6 +615,7 @@
                 </div>
                 <div class="box">
                         <div class="box-subtitle">linux_projects</div>
+                        <div class="linux-projects-grid">
                         <div class="box-subsection">
                             <div class="box-subsection-title">themes</div>
                             <p>Visual overhaul for Hyprland desktop environment.</p>
@@ -602,6 +671,39 @@
                             </p>
                         </div>
                         <div class="box-subsection">
+                            <div class="box-subsection-title">tools</div>
+                            <p>
+                                <a
+                                    href="https://github.com/Deoxizn/OmaBackup"
+                                    class="t-link"
+                                    target="_blank"
+                        rel="noopener noreferrer"
+                                    >OmaBackup</a
+                                >
+                                — Compare and backup Omarchy dotfiles, with Lua conversion support.
+                            </p>
+                            <p>
+                                <a
+                                    href="https://github.com/Deoxizn/omacleaner"
+                                    class="t-link"
+                                    target="_blank"
+                        rel="noopener noreferrer"
+                                    >OmaCleaner</a
+                                >
+                                — Selectively remove preinstalled Omarchy apps (web apps, TUIs, packages, mise stubs) via a space-to-toggle gum checklist.
+                            </p>
+                            <p>
+                                <a
+                                    href="https://github.com/Deoxizn/snaptui"
+                                    class="t-link"
+                                    target="_blank"
+                        rel="noopener noreferrer"
+                                    >snaptui</a
+                                >
+                                — TUI for managing btrfs snapshots via snapperd's D-Bus API.
+                            </p>
+                        </div>
+                        <div class="box-subsection">
                             <div class="box-subsection-title">quickshell_plugins</div>
                             <p>
                                 <a
@@ -654,35 +756,15 @@
                                 — Shows movies currently playing at nearby theatres via BigScreen.com.
                             </p>
                         </div>
-                        <div class="box-subsection">
-                            <div class="box-subsection-title">tools</div>
-                            <p>
-                                <a
-                                    href="https://github.com/Deoxizn/OmaBackup"
-                                    class="t-link"
-                                    target="_blank"
-                        rel="noopener noreferrer"
-                                    >OmaBackup</a
-                                >
-                                — Compare and backup Omarchy dotfiles, with Lua conversion support.
-                            </p>
-                            <p>
-                                <a
-                                    href="https://github.com/Deoxizn/snaptui"
-                                    class="t-link"
-                                    target="_blank"
-                        rel="noopener noreferrer"
-                                    >snaptui</a
-                                >
-                                — TUI for managing btrfs snapshots via snapperd's D-Bus API.
-                            </p>
                         </div>
+                        <div class="linux-tags">
                         <span class="project-tag">LINUX</span>
                         <span class="project-tag">QUICKSHELL</span>
                         <span class="project-tag">WAYBAR</span>
                         <span class="project-tag">CSS-THEME</span>
                         <span class="project-tag">QML</span>
                         <span class="project-tag">PYTHON</span>
+                        </div>
                     </div>
             </section>
 
