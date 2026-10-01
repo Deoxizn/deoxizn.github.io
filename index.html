@@ -248,6 +248,17 @@
                 white-space: pre-wrap;
                 line-height: 1.4;
                 text-shadow: 0 0 6px var(--accent-soft);
+                overflow: hidden;
+                max-height: 3000px;
+                opacity: 1;
+                transition:
+                    max-height 0.45s ease,
+                    opacity 0.35s ease;
+            }
+            header.collapsed #terminal {
+                max-height: 0;
+                min-height: 0;
+                opacity: 0;
             }
             .terminal-line {
                 min-height: 1.2em;
@@ -290,6 +301,26 @@
             }
             header {
                 margin-bottom: 2rem;
+                position: relative;
+            }
+            .term-toggle {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: transparent;
+                border: 1px solid var(--muted);
+                color: var(--accent);
+                font-family: inherit;
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+                padding: 3px 10px;
+                cursor: pointer;
+                z-index: 10;
+                transition: 0.3s;
+            }
+            .term-toggle:hover {
+                border-color: var(--accent);
+                box-shadow: 0 0 10px var(--glow);
             }
 
             .section-title {
@@ -526,6 +557,13 @@
                 <h1 style="position: absolute; left: -9999px">
                     Devi Garcia – Linux & Cybersecurity Technician Portfolio
                 </h1>
+                <button
+                    id="term-toggle"
+                    class="term-toggle"
+                    aria-expanded="true"
+                >
+                    [▲] collapse
+                </button>
                 <div id="terminal"></div>
             </header>
             <section>
@@ -597,10 +635,9 @@
                     >
                         <div class="box-subtitle">STELLARCHY</div>
                         <p>
-                            Landing page for Stellarchy — an Omarchy × Caelestia
-                            shell remux with fuzzel menus, a live theme bridge
-                            and opt-in CachyOS kernels. Live at
-                            stellarchy.dirty.pizza.
+                            Stellarchy — an Omarchy × Caelestia shell remux
+                            with fuzzel menus, a live theme bridge and opt-in
+                            CachyOS kernels. Live at stellarchy.dirty.pizza.
                         </p>
                         <span class="project-tag">GITHUB-PAGES</span>
                         <span class="project-tag">STATIC-SITE</span>
@@ -614,10 +651,10 @@
                     >
                         <div class="box-subtitle">NOCTARCHY</div>
                         <p>
-                            Landing page for Noctarchy — a Niri × Noctalia
-                            shell replacement for Omarchy with a 25-script
-                            fuzzel menu suite, live theme bridging and
-                            auto-sync. Live at noctarchy.dirty.pizza.
+                            Noctarchy — a Niri × Noctalia shell replacement for
+                            Omarchy with a 25-script fuzzel menu suite, live
+                            theme bridging and auto-sync. Live at
+                            noctarchy.dirty.pizza.
                         </p>
                         <span class="project-tag">GITHUB-PAGES</span>
                         <span class="project-tag">STATIC-SITE</span>
@@ -1008,7 +1045,59 @@
                     setTimeout(type, LINE_DELAY);
                 } else setTimeout(type, CHAR_DELAY);
             }
-            setTimeout(type, 600);
+            /* Collapsible terminal header — toggle persists */
+            const headerEl = document.querySelector("header");
+            const termToggle = document.getElementById("term-toggle");
+            let termCollapsed = false;
+            try {
+                termCollapsed =
+                    localStorage.getItem("dirty-pizza-term") === "collapsed";
+            } catch (e) {}
+            function setTermCollapsed(collapsed) {
+                termCollapsed = collapsed;
+                headerEl.classList.toggle("collapsed", collapsed);
+                termToggle.textContent = collapsed
+                    ? "[▼] expand"
+                    : "[▲] collapse";
+                termToggle.setAttribute("aria-expanded", String(!collapsed));
+                try {
+                    localStorage.setItem(
+                        "dirty-pizza-term",
+                        collapsed ? "collapsed" : "open"
+                    );
+                } catch (e) {}
+            }
+            termToggle.addEventListener("click", () =>
+                setTermCollapsed(!termCollapsed)
+            );
+            function renderInstant() {
+                output.forEach((text, idx) => {
+                    const d = document.createElement("div");
+                    d.className = "terminal-line";
+                    if (idx === 1) d.classList.add("danger-text");
+                    if (text === "") {
+                        d.innerHTML = "&nbsp;";
+                    } else {
+                        let html = "";
+                        for (const ch of text) {
+                            if (ch === "*")
+                                html += '<span class="p-topping">*</span>';
+                            else if (ch === "-")
+                                html += '<span class="p-crust">-</span>';
+                            else html += ch;
+                        }
+                        d.innerHTML = html;
+                    }
+                    terminal.appendChild(d);
+                });
+                terminal.innerHTML += '<span class="cursor"></span>';
+            }
+            if (termCollapsed) {
+                setTermCollapsed(true);
+                renderInstant();
+            } else {
+                setTimeout(type, 600);
+            }
 
             /* Easter eggs */
             let buffer = "";
