@@ -211,6 +211,35 @@
                 font-weight: bold;
                 text-shadow: 0 0 10px var(--accent);
             }
+            .theme-picker {
+                display: flex;
+                gap: 8px;
+                justify-content: flex-end;
+                margin-top: 10px;
+                pointer-events: auto;
+            }
+            .theme-dot {
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                cursor: pointer;
+                padding: 0;
+                background: var(--dot);
+                box-shadow: 0 0 6px var(--dot);
+                opacity: 0.55;
+                transition:
+                    opacity 0.2s,
+                    transform 0.2s;
+            }
+            .theme-dot:hover {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            .theme-dot.active {
+                opacity: 1;
+                border-color: #fff;
+            }
 
             /* TERMINAL */
             #terminal {
@@ -482,6 +511,13 @@
         <div class="fixed-status">
             <span class="led-green">● SYSTEM_ONLINE</span>
             <div id="clock">00:00:00</div>
+            <div class="theme-picker" id="theme-picker">
+                <button class="theme-dot" data-theme="green" style="--dot:#33ff99" aria-label="green theme"></button>
+                <button class="theme-dot" data-theme="purple" style="--dot:#c678dd" aria-label="purple theme"></button>
+                <button class="theme-dot" data-theme="blue" style="--dot:#61afef" aria-label="blue theme"></button>
+                <button class="theme-dot" data-theme="yellow" style="--dot:#e5c07b" aria-label="yellow theme"></button>
+                <button class="theme-dot" data-theme="red" style="--dot:#ff5f6b" aria-label="red theme"></button>
+            </div>
         </div>
 
         <div class="container">
@@ -877,6 +913,38 @@
         </div>
 
         <script>
+            /* Theme picker — swaps the terminal accent color, persisted */
+            const THEMES = {
+                green:  { accent: "#33ff99", glow: "rgba(51, 255, 153, 0.6)" },
+                purple: { accent: "#c678dd", glow: "rgba(198, 120, 221, 0.6)" },
+                blue:   { accent: "#61afef", glow: "rgba(97, 175, 239, 0.6)" },
+                yellow: { accent: "#e5c07b", glow: "rgba(229, 192, 123, 0.6)" },
+                red:    { accent: "#ff5f6b", glow: "rgba(255, 95, 107, 0.6)" },
+            };
+            function applyTheme(name) {
+                const t = THEMES[name] || THEMES.green;
+                const root = document.documentElement.style;
+                root.setProperty("--accent", t.accent);
+                root.setProperty("--glow", t.glow);
+                try {
+                    localStorage.setItem("dirty-pizza-theme", name);
+                } catch (e) {}
+                document.querySelectorAll(".theme-dot").forEach((d) =>
+                    d.classList.toggle("active", d.dataset.theme === name)
+                );
+            }
+            let savedTheme = "green";
+            try {
+                savedTheme = localStorage.getItem("dirty-pizza-theme") || "green";
+            } catch (e) {}
+            applyTheme(savedTheme);
+            document
+                .getElementById("theme-picker")
+                .addEventListener("click", (e) => {
+                    const dot = e.target.closest(".theme-dot");
+                    if (dot) applyTheme(dot.dataset.theme);
+                });
+
             function updateClock() {
                 document.getElementById("clock").innerText =
                     new Date().toLocaleTimeString([], { hour12: false });
